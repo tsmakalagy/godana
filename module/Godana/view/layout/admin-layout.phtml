@@ -1,0 +1,91 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('godana')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+                        ->appendStylesheet($this->basePath() . '/css/sb-admin.css')
+                        ->appendStylesheet($this->basePath() . '/font-awesome/css/font-awesome.min.css') ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/js/jquery.min.js')
+            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+        ; ?>
+
+    </head>
+    <body>
+    	<div id="wrapper">
+    		<!-- Sidebar -->
+      		<nav class="navbar navbar-inverse navbar-fixed-top nav-gdn-top" role="navigation">
+      			<!-- Brand and toggle get grouped for better mobile display -->
+		        <div class="navbar-header">
+		          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+		            <span class="sr-only">Toggle navigation</span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		          </button>
+		          <a class="navbar-brand" href="<?php echo $this->url('home') ?>">godana</a>
+		        </div>	
+		        
+		        <div class="collapse navbar-collapse navbar-ex1-collapse">
+		          <ul class="nav navbar-nav side-nav">
+		            <li class="<?=$this->dashboard_active; ?>"><a href="#"><?=$this->translate('Dashboard') ?></a></li>
+		            <li><a href="#"><?=$this->translate('Home'); ?></a></li>
+		            <li class="dropdown <?=$this->user_active; ?>">
+		              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$this->translate('Users'); ?><b class="caret"></b></a>
+		              <ul class="dropdown-menu">
+		                <li><a href="#"><?=$this->translate('Add'); ?></a></li>
+		                <li><a href="<?=$this->url('admin/user', array(), array(), true) ?>"><?=$this->translate('List'); ?></a></li>
+		              </ul>
+		            </li>
+		            <li class="dropdown <?=$this->shop_active; ?>">
+		              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$this->translate('Shops'); ?><b class="caret"></b></a>
+		              <ul class="dropdown-menu">
+		                <li><a href="<?=$this->url('admin/shop_admin/shop_add', array(), array(), true) ?>"><?=$this->translate('Add'); ?></a></li>
+		                <li><a href="<?=$this->url('admin/shop_admin', array(), array(), true) ?>"><?=$this->translate('List'); ?></a></li>
+		              </ul>
+		            </li>
+		            <li class="dropdown <?=$this->product_active; ?>">
+		              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$this->translate('Products'); ?><b class="caret"></b></a>
+		              <ul class="dropdown-menu">
+		                <li><a href="<?=$this->url('admin/product/type_add', array(), array(), true) ?>"><?=$this->translate('Add type'); ?></a></li>
+		                <li><a href="<?=$this->url('admin/product/add', array(), array(), true) ?>"><?=$this->translate('Add product'); ?></a></li>
+		                <li><a href="#"><?=$this->translate('List product'); ?></a></li>
+		              </ul>
+		            </li>
+		          </ul>
+		          
+		          <ul class="nav navbar-nav navbar-right navbar-user">
+		          	<li class="dropdown user-dropdown">
+		              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?=$this->zfcUserDisplayName() ?> <b class="caret"></b></a>
+		              <ul class="dropdown-menu">
+		                <li><a href="<?php echo $this->url('zfcuser/profile') ?>"><i class="fa fa-user"></i> <? echo $this->translate('Profile');?></a></li>		                
+		                <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+		                <li class="divider"></li>
+		                <li><a href="<?php echo $this->url('zfcuser/logout') ?>"><i class="fa fa-power-off"></i> <?php echo $this->translate('Sign Out'); ?></a></li>
+		              </ul>
+		            </li>
+		          </ul>
+          		</div>          
+      		</nav>
+      		<div id="page-wrapper">
+      			<?=$this->content; ?>
+      		</div>
+    	</div>
+    	<?php echo $this->inlineScript() ?>
+    </body>
+</html>

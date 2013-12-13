@@ -1,0 +1,51 @@
+<?php echo $this->headLink()
+                ->appendStylesheet($this->basePath() . '/css/DT_bootstrap.css');?>
+<div class="row">
+<div class="col-md-12">
+<div class="panel panel-primary">
+<div class="panel-heading">
+	<h3 class="panel-title"><?php echo $this->translate('Shop'); ?></h3>
+</div>
+<div class="panel-body">
+<? $shops = $this->shops;?>
+<div class="table-responsive">
+<table id="example" class="table table-striped table-bordered dataTable">
+<thead><tr><th>#&nbsp;</th><th><?=$this->translate('Name'); ?></th><th><?=$this->translate('Owner'); ?></th>
+<th><?=$this->translate('Category'); ?></th><th><?=$this->translate('City'); ?></th><th><?=$this->translate('Contact'); ?></th>
+<th><?=$this->translate('Action'); ?></th></tr></thead>
+<tbody>
+<? foreach($shops as $shop):?>
+<? $shopId = $shop->getId();?>
+<? $categories = $shop->getCategories();?>
+<? $categoryToDisplay = '';?>
+<? foreach ($categories as $category):?>
+<? $categoryToDisplay .= $category->getName() . '-';?>
+<? endforeach;?>
+<? $categoryToDisplay = rtrim($categoryToDisplay, '-');?>
+<? $contacts = $shop->getContacts();?>
+<? $contactToDisplay = '';?>
+<? foreach ($contacts as $contact):?>
+<? $contactToDisplay .= $contact->getValue() . '-';?>
+<? endforeach;?>
+<? $contactToDisplay = rtrim($contactToDisplay, '-');?>
+<? $cities = $shop->getCities();?>
+<? $cityToDisplay = '';?>
+<? foreach ($cities as $city):?>
+<? $cityToDisplay .= $city->getCityAccented() . '-';?>
+<? endforeach;?>
+<? $cityToDisplay = rtrim($cityToDisplay, '-');?>
+<? $owner = $shop->getOwner()->getFirstname();?>
+<tr><td><?=$shopId;?></td><td><?=ucfirst($shop->getName()); ?></td><td><?=ucfirst($owner); ?></td>
+<td><?=$categoryToDisplay;?></td><td><?=$cityToDisplay; ?></td><td><?=$contactToDisplay; ?></td>
+<td><h5><small><a href="<?=$this->url('admin/shop_admin/shop_edit', array('id' => $shopId), array(), true) ?>">Edit</a></small>&nbsp;|&nbsp;<small><a href="<?=$this->url('admin/shop_admin/shop_delete', array('id' => $shopId), array(), true) ?>">Delete</a></small></h5></td></tr>
+<? endforeach;?>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<? $this->inlineScript()
+			->appendFile($this->basePath() . '/js/jquery.dataTables.min.js')
+			->appendFile($this->basePath() . '/js/DT_bootstrap.js');?>

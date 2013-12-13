@@ -1,0 +1,207 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en" class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('godana')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+        
+        <!-- Scripts -->
+        <?php echo $this->headScript()        	
+            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath() . '/js/scripts.js')
+            ->prependFile($this->basePath() . '/js/modernizr-2.6.2-respond-1.1.0.min.js')            
+            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/js/jquery-1.9.1.min.js')
+            ->appendFile($this->basePath() . '/js/chosen.jquery.min.js');  
+            ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+              			->prependStylesheet($this->basePath() . '/css/chosen.min.css')  
+                        ->prependStylesheet($this->basePath() . '/css/datepicker.css')                        
+                        ->prependStylesheet($this->basePath() . '/css/styles.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+                        ->appendStylesheet($this->basePath() . '/css/blueimp-gallery.min.css')
+                        ->appendStylesheet($this->basePath() . '/css/jquery.fileupload.css')
+                        ->appendStylesheet($this->basePath() . '/css/jquery.fileupload-ui.css')
+                         ?>
+
+        
+
+    </head>
+    <body>
+        <!-- TOP NAVIGATION -->
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner top-navbar">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="<?php echo $this->url('home') ?>">godana</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right">
+                            <!-- <li class="dropdown">
+                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> Vincent Gabriel <i class="caret"></i>
+
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a tabindex="-1" href="#">Profile</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a tabindex="-1" href="login.html">Logout</a>
+                                    </li>
+                                </ul>
+                            </li>-->                            
+                            <? if ($this->zfcUserIdentity()):?>
+                            	<li class="dropdown">
+	                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> <?php echo $this->zfcUserDisplayName() ?> <i class="caret"></i>
+	
+	                                </a>
+	                                <ul class="dropdown-menu">
+	                                    <li>
+	                                        <a tabindex="-1" href="<?php echo $this->url('zfcuser/profile') ?>"><? echo $this->translate('Profile');?></a>
+	                                    </li>
+	                                    <li class="divider"></li>
+	                                    <? 
+	                                    $roles = $this->currentUserRole();	                                    
+	                                    if ($roles[0]->getRoleId() == 'admin'):?>
+	                                    <li>
+	                                        <a tabindex="-1" href="#"><? echo $this->translate('Admin');?></a>
+	                                    </li>
+	                                    <li class="divider"></li>
+	                                    <? endif;?>
+	                                    <li>
+	                                        <a tabindex="-1" href="<?php echo $this->url('zfcuser/logout') ?>"><?php echo $this->translate('Sign Out'); ?></a>
+	                                    </li>
+	                                </ul>
+	                            </li>
+                            <? else: ?>
+                            	<li><a href="<?php echo $this->url('zfcuser/login') ?>"><? echo $this->translate('Login');?></a></li>
+                            <? endif;?>
+                            
+                        </ul>
+                        <ul class="nav">                       
+                            <li class="<? echo $this->home_active; ?>">
+                                <a href="<?php echo $this->url('home') ?>"><? echo $this->translate('Home');?></a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->url('bid') ?>"><? echo $this->translate('Bid');?></a>
+                            </li>
+                            <li>
+                                <a href="#"><? echo $this->translate('Shops');?></a>
+                            </li>
+                            <li>
+                                <a href="#"><? echo $this->translate('Groups');?></a>
+                            </li>
+                            <li>
+                                <a href="#"><? echo $this->translate('Tools');?></a>
+                            </li>
+                            <li>
+                                <a href="#"><? echo $this->translate('About');?></a>
+                            </li>
+                            <!-- <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Settings <b class="caret"></b>
+
+                                </a>
+                                <ul class="dropdown-menu" id="menu1">
+                                    <li>
+                                        <a href="#">Tools <i class="icon-arrow-right"></i>
+
+                                        </a>
+                                        <ul class="dropdown-menu sub-menu">
+                                            <li>
+                                                <a href="#">Reports</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Logs</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Errors</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">SEO Settings</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Other Link</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">Other Link</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Other Link</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Content <i class="caret"></i>
+
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a tabindex="-1" href="#">Blog</a>
+                                    </li>
+                                    <li>
+                                        <a tabindex="-1" href="#">News</a>
+                                    </li>
+                                    <li>
+                                        <a tabindex="-1" href="#">Custom Pages</a>
+                                    </li>
+                                    <li>
+                                        <a tabindex="-1" href="#">Calendar</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a tabindex="-1" href="#">FAQ</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Users <i class="caret"></i>
+
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a tabindex="-1" href="#">User List</a>
+                                    </li>
+                                    <li>
+                                        <a tabindex="-1" href="#">Search</a>
+                                    </li>
+                                    <li>
+                                        <a tabindex="-1" href="#">Permissions</a>
+                                    </li>
+                                </ul>
+                            </li>-->
+                            
+                        </ul>
+                    </div>
+                    <!--/.nav-collapse -->
+                </div>
+            </div>
+        </div><!-- END TOP NAVIGATION -->
+        <!-- CONTAINER -->
+        <div class="container-fluid">
+            <div class="row-fluid">            
+            <?php echo $this->content; ?>
+            </div>
+            <hr>
+            <footer>
+                <p>&copy; Fano Raiza 2013</p>
+            </footer>
+        </div><!-- END CONTAINER -->
+        
+    </body>
+</html>
