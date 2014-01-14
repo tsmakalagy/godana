@@ -26,14 +26,7 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
 	{
 		$this->setHydrator(new DoctrineHydrator($this->objectManager, '\Godana\Entity\ProductAttribute'))
 			->setObject(new ProductAttribute());			
-		
-//		$this->add(
-//			array(
-//				'type' => 'hidden',
-//				'name' => 'product',
-//			)
-//		);	
-		
+
         $this->add(
             array(
                 'type' => 'DoctrineModule\Form\Element\ObjectSelect',

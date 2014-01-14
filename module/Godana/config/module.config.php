@@ -25,6 +25,8 @@ return array(
 			'shop' => __NAMESPACE__ . '\Controller\ShopController',
 			'product' => __NAMESPACE__ . '\Controller\ProductController',
 			'myuser' => __NAMESPACE__ . '\Controller\MyUserController',
+			'search' => __NAMESPACE__ . '\Controller\SearchController',
+			'cooperative' => __NAMESPACE__ . '\Controller\CooperativeController',
 		),
 	),
 	'view_manager' => array(

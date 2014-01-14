@@ -103,8 +103,18 @@ return array(
              * access to all routes unless they are specified here.
              */
             'BjyAuthorize\Guard\Route' => array(
+        		array('route' => 'scn-social-auth-user/login/provider', 'roles' => array('guest')),
+        		array('route' => 'scn-social-auth-user/add-provider/provider', 'roles' => array('guest')),
+        		array('route' => 'scn-social-auth-hauth', 'roles' => array('guest')),
+        		array('route' => 'scn-social-auth-user/authenticate/provider', 'roles' => array('guest')),
+        		array('route' => 'scn-social-auth-user/login', 'roles' => array('guest')),
+        		array('route' => 'scn-social-auth-user/register', 'roles' => array('guest')),
+        		array('route' => 'scn-social-auth-user', 'roles' => array('guest')),
+        		array('route' => 'scn-social-auth-user/logout', 'roles' => array('user')),
+        			
                 array('route' => 'zfcuser', 'roles' => array('user')),
                 array('route' => 'zfcuser/logout', 'roles' => array('user')),
+                array('route' => 'zfcuser/changepassword', 'roles' => array('user')),
                 array('route' => 'zfcuser/login', 'roles' => array('guest')),
                 array('route' => 'zfcuser/register', 'roles' => array('guest')),
                 array('route' => 'zfcuser/profile', 'roles' => array('guest')),
@@ -123,8 +133,9 @@ return array(
                 
                 array('route' => 'shop', 'roles' => array('guest', 'user')),
                 array('route' => 'detail-shop', 'roles' => array('guest', 'user')),
+                array('route' => 'detail-product', 'roles' => array('guest', 'user')),
                 
-                array('route' => 'admin', 'roles' => array('admin')),
+                array('route' => 'admin', 'roles' => array('admin', 'shop-owner')),
                 
                 array('route' => 'admin/shop_admin/shop_add', 'roles' => array('admin')),
                 array('route' => 'admin/shop_admin/shop_edit', 'roles' => array('admin')),
@@ -138,6 +149,27 @@ return array(
                 array('route' => 'admin/product/list_attribute', 'roles' => array('admin', 'shop-owner')),
                 
                 array('route' => 'admin/user', 'roles' => array('admin')),
+                array('route' => 'admin/user/role_change', 'roles' => array('admin')),
+                array('route' => 'admin/user/edit', 'roles' => array('admin')),
+                array('route' => 'admin/user/add', 'roles' => array('admin')),
+                array('route' => 'admin/search_init', 'roles' => array('admin')),
+                array('route' => 'admin/cooperative/zone_create', 'roles' => array('admin')),
+                array('route' => 'admin/cooperative/line_create', 'roles' => array('admin')),
+                array('route' => 'admin/cooperative/line_add', 'roles' => array('admin')),
+                array('route' => 'admin/cooperative/create', 'roles' => array('admin')),
+                array('route' => 'admin/cooperative/listLine', 'roles' => array('admin')),
+                array('route' => 'admin/cooperative/car_make_add', 'roles' => array('admin')),
+                array('route' => 'admin/cooperative/car_model_add', 'roles' => array('admin')),
+                array('route' => 'admin/cooperative/car_driver_add', 'roles' => array('admin')),
+                array('route' => 'admin/cooperative/car_add', 'roles' => array('admin')),
+                array('route' => 'admin/cooperative/line_car_add', 'roles' => array('admin')),
+                array('route' => 'admin/cooperative/line_car_ajax', 'roles' => array('admin')),
+                array('route' => 'admin/cooperative/reservation_board_create', 'roles' => array('admin')),
+                array('route' => 'admin/cooperative/reservation_car_ajax', 'roles' => array('admin')),
+                array('route' => 'admin/cooperative/reservation_create', 'roles' => array('admin')),
+                array('route' => 'admin/cooperative/reservation_ajax', 'roles' => array('admin')),
+                
+                array('route' => 'search', 'roles' => array('guest')),
             ),
         ),
 	),

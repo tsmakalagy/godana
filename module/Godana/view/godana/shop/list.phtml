@@ -1,7 +1,6 @@
-
-<div class="row">
-
-<? $shops = $this->shops;?>
+<? $this->headTitle($this->translate('Shops'));?>
+<div id="ctnr">
+<? $shops = $this->paginator;?>
 <? $count = 0;?>
 <? foreach ($shops as $shop):?>
 <? 
@@ -17,27 +16,49 @@
 	$categoryToDisplay = rtrim($categoryToDisplay, ' ');
 ?>
 <? $count++;?>
-<div class="col-md-4 col-sm-6">
-	<div class="panel panel-primary">
+<div class="item">
+	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title"><?=$name; ?>
-			<a class="btn btn-primary pull-right btn-xs" href="<?=$this->url('detail-shop', array('shopIdent' => $shopIdent)) ?>"><?=$this->translate('More'); ?> <i class="glyphicon glyphicon-chevron-right"></i></a></h3>
+			<a class="btn btn-default pull-right btn-xs" href="<?=$this->url('detail-shop', array('shopIdent' => $shopIdent)) ?>"><?=$this->translate('More'); ?> <i class="glyphicon glyphicon-chevron-right"></i></a></h3>
 		</div>
 		<div class="panel-body">
 			<p><?=$description; ?></p>
-			
-		</div>
-		<div class="panel-footer">			
 			<?=$categoryToDisplay; ?>
-			
-			<div class="clearfix"></div>
 		</div>
+		
 	</div>
 </div>
-<? if ($count % 3 == 0):?>
-<div class="clearfix visible-md"></div>
-<? elseif ($count % 2 == 0):?>
-<div class="clearfix visible-sm"></div>
-<? endif;?>
 <? endforeach;?>
 </div>
+<hr/>
+<div class="container">
+<div class="row">
+<?=$this->paginationControl(
+		$this->paginator,
+ 		'sliding',
+ 		array('partial/paginator.phtml', 'Godana'),
+	 	array(
+	 		'route' => 'shop',
+	 		'typeBid' => $this->typeBid,
+	 		'categoryIdent' => $this->categoryIdent,
+	 		'lang' => $this->lang
+	 	)
+);
+?>
+</div>
+</div>
+<script type="text/javascript">
+<!--
+$(function() {
+	var container = document.querySelector('#ctnr');
+	var msnry = new Masonry( container, {
+	  // options
+	  columnWidth: 100,
+	  itemSelector: '.item'
+	});
+});
+//-->
+</script>
+
+<? $this->inlineScript()->appendFile($this->basePath() . '/js/masonry.pkgd.min.js');?>

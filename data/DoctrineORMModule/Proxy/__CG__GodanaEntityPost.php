@@ -176,6 +176,17 @@ class Post extends \Godana\Entity\Post implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function timestamp()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'timestamp', array());
+
+        return parent::timestamp();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getId()
     {
         if ($this->__isInitialized__ === false) {

@@ -70,15 +70,15 @@ div.container a.brand {
 .nav-gdn-top .navbar-nav.side-nav > li:first-child > a {
   border-radius: 6px 6px 0 0;
 }
+
+.nav-gdn-top .navbar-nav.side-nav > li:last-child > a {
+  border-radius: 0 0 6px 6px;
+}
 .nav-gdn-top .navbar-nav.side-nav > li > a:hover {
   background-color: #F5F5F5;
 }
 .nav-gdn-top .navbar-nav.side-nav > .active > a,
 .nav-gdn-top .navbar-nav.side-nav > .active > a:hover {
-	/*background-color: #62C493 !important;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.333) inset;
-  	color: #1D2B29 !important;
-    text-shadow: 0 1px 0 #A9D7FF !important;*/
     background-color: #0088CC;
     color: #FFFFFF;
     text-shadow: none;
@@ -175,17 +175,36 @@ div.container a.brand {
 
 @media (max-width: 319px) {
 	.my-zoom-icon {width: 18px;}
+	.item {width: 100%;}
 }
 @media (min-width: 320px) {
 	.my-zoom-icon {left: 17px; top:2px;}
+	.item {width: 100%;}
 }
 @media (min-width: 360px) and (max-width: 479px) {
 	.my-zoom-icon {left: 28px;}
+	.item {width: 100%;}
 }  
 @media (min-width: 480px) {
 	.my-zoom-icon {left: 65px;}
+	.item {width: 100%;}
 }
 
+@media (min-width: 641px) {
+	.item {width: 41%;}
+}
+
+@media (min-width: 768px) {
+	.item {width: 40%;}
+}
+
+@media (min-width: 800px) {
+	.item {width: 40%;}
+}
+
+@media (min-width: 981px) {
+	.item {width: 30%;}
+}
 .image-edit-container {
 	background: none repeat scroll 0 0 #F5F5F5;
     border-left: 1px solid #DFDFDF;
@@ -258,4 +277,30 @@ div.container a.brand {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.menu-category {
+ 	display: inline-block;
+    /*margin: -0.75rem;
+    padding: 1rem;*/
+    width: 100%; 
+}
+
+.menu-row {
+	-moz-column-gap: 1em;
+    -moz-column-width: 18em;
+    -webkit-column-gap: 1em;
+    -webkit-column-width: 18em;
+    column-gap: 1em;
+    column-width: 18em;
+    -ms-column-gap: 1em;
+    -ms-column-width: 18em;
+    margin: 0 auto;
+    width: 70%;
+  
+}
+
+.navbar-form {
+    border:  none !important;
+    width: 30% !important;    
 }

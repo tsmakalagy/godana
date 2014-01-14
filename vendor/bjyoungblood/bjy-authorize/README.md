@@ -1,6 +1,11 @@
 # BjyAuthorize - Acl security for ZF2
 
-[![Travis-CI Build Status](https://api.travis-ci.org/bjyoungblood/BjyAuthorize.png?branch=master)](https://travis-ci.org/bjyoungblood/BjyAuthorize) [![Coverage Status](https://coveralls.io/repos/bjyoungblood/BjyAuthorize/badge.png)](https://coveralls.io/r/bjyoungblood/BjyAuthorize) [![Dependency Status](https://www.versioneye.com/package/php--bjyoungblood--bjy-authorize/badge.png)](https://www.versioneye.com/package/php--bjyoungblood--bjy-authorize)
+[![Build Status](https://travis-ci.org/bjyoungblood/BjyAuthorize.png?branch=master)](https://travis-ci.org/bjyoungblood/BjyAuthorize)
+[![Coverage Status](https://coveralls.io/repos/bjyoungblood/BjyAuthorize/badge.png?branch=master)](https://coveralls.io/r/bjyoungblood/BjyAuthorize)
+[![Total Downloads](https://poser.pugx.org/bjyoungblood/bjy-authorize/downloads.png)](https://packagist.org/packages/bjyoungblood/bjy-authorize)
+[![Latest Stable Version](https://poser.pugx.org/bjyoungblood/bjy-authorize/v/stable.png)](https://packagist.org/packages/bjyoungblood/bjy-authorize)
+[![Latest Unstable Version](https://poser.pugx.org/bjyoungblood/bjy-authorize/v/unstable.png)](https://packagist.org/packages/bjyoungblood/bjy-authorize)
+[![Dependency Status](https://www.versioneye.com/package/php--bjyoungblood--bjy-authorize/badge.png)](https://www.versioneye.com/package/php--bjyoungblood--bjy-authorize)
 
 This module is designed provide a facade for `Zend\Permissions\Acl` that will
 ease its usage with modules and applications. By default, it provides simple
@@ -32,7 +37,7 @@ And here's how it would look like with BjyAuthorize enabled:
 The suggested installation method is via [composer](http://getcomposer.org/):
 
 ```sh
-php composer.phar require bjyoungblood/bjy-authorize:1.2.*
+php composer.phar require bjyoungblood/bjy-authorize:1.4.*
 php composer.phar require zf-commons/zfc-user:0.1.*
 ```
 
@@ -107,14 +112,20 @@ return array(
             // this will load roles from the user_role table in a database
             // format: user_role(role_id(varchar), parent(varchar))
             'BjyAuthorize\Provider\Role\ZendDb' => array(
-                'table'             => 'user_role',
-                'role_id_field'     => 'role_id',
-                'parent_role_field' => 'parent',
+                'table'                 => 'user_role',
+                'identifier_field_name' => 'id',
+                'role_id_field'         => 'role_id',
+                'parent_role_field'     => 'parent_id',
             ),
 
-            // this will load roles from the 'BjyAuthorize\Provider\Role\Doctrine'
-            // service
-            'BjyAuthorize\Provider\Role\Doctrine' => array(),
+            // this will load roles from
+            // the 'BjyAuthorize\Provider\Role\ObjectRepositoryProvider' service
+            'BjyAuthorize\Provider\Role\ObjectRepositoryProvider' => array(
+                // class name of the entity representing the role
+                'role_entity_class' => 'My\Role\Entity',
+                // service name of the object manager
+                'object_manager'    => 'My\Doctrine\Common\Persistence\ObjectManager',
+            ),
         ),
 
         // resource providers provide a list of resources that will be tracked

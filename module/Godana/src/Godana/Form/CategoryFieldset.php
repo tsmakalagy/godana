@@ -46,19 +46,7 @@ class CategoryFieldset extends Fieldset implements InputFilterProviderInterface,
             	'class' => 'form-control',
             ),
         ));
-        
-//        $this->add(array(
-//            'type'    => 'Zend\Form\Element\Text',
-//            'name'    => 'ident',
-//            'options' => array(
-//                'label' => 'Category ident'
-//            )
-//        ));
-//        
-//        $this->add(array(
-//            'type'    => 'Zend\Form\Element\Hidden',
-//            'name'    => 'type',
-//        ));
+     
     }
 
     public function getInputFilterSpecification()
@@ -75,17 +63,9 @@ class CategoryFieldset extends Fieldset implements InputFilterProviderInterface,
                     array('name' => 'Zend\Filter\StringToLower'),
                 ),
                 'validators' => array(
-                    new \Zend\Validator\StringLength(array('min' => 3)),
+                    new \Zend\Validator\StringLength(array('min' => 3))
                 ),
             ),
-            
-//            'ident' => array(
-//                'required' => true
-//            ),
-//            
-//            'type' => array(
-//                'required' => true
-//            ),
         );
     }
     

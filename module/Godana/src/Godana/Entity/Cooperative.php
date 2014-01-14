@@ -1,0 +1,222 @@
+<?php
+namespace Godana\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection as Collection;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="gdn_cooperative")
+ * @author raiza
+ *
+ */
+class Cooperative
+{
+	/**
+	 * @ORM\Id
+	 * @ORM\Column(type="integer", name="id")
+	 * @ORM\GeneratedValue(strategy="AUTO")
+	 * @var int
+	 */
+	protected $id;
+	
+	/**
+	 * @ORM\Column(type="string", length=128)
+	 * @var string
+	 */
+	protected $name;
+	
+	/**
+	 * @var \Doctrine\Common\Collections\Collection
+     * @ORM\ManyToMany(targetEntity="Zone", inversedBy="cooperatives")
+     * @ORM\JoinTable(name="gdn_cooperative_zone",
+     *      joinColumns={@ORM\JoinColumn(name="cooperative_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="zone_id", referencedColumnName="id")}
+     *      )
+     **/
+	protected $zones;
+	
+	/**
+	 * @var \Doctrine\Common\Collections\Collection
+     * @ORM\ManyToMany(targetEntity="Line", inversedBy="cooperatives")
+     * @ORM\JoinTable(name="gdn_cooperative_line",
+     *      joinColumns={@ORM\JoinColumn(name="cooperative_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="line_id", referencedColumnName="id")}
+     *      )
+     **/
+	protected $lines;
+	
+	/**
+	 * @var \Doctrine\Common\Collections\Collection
+     * @ORM\ManyToMany(targetEntity="Contact", cascade="persist")
+     * @ORM\JoinTable(name="gdn_cooperative_contact",
+     *      joinColumns={@ORM\JoinColumn(name="cooperative_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="contact_id", referencedColumnName="id_contact", unique=true)}
+     *      )
+     **/
+	protected $contacts;
+	
+	/**
+	 * @ORM\OneToMany(targetEntity="LineContact", mappedBy="cooperative")	 
+	 * @var array
+	 */
+	protected $lineContacts;
+	
+	/**
+	 * @ORM\OneToMany(targetEntity="Car", mappedBy="cooperative")
+	 * @var array
+	 */
+	protected $cars;
+	
+	public function __construct()
+	{
+		$this->zones = new Collection();
+		$this->lines = new Collection();
+		$this->contacts = new Collection();
+		$this->lineContacts = new Collection();
+		$this->cars = new Collection();
+	}
+	
+	public function getId()
+	{
+		return $this->id;
+	}
+	
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	
+	public function getName()
+	{
+		return $this->name;
+	}
+	
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	
+	public function addZones(Collection $zones)
+    {
+        foreach ($zones as $zone) {
+            $this->zones->add($zone);
+        }
+    }
+
+    public function removeZones(Collection $zones)
+    {
+        foreach ($zones as $zone) {
+            $this->zones->removeElement($zone);
+        }
+    }
+    
+    public function getZones()
+    {
+    	return $this->zones;
+    }    
+    
+    public function addZone(Zone $zone)
+    {
+    	$zone->addCooperative($this);
+    	$this->zones[] = $zone;
+    }
+	
+	public function addLines(Collection $lines)
+    {
+        foreach ($lines as $line) {
+            $this->lines->add($line);
+        }
+    }
+
+    public function removeLines(Collection $lines)
+    {
+        foreach ($lines as $line) {
+            $this->lines->removeElement($line);
+        }
+    }
+    
+    public function getLines()
+    {
+    	return $this->lines;
+    }    
+    
+    public function addLine(Line $line)
+    {
+    	$line->addCooperative($this);
+    	$this->lines[] = $line;
+    }
+    
+	public function addContacts(Collection $contacts)
+    {
+        foreach ($contacts as $contact) {
+            $this->contacts->add($contact);
+        }
+    }
+
+    public function removeContacts(Collection $contacts)
+    {
+        foreach ($contacts as $contact) {
+            $this->contacts->removeElement($contact);
+        }
+    }
+    
+    public function getContacts()
+    {
+    	return $this->contacts;
+    }
+    
+    public function addContact($contact)
+    {
+    	$this->contacts[] = $contact;
+    }
+    
+	public function addLineContacts(Collection $lineContacts)
+    {
+        foreach ($lineContacts as $lineContact) {
+            $this->lineContacts->add($lineContact);
+        }
+    }
+
+    public function removeLineContacts(Collection $lineContacts)
+    {
+        foreach ($lineContacts as $lineContact) {
+            $this->lineContacts->removeElement($lineContact);
+        }
+    }
+    
+    public function getLineContacts()
+    {
+    	return $this->lineContacts;
+    }
+    
+    public function addLineContact(LineContact $lineContact)
+    {
+//    	$lineContact->setCooperative($this);
+    	$this->lineContacts[] = $contact;
+    }
+    
+	public function addCars(Collection $cars)
+    {
+        foreach ($cars as $car) {
+            $this->cars->add($car);
+        }
+    }
+
+    public function removeCars(Collection $cars)
+    {
+        foreach ($cars as $car) {
+            $this->cars->removeElement($car);
+        }
+    }
+    
+    public function getCars()
+    {
+    	return $this->cars;
+    }
+    
+    public function addCar($car)
+    {
+    	$this->cars[] = $car;
+    }
+}

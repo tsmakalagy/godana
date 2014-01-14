@@ -1,3 +1,4 @@
+<? $this->headTitle($this->translate('Shops'));?>
 <? $shop = $this->shop;?>
 <? 
 	$categories = $shop->getCategories();
@@ -20,9 +21,10 @@
 <? $count++;?>
 <? $productType = $product->getType();?>
 <div class="col-md-4 col-sm-6">
-	<div class="panel panel-primary">
+	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title"><?=$product->getName(); ?></h3>
+			<h3 class="panel-title"><?=$product->getName(); ?>
+			<a class="btn btn-default pull-right btn-xs" href="<?=$this->url('detail-product', array('lang' => $this->lang, 'shopIdent' => $shop->getIdent(), 'productId' => $product->getId())); ?>"><?=$this->translate('More'); ?> <i class="glyphicon glyphicon-chevron-right"></i></a></h3>
 		</div>
 		<div class="panel-body">
 			<p><?=$product->getDescription(); ?></p>

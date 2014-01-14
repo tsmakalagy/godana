@@ -45,6 +45,9 @@ class ContactFieldset extends Fieldset implements InputFilterProviderInterface, 
                     'target_class'   => 'Godana\Entity\ContactType',
                     'property'       => 'name',
                     'label'          => 'Contact type',
+                	'label_generator' => function($targetEntity) {
+		                return ucfirst($targetEntity->getName());
+		            },
                 	'label_attributes' => array(
 			            'class' => 'col-sm-3 control-label',
 			        ),
@@ -77,6 +80,11 @@ class ContactFieldset extends Fieldset implements InputFilterProviderInterface, 
 
     public function getInputFilterSpecification()
     {
+    	$type = $this->get('type')->getValue();
+    	$validator = new \Zend\Validator\Callback(array(
+        	'callback' => array('Godana\Form\ContactValidatorCallback', 'validate'),
+        	'options' => $type,
+        )); 
         return array(
             'id' => array(
                 'required' => false
@@ -88,6 +96,7 @@ class ContactFieldset extends Fieldset implements InputFilterProviderInterface, 
                      array ('name' => 'StripTags'),
                      array ('name' => 'StringTrim')
                 ),
+                'validators' => array($validator), 
             ),            
             
         );

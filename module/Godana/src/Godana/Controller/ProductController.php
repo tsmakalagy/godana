@@ -132,6 +132,32 @@ class ProductController extends AbstractActionController
 	    );
  	}
  	
+	public function detailAction()
+ 	{
+ 		$om = $this->getObjectManager();
+ 		$productId = $this->params()->fromRoute('productId', null);
+ 		$shopIdent = $this->params()->fromRoute('shopIdent', null);
+ 		if ($shopIdent == null) {
+ 			return;
+ 		} else {
+ 			$shop = $om->getRepository('Godana\Entity\Shop')->findOneByIdent($shopIdent);
+ 		} 		
+ 		$lang = $this->params()->fromRoute('lang', 'mg');
+ 		if ($productId == null) {
+ 			return $this->redirect()->toRoute('detail-shop', array('lang' => $lang, 'shopIdent' => $shopIdent));
+ 		} 			
+		$product = $om->getRepository('Godana\Entity\Product')->findById($productId);	
+//		if ($product instanceof Godana\Entity\Product) {
+			return new ViewModel(
+	 			array(
+	 				'shop' => $shop,
+	 				'product' => $product,
+	 				'lang' => $lang,
+	 			)
+	 		);
+//		}		
+ 	}
+ 	
 	public function ajaxAction()
  	{ 		
         $uploadhandler = $this->getServiceLocator()->get('upload_handler');        

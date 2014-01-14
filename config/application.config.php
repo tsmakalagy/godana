@@ -8,6 +8,7 @@ return array(
 		'DoctrineModule',
 		'DoctrineORMModule',
         'Application',
+		'ScnSocialAuth',
 		'ZfcBase',
 		'ZfcUser',		
 		'ZfcUserDoctrineORM',

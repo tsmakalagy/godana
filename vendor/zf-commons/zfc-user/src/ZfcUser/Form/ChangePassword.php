@@ -34,9 +34,13 @@ class ChangePassword extends ProvidesEventsForm
             'name' => 'credential',
             'options' => array(
                 'label' => 'Current Password',
+        		'label_attributes' => array(
+		            'class' => 'col-sm-4 control-label',
+		        ),
             ),
             'attributes' => array(
                 'type' => 'password',
+            	'class' => 'form-control',
             ),
         ));
 
@@ -44,9 +48,13 @@ class ChangePassword extends ProvidesEventsForm
             'name' => 'newCredential',
             'options' => array(
                 'label' => 'New Password',
+        		'label_attributes' => array(
+		            'class' => 'col-sm-4 control-label',
+		        ),
             ),
             'attributes' => array(
                 'type' => 'password',
+            	'class' => 'form-control',
             ),
         ));
 
@@ -54,9 +62,13 @@ class ChangePassword extends ProvidesEventsForm
             'name' => 'newCredentialVerify',
             'options' => array(
                 'label' => 'Verify New Password',
+        		'label_attributes' => array(
+		            'class' => 'col-sm-4 control-label',
+		        ),
             ),
             'attributes' => array(
                 'type' => 'password',
+            	'class' => 'form-control',
             ),
         ));
 
@@ -64,7 +76,8 @@ class ChangePassword extends ProvidesEventsForm
             'name' => 'submit',
             'attributes' => array(
                 'value' => 'Submit',
-                'type'  => 'submit'
+                'type'  => 'submit',
+        		'class' => 'btn btn-primary',
             ),
         ));
 

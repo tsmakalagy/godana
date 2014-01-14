@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <?php echo $this->headTitle('godana')->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php echo $this->headTitle('Godana')->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
@@ -42,13 +42,26 @@
 		        </div>	
 		        
 		        <div class="collapse navbar-collapse navbar-ex1-collapse">
+		        <? 
+                    	$roles = $this->currentUserRole();
+                    	$isAdmin = false;
+                    	foreach ($roles as $role) {
+                    		if ($role->getRoleId() == 'admin') {
+                    			$isAdmin = true;
+                    		}
+                    }?>
 		          <ul class="nav navbar-nav side-nav">
 		            <li class="<?=$this->dashboard_active; ?>"><a href="#"><?=$this->translate('Dashboard') ?></a></li>
+		            <? if ($isAdmin):?>
+		            <li class=""><a href="<?=$this->url('admin/search_init', array(), array(), true) ?>"><?=$this->translate('Reinitialize search') ?></a></li>
+		            <? endif;?>
 		            <li><a href="#"><?=$this->translate('Home'); ?></a></li>
+		            
+                    <? if ($isAdmin):?>
 		            <li class="dropdown <?=$this->user_active; ?>">
 		              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$this->translate('Users'); ?><b class="caret"></b></a>
 		              <ul class="dropdown-menu">
-		                <li><a href="#"><?=$this->translate('Add'); ?></a></li>
+		                <li><a href="<?=$this->url('admin/user/add', array(), array(), true) ?>"><?=$this->translate('Add'); ?></a></li>
 		                <li><a href="<?=$this->url('admin/user', array(), array(), true) ?>"><?=$this->translate('List'); ?></a></li>
 		              </ul>
 		            </li>
@@ -59,6 +72,7 @@
 		                <li><a href="<?=$this->url('admin/shop_admin', array(), array(), true) ?>"><?=$this->translate('List'); ?></a></li>
 		              </ul>
 		            </li>
+		            <? endif;?>
 		            <li class="dropdown <?=$this->product_active; ?>">
 		              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$this->translate('Products'); ?><b class="caret"></b></a>
 		              <ul class="dropdown-menu">
@@ -67,6 +81,33 @@
 		                <li><a href="#"><?=$this->translate('List product'); ?></a></li>
 		              </ul>
 		            </li>
+		            <li class="dropdown">
+		              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$this->translate('Cooperative'); ?><b class="caret"></b></a>
+		              <ul class="dropdown-menu">
+		              	<li><a href="<?=$this->url('admin/cooperative/create', array(), array(), true) ?>"><?=$this->translate('Create cooperative'); ?></a></li>
+		                <li><a href="<?=$this->url('admin/cooperative/zone_create', array(), array(), true) ?>"><?=$this->translate('Create zone'); ?></a></li>
+		                <li><a href="<?=$this->url('admin/cooperative/line_create', array(), array(), true) ?>"><?=$this->translate('Create line'); ?></a></li>		                
+		                <li><a href="<?=$this->url('admin/cooperative/line_add', array(), array(), true) ?>"><?=$this->translate('Add line'); ?></a></li>
+		                
+		              </ul>
+		            </li>
+		            <li class="dropdown">
+	                	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$this->translate('Car'); ?><b class="caret"></b></a>
+	              		<ul class="dropdown-menu">
+	                		<li><a href="<?=$this->url('admin/cooperative/car_make_add', array(), array(), true) ?>"><?=$this->translate('Add car make'); ?></a></li>
+	                		<li><a href="<?=$this->url('admin/cooperative/car_model_add', array(), array(), true) ?>"><?=$this->translate('Add car model'); ?></a></li>
+	                		<li><a href="<?=$this->url('admin/cooperative/car_driver_add', array(), array(), true) ?>"><?=$this->translate('Add car driver'); ?></a></li>
+	                		<li><a href="<?=$this->url('admin/cooperative/car_add', array(), array(), true) ?>"><?=$this->translate('Add car'); ?></a></li>
+	                		<li><a href="<?=$this->url('admin/cooperative/line_car_add', array(), array(), true) ?>"><?=$this->translate('Add car line'); ?></a></li>	                		
+	                	</ul>
+	                </li>
+	                <li class="dropdown">
+	                	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$this->translate('Reservation'); ?><b class="caret"></b></a>
+	              		<ul class="dropdown-menu">	                		
+	                		<li><a href="<?=$this->url('admin/cooperative/reservation_board_create', array(), array(), true) ?>"><?=$this->translate('Reserve a car'); ?></a></li>
+	                		<li><a href="<?=$this->url('admin/cooperative/reservation_create', array(), array(), true) ?>"><?=$this->translate('Make a reservation'); ?></a></li>
+	                	</ul>
+	                </li>
 		          </ul>
 		          
 		          <ul class="nav navbar-nav navbar-right navbar-user">

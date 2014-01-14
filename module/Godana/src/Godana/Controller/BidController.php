@@ -1,12 +1,18 @@
 <?php
 namespace Godana\Controller;
  
+use ZendSearch\Lucene\Document\Field;
+
 use Zend\Form\Form;
 use Godana\Entity\Post;
 use Godana\Entity\Bid;
 use Godana\Form\PostForm;
 use JqueryFileUpload\Handler\CustomUploadHandler;
 use Doctrine\Common\Persistence\ObjectManager;
+
+use ZendSearch\Lucene\Lucene;
+use ZendSearch\Lucene\Document;
+
  
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -35,10 +41,12 @@ class BidController extends AbstractActionController
      */
     protected $objectManager;
     
+        
 	public function indexAction()
-	{
-		$om = $this->getObjectManager();
+	{	
 		$lang = $this->params()->fromRoute('lang', 'mg');
+		$om = $this->getObjectManager();
+		
 		$typeBid = $this->params()->fromRoute('type', null);
 		$categoryIdent = $this->params()->fromRoute('categoryIdent', null);
 		if ($typeBid == null) {
@@ -60,7 +68,7 @@ class BidController extends AbstractActionController
 		$adapter = new DoctrineAdapter(new ORMPaginator($query));
    		
 		$paginator = new Paginator($adapter);
-   		$paginator->setDefaultItemCountPerPage(3);
+   		$paginator->setDefaultItemCountPerPage(6);
 		$paginator->setCurrentPageNumber($page);
 				
  		return new ViewModel(
@@ -96,6 +104,15 @@ class BidController extends AbstractActionController
 //	    $map->initialize($config);                                         //loading the config   
 //	    $html = $map->generate();                                          //genrating the html map content  
     
+// 		$index = Lucene::open("/tmp/ttt");
+// 		$query = 'zezika';
+// 		$hits = $index->find($query);
+// 		echo "Search for '".$query."' returned " .count($hits). " hits\n\n";
+//	 	foreach ($hits as $hit) {
+//			echo $hit->title."\n";			
+//			echo "\t".$hit->link."\n\n";
+//		}
+ 		
  		$om = $this->getObjectManager();
  		$postIdent = $this->params()->fromRoute('postIdent', null);
  		$lang = $this->params()->fromRoute('lang', 'mg');
@@ -248,9 +265,9 @@ class BidController extends AbstractActionController
     public function setFileForm(Form $fileForm)
     {
         $this->fileForm = $fileForm;
-    }
-    
-    public function getObjectManager()
+    }   
+
+	public function getObjectManager()
     {
     	return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     }
@@ -259,4 +276,5 @@ class BidController extends AbstractActionController
     {
     	$this->objectManager = $objectManager;
     }
+    
 }

@@ -10,4 +10,5 @@ class CategoryRepository extends EntityRepository
 		return $this->_em->createQuery('SELECT c FROM Godana\Entity\Category c')
                          ->getResult();
 	}
+	
 }

@@ -80,6 +80,8 @@ class UserController extends AbstractActionController
         if ($this->zfcUserAuthentication()->getAuthService()->hasIdentity()) {
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
         }
+        
+        $lang = $this->params()->fromRoute('lang', 'mg');
 
         $request = $this->getRequest();
         $form    = $this->getLoginForm();
@@ -89,11 +91,13 @@ class UserController extends AbstractActionController
         } else {
             $redirect = false;
         }
-
+		
+        
         if (!$request->isPost()) {
             return array(
                 'loginForm' => $form,
                 'redirect'  => $redirect,
+            	'lang' => $lang,
                 'enableRegistration' => $this->getOptions()->getEnableRegistration(),
             );
         }
@@ -102,14 +106,14 @@ class UserController extends AbstractActionController
 
         if (!$form->isValid()) {
             $this->flashMessenger()->setNamespace('zfcuser-login-form')->addMessage($this->failedLoginMessage);
-            return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_LOGIN).($redirect ? '?redirect='.$redirect : ''));
+            return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_LOGIN, array('lang' => $lang)).($redirect ? '?redirect='.$redirect : ''));
         }
 
         // clear adapters
         $this->zfcUserAuthentication()->getAuthAdapter()->resetAdapters();
         $this->zfcUserAuthentication()->getAuthService()->clearIdentity();
 
-        return $this->forward()->dispatch(static::CONTROLLER_NAME, array('action' => 'authenticate'));
+        return $this->forward()->dispatch(static::CONTROLLER_NAME, array('action' => 'authenticate', 'lang' => $lang));
     }
 
     /**
@@ -120,14 +124,14 @@ class UserController extends AbstractActionController
         $this->zfcUserAuthentication()->getAuthAdapter()->resetAdapters();
         $this->zfcUserAuthentication()->getAuthAdapter()->logoutAdapters();
         $this->zfcUserAuthentication()->getAuthService()->clearIdentity();
-
+		$lang = $this->params()->fromRoute('lang', 'mg');
         $redirect = $this->params()->fromPost('redirect', $this->params()->fromQuery('redirect', false));
 
         if ($this->getOptions()->getUseRedirectParameterIfPresent() && $redirect) {
             return $this->redirect()->toUrl($redirect);
         }
 
-        return $this->redirect()->toRoute($this->getOptions()->getLogoutRedirectRoute());
+        return $this->redirect()->toRoute($this->getOptions()->getLogoutRedirectRoute(), array('lang' => $lang));
     }
 
     /**
@@ -141,9 +145,8 @@ class UserController extends AbstractActionController
 
         $adapter = $this->zfcUserAuthentication()->getAuthAdapter();
         $redirect = $this->params()->fromPost('redirect', $this->params()->fromQuery('redirect', false));
-
+		$lang = $this->params()->fromRoute('lang', 'mg');		
         $result = $adapter->prepareForAuthentication($this->getRequest());
-
         // Return early if an adapter returned a response
         if ($result instanceof Response) {
             return $result;
@@ -153,8 +156,9 @@ class UserController extends AbstractActionController
 
         if (!$auth->isValid()) {
             $this->flashMessenger()->setNamespace('zfcuser-login-form')->addMessage($this->failedLoginMessage);
+//            $this->flashMessenger()->setNamespace('zfcuser-login-form')->addMessage("ERROR LOIGIN");
             $adapter->resetAdapters();
-            return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_LOGIN)
+            return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_LOGIN, array('lang' => $lang))
                 . ($redirect ? '?redirect='.$redirect : ''));
         }
 
@@ -162,7 +166,7 @@ class UserController extends AbstractActionController
             return $this->redirect()->toUrl($redirect);
         }
 
-        return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
+        return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute(), array('lang' => $lang));
     }
 
     /**
@@ -179,6 +183,7 @@ class UserController extends AbstractActionController
         if (!$this->getOptions()->getEnableRegistration()) {
             return array('enableRegistration' => false);
         }
+        $lang = $this->params()->fromRoute('lang', 'mg');
         
         $request = $this->getRequest();
         $service = $this->getUserService();
@@ -190,20 +195,20 @@ class UserController extends AbstractActionController
             $redirect = false;
         }
 
-        $redirectUrl = $this->url()->fromRoute(static::ROUTE_REGISTER)
+        $redirectUrl = $this->url()->fromRoute(static::ROUTE_REGISTER, array('lang' => $lang))
             . ($redirect ? '?redirect=' . $redirect : '');
         $prg = $this->prg($redirectUrl, true);
-
-        if ($prg instanceof Response) {
+        if ($prg instanceof Response) {        	
             return $prg;
         } elseif ($prg === false) {
             return array(
                 'registerForm' => $form,
+            	'lang' => $lang,
                 'enableRegistration' => $this->getOptions()->getEnableRegistration(),
                 'redirect' => $redirect,
             );
         }
-
+		
         $post = $prg;
         $user = $service->register($post);
 
@@ -212,6 +217,7 @@ class UserController extends AbstractActionController
         if (!$user) {        	
             return array(
                 'registerForm' => $form,
+            	'lang' => $lang,
                 'enableRegistration' => $this->getOptions()->getEnableRegistration(),
                 'redirect' => $redirect,
             );

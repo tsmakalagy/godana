@@ -35,6 +35,9 @@ class Module
 	public function getViewHelperConfig()
     {
         return array(
+        	'invokables' => array(
+        		'truncateText' => 'Godana\View\Helper\Truncate',
+        	),
             'factories' => array(
                 'currentUserRole' => function ($sm) {
                     $locator = $sm->getServiceLocator();
@@ -50,6 +53,9 @@ class Module
     public function getServiceConfig()
     {
     	return array(
+    		'invokables' => array(
+    			'godana_sendmail_service' => 'Godana\Service\Mail',
+    		),
     		'factories' => array(
     			'godana_post_form' => function($sm) {                    
                     $om = $sm->get('Doctrine\ORM\EntityManager');
@@ -168,6 +174,181 @@ class Module
                     $form->add($productFieldset);
                 	return $form;
                 },
+                'zone_form' => function($sm) {
+                	$om = $sm->get('Doctrine\ORM\EntityManager');
+                	$forms = $sm->get('FormElementManager');
+                	$form = $forms->get('Godana\Form\ZoneForm');
+                	$zoneFieldset = $forms->get('ZoneFieldset');
+                	
+			        $zoneFieldset->setUseAsBaseFieldset(true);
+                    $form->add($zoneFieldset);
+                	return $form;
+                },
+                'create_line_form' => function($sm) {
+                	$forms = $sm->get('FormElementManager');
+                	$form = $forms->get('Godana\Form\LineForm');
+                	$lineFieldset = $forms->get('LineFieldset');
+                	
+			        $lineFieldset->setUseAsBaseFieldset(true);
+                    $form->add($lineFieldset);
+                	return $form;
+                },
+                'cooperative_form' => function($sm) {
+                	$forms = $sm->get('FormElementManager');
+                	$form = $forms->get('Godana\Form\CooperativeForm');
+                	$cooperativeFieldset = $forms->get('CooperativeFieldset');
+                	$cooperativeFieldset->remove('zone');
+                	$cooperativeFieldset->remove('line');
+			        $cooperativeFieldset->setUseAsBaseFieldset(true);
+                    $form->add($cooperativeFieldset);
+                	return $form;
+                },
+                'add_line_form' => function($sm) {
+                	$forms = $sm->get('FormElementManager');
+                	$form = $forms->get('Godana\Form\CooperativeForm');
+                	$cooperativeFieldset = $forms->get('CooperativeFieldset');
+                	$cooperativeFieldset->remove('name');
+//                	$cooperativeFieldset->remove('id');
+                	$form->setValidationGroup(array(
+					    'csrf',
+					    'cooperative-form' => array(
+					        'contacts' => array(
+					            'value'
+					        )
+					    )
+					));
+                	
+                	$cooperativeFieldset->add(
+                		array(
+                			'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+			                'name' => 'cooperative',
+			                'attributes' => array(
+			            		'class' => 'form-control cooperative-select',
+			                ),                
+			                'options' => array(
+			                    'object_manager' => $sm->get('Doctrine\ORM\EntityManager'),
+			                    'target_class'   => 'Godana\Entity\Cooperative',
+			                    'property'       => 'name',
+			                    'label'          => 'Cooperative',
+			                	'label_attributes' => array(
+						            'class' => 'col-sm-3 control-label',
+						        ),
+			                    'disable_inarray_validator' => true               
+			                ),
+                		)
+                	);
+                	$cooperativeFieldset->add(array(
+				    	'type'    => 'Zend\Form\Element\Collection',
+				        'name'    => 'contacts',
+			            'options' => array(
+			        		'template_placeholder' => '__placeholder__',
+			        		'should_create_template' => true,
+							'allow_add' => true,        
+			            	'count' => 1,
+			                'target_element' => array(
+			        			'type' => 'Godana\Form\ContactFieldset', 
+			        		),
+						),
+						'attributes' => array(
+							'class' => 'my-fieldset',
+						)			            
+				    ));
+			        $cooperativeFieldset->setUseAsBaseFieldset(true);
+                    $form->add($cooperativeFieldset);
+                	return $form;
+                },
+                'add_car_make_form' => function($sm) {
+                	$forms = $sm->get('FormElementManager');
+                	$form = $forms->get('Godana\Form\CarMakeForm');
+                	$carMakeFieldset = $forms->get('CarMakeFieldset');
+			        $carMakeFieldset->setUseAsBaseFieldset(true);
+                    $form->add($carMakeFieldset);
+                	return $form;
+                },
+                'add_car_model_form' => function($sm) {
+                	$forms = $sm->get('FormElementManager');
+                	$form = $forms->get('Godana\Form\CarModelForm');
+                	$carModelFieldset = $forms->get('CarModelFieldset');
+			        $carModelFieldset->setUseAsBaseFieldset(true);
+                    $form->add($carModelFieldset);
+                	return $form;
+                },
+                'add_car_driver_form' => function($sm) {
+                	$forms = $sm->get('FormElementManager');
+                	$form = $forms->get('Godana\Form\CarDriverForm');
+                	$carDriverFieldset = $forms->get('CarDriverFieldset');
+			        $carDriverFieldset->setUseAsBaseFieldset(true);
+                    $form->add($carDriverFieldset);
+                	return $form;
+                },
+                'add_car_form' => function($sm) {
+                	$forms = $sm->get('FormElementManager');
+                	$form = $forms->get('Godana\Form\CarForm');
+                	$carFieldset = $forms->get('CarFieldset');
+			        $carFieldset->setUseAsBaseFieldset(true);
+                    $form->add($carFieldset);
+                	return $form;
+                },
+                'add_line_car_form' => function($sm) {
+                	$forms = $sm->get('FormElementManager');
+                	$form = $forms->get('Godana\Form\LineCarForm');
+                	$lineCarFieldset = $forms->get('LineCarFieldset');
+			        $lineCarFieldset->setUseAsBaseFieldset(true);
+                    $form->add($lineCarFieldset);
+                	return $form;
+                },
+                'reservation_board_form' => function($sm) {
+                	$forms = $sm->get('FormElementManager');
+                	$form = $forms->get('Godana\Form\ReservationBoardForm');
+                	$reservationBoardFieldset = $forms->get('ReservationBoardFieldset');
+			        $reservationBoardFieldset->setUseAsBaseFieldset(true);
+                    $form->add($reservationBoardFieldset);
+                	return $form;
+                },
+                'create_reservation_form' => function($sm) {
+                	$forms = $sm->get('FormElementManager');
+                	$form = $forms->get('Godana\Form\ReservationForm');
+                	$reservationFieldset = $forms->get('ReservationFieldset');
+                	$reservationFieldset->get('fare')->setValue(0);
+			        $reservationFieldset->setUseAsBaseFieldset(true);
+                    $form->add($reservationFieldset);
+                	return $form;
+                },
+                'user_role_form' => function($sm) {
+                	$forms = $sm->get('FormElementManager');
+                	$form = $forms->get('Godana\Form\UserRoleForm');
+                	return $form;
+                },
+                'user_edit_form' => function($sm) {
+                	$forms = $sm->get('FormElementManager');
+                	$form = $forms->get('Godana\Form\UserForm');
+                	$userFieldset = $forms->get('UserFieldset');
+                	$userFieldset->remove('email');
+                	$userFieldset->remove('password');
+                	$userFieldset->remove('passwordVerify');                	
+                	$userFieldset->setUseAsBaseFieldset(true);
+                	
+                	$form->add($userFieldset);
+                	$userId = $form->get('user-form')->get('id');
+                	return $form;
+                },
+                'user_add_form' => function ($sm) {
+                    $options = $sm->get('zfcuser_module_options');
+                    $form = new \ZfcUser\Form\Register(null, $options);
+                    $form->setInputFilter(new \ZfcUser\Form\RegisterFilter(
+                        new \ZfcUser\Validator\NoRecordExists(array(
+                            'mapper' => $sm->get('zfcuser_user_mapper'),
+                            'key'    => 'email'
+                        )),
+                        new \ZfcUser\Validator\NoRecordExists(array(
+                            'mapper' => $sm->get('zfcuser_user_mapper'),
+                            'key'    => 'username'
+                        )),
+                        $options
+                    ));
+                    return $form;
+                },
+                
     		),
     	);
     }
@@ -222,6 +403,17 @@ class Module
 	    		'ShopFieldset' => 'Godana\Form\ShopFieldset',
 	    		'ProductTypeFieldset' => 'Godana\Form\ProductTypeFieldset',
 	    		'ProductFieldset' => 'Godana\Form\ProductFieldset',
+	    		'ZoneFieldset' => 'Godana\Form\ZoneFieldset',
+	    		'LineFieldset' => 'Godana\Form\LineFieldset',
+	    		'CooperativeFieldset' => 'Godana\Form\CooperativeFieldset',
+	    		'CarMakeFieldset' => 'Godana\Form\CarMakeFieldset',
+	    		'CarModelFieldset' => 'Godana\Form\CarModelFieldset',
+	    		'CarDriverFieldset' => 'Godana\Form\CarDriverFieldset',
+	    		'CarFieldset' => 'Godana\Form\CarFieldset',
+	    		'LineCarFieldset' => 'Godana\Form\LineCarFieldset',
+	    		'ReservationBoardFieldset' => 'Godana\Form\ReservationBoardFieldset',
+	    	    'ReservationFieldset' => 'Godana\Form\ReservationFieldset',
+	    		'UserFieldset' => 'Godana\Form\UserFieldset',
             ),
 	        'initializers' => array(
 	            'ObjectManagerInitializer' => function ($element, $formElements) {

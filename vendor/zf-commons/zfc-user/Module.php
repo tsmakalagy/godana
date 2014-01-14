@@ -127,6 +127,8 @@ class Module implements
                         )),
                         $options
                     ));
+//                    $form->remove('oldpass');
+//                    $form->get('password')->setLabel('Password');
                     return $form;
                 },
                 

@@ -11,4 +11,9 @@ class ProductRepository extends EntityRepository
 		return $this->findBy(array('deleted' => 0));
 	}
 	
+	public function findById($id)
+	{
+		return $this->findOneBy(array('id' => $id, 'deleted' => 0));
+	}
+	
 }

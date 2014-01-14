@@ -3,6 +3,7 @@ namespace Godana\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Godana\Entity\ProductAttribute;
+use Doctrine\Common\Collections\ArrayCollection as Collection;
 
 /**
  * @ORM\Entity(repositoryClass="Godana\Entity\ProductRepository")

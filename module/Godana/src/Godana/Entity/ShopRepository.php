@@ -18,4 +18,20 @@ class ShopRepository extends EntityRepository
 		return $this->findBy(array('deleted' => 0));
 	}
 	
+
+	public function findShopsByCategory($categoryIdent)
+	{
+		$sql = 'SELECT s FROM Godana\Entity\Shop s JOIN s.categories c WHERE c.ident = ?1 AND s.deleted = 0';
+		$query = $this->_em->createQuery($sql);
+		$query->setParameter(1, $categoryIdent);
+		return $query;
+	}
+	
+	public function findAllShops()
+	{
+		$sql = 'SELECT s FROM Godana\Entity\Shop s WHERE s.deleted = 0';
+		$query = $this->_em->createQuery($sql);
+		return $query;
+	}
+	
 }

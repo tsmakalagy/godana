@@ -236,6 +236,20 @@ class User implements UserInterface, ProviderInterface
     {
         $this->state = $state;
     }
+    
+	public function addRoles(\Doctrine\Common\Collections\Collection $roles)
+    {
+        foreach ($roles as $role) {
+            $this->roles->add($role);
+        }
+    }
+
+    public function removeRoles(\Doctrine\Common\Collections\Collection $roles)
+    {
+        foreach ($roles as $role) {
+            $this->roles->removeElement($role);
+        }
+    }
 
     /**
      * Get role.

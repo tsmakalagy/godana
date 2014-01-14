@@ -28,6 +28,7 @@ return array(
             	'type' => 'Segment',
                 'options' => array(
                 	'route' => '/[:lang/]user',
+//            		'route' => '/user',
                    	'defaults' => array(
                     	'controller' => 'zfcuser',
                     	'action' => 'index',
@@ -314,14 +315,16 @@ return array(
             'shop' => array(
             	'type' => 'Segment',
             	'options' => array(
-            		'route' => '/[:lang/]shop[/category/:categoryIdent]',
+            		'route' => '/[:lang/]shop[/category/:categoryIdent][/page/:page]',
             		'defaults' => array(
             			'controller' => 'shop',
             			'action' => 'list',
             			'lang' => 'mg',
+            			'page' => 1
             		),
             		'constraints' => array(
             			'lang' => '(en|de|fr|mg)?',
+            			'page' => '[0-9]*',
             			'categoryIdent' => '[a-z][a-zA-Z0-9_-]*'
             		),
             	),
@@ -338,6 +341,21 @@ return array(
             		'constraints' => array(
             			'lang' => '(en|de|fr|mg)?',
             			'shopIdent' => '[a-z][a-zA-Z0-9_-]*'
+            		),
+            	),            	              
+            ),
+            'detail-product' => array(
+            	'type' => 'Segment',
+            	'options' => array(
+            		'route' => '/[:lang/]shop/:shopIdent/product/:productId',
+            		'defaults' => array(
+            			'controller' => 'product',
+            			'action' => 'detail'
+            		),
+            		'constraints' => array(
+            			'lang' => '(en|de|fr|mg)?',
+            			'shopIdent' => '[a-z][a-zA-Z0-9_-]*',
+            			'productId' => '[0-9]*'
             		),
             	),
             ),
@@ -487,11 +505,232 @@ return array(
                                 'action'     => 'list',
                             ),
                         ),
+                        'may_terminate' => true,
+                		'child_routes' => array(
+                        	'role_change' => array(
+		                        'type' => 'Segment',
+		                        'options' => array(
+		                            'route' => '/role/change/:userId',
+		                            'defaults' => array(
+		                                'controller' => 'myuser',
+		                                'action'     => 'changeRole',
+		                            ),
+		                            'constraints' => array(
+				            			'userId' => '[0-9]*'
+				            		),
+		                        ),
+		                    ),
+		                    'edit' => array(
+		                        'type' => 'Segment',
+		                        'options' => array(
+		                            'route' => '/edit/:userId',
+		                            'defaults' => array(
+		                                'controller' => 'myuser',
+		                                'action'     => 'editUser',
+		                            ),
+		                            'constraints' => array(
+				            			'userId' => '[0-9]*'
+				            		),
+		                        ),
+		                    ),
+		                    'add' => array(
+		                        'type' => 'Segment',
+		                        'options' => array(
+		                            'route' => '/add',
+		                            'defaults' => array(
+		                                'controller' => 'myuser',
+		                                'action'     => 'addUser',
+		                            ),
+		                        ),
+		                    ),
+		            	),
                 	),
+                	'search_init' => array(
+	                	'type' => 'literal',
+                        'options' => array(
+                            'route' => '/search/init',
+                            'defaults' => array(
+                                'controller' => 'search',
+                                'action'     => 'init',
+                            ),
+                        ),
+	            	),
+	            	'cooperative' => array(
+	            		'type' => 'literal',
+	            		'options' => array(
+                            'route' => '/cooperative',
+                            'defaults' => array(
+                                'controller' => 'cooperative',
+                                'action'     => 'index',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                		'child_routes' => array(
+                        	'zone_create' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/zone/create',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'createZone',
+		                            ),
+		                        ),
+		                    ),
+		                    'line_create' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/line/create',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'createLine',
+		                            ),
+		                        ),
+		                    ),
+		                    'line_add' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/line/add',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'addLine',
+		                            ),
+		                        ),
+		                    ),
+		                    'create' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/create',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'createCooperative',
+		                            ),
+		                        ),
+		                    ),
+		                    'listLine' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/listLine',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'listLine',
+		                            ),
+		                        ),
+		                    ),
+		                    'car_make_add' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/car/make/add',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'addCarMake',
+		                            ),
+		                        ),
+		                    ),
+		                    'car_model_add' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/car/model/add',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'addCarModel',
+		                            ),
+		                        ),
+		                    ),
+		                    'car_driver_add' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/car/driver/add',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'addCarDriver',
+		                            ),
+		                        ),
+		                    ),
+		                    'car_add' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/car/add',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'addCar',
+		                            ),
+		                        ),
+		                    ),
+		                    'line_car_add' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/car/line/add',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'addCarLine',
+		                            ),
+		                        ),
+		                    ),
+		                    'line_car_ajax' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/car/line/ajax',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'ajaxCarLine',
+		                            ),
+		                        ),
+		                    ),
+		                    'reservation_board_create' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/car/reservation/add',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'createReservationBoard',
+		                            ),
+		                        ),
+		                    ),
+		                    'reservation_car_ajax' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/car/reservation/ajax',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'ajaxCarReservation',
+		                            ),
+		                        ),
+		                    ),
+		                    'reservation_create' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/reservation/add',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'createReservation',
+		                            ),
+		                        ),
+		                    ),
+		                    'reservation_ajax' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/reservation/ajax',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'ajaxReservation',
+		                            ),
+		                        ),
+		                    ),
+		            	),
+	            	),
                     
             	),
             ),
-            
+            'search' => array(
+            	'type' => 'literal',
+            	'options' => array(
+                	'route' => '/search',
+                    'defaults' => array(
+                    	'controller' => 'search',
+                        'action'     => 'index',
+                  	),
+              	),
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them

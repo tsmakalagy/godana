@@ -50,19 +50,38 @@ class ShopController extends AbstractActionController
  	}
  	
  	public function listAction()
- 	{
+ 	{ 		
  		$om = $this->getObjectManager();
  		$categoryIdent = $this->params()->fromRoute('categoryIdent', null);
- 		$shops = null;
+// 		$shops = null;
+// 		if ($categoryIdent == null) {
+// 			$shops = $om->getRepository('Godana\Entity\Shop')->findAll();	
+// 		} else {
+// 			$category = $om->getRepository('Godana\Entity\Category')->findOneBy(array('ident' => $categoryIdent));
+// 			$shops = $category->getShops();
+// 		}
  		if ($categoryIdent == null) {
- 			$shops = $om->getRepository('Godana\Entity\Shop')->findAll();	
+ 			$query = $om->getRepository('Godana\Entity\Shop')->findAllShops();	
  		} else {
- 			$category = $om->getRepository('Godana\Entity\Category')->findOneBy(array('ident' => $categoryIdent));
- 			$shops = $category->getShops();
+ 			$query = $om->getRepository('Godana\Entity\Shop')->findShopsByCategory($categoryIdent);
  		}
+ 		$lang = $this->params()->fromRoute('lang', 'mg');
  		
- 		
- 		return array("shops" => $shops);
+ 		$page = $this->params()->fromRoute('page', 1);
+		$adapter = new DoctrineAdapter(new ORMPaginator($query));
+   		
+		$paginator = new Paginator($adapter);
+   		$paginator->setDefaultItemCountPerPage(4);
+		$paginator->setCurrentPageNumber($page);
+				
+ 		return new ViewModel(
+ 			array(
+ 				'paginator' => $paginator,
+ 				'lang' => $lang,
+ 				'typeBid' => null,
+ 				'categoryIdent' => $categoryIdent
+ 			)
+ 		);
  	}
  	
  	public function detailAction()

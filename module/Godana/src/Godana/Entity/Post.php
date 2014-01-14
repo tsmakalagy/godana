@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection as Collection;
 /** 
  *
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="gdn_post")
  * 
  */
@@ -94,6 +95,20 @@ class Post
     	$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
     	$this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
     	$this->files = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+	/**
+     * @ORM\PrePersist
+     */
+    public function timestamp()
+    {
+        if(is_null($this->published)) {
+            $this->setPublished(new \DateTime());
+        }
+    	if(is_null($this->modified)) {
+            $this->setModified(new \DateTime());
+        }
+        return $this;
     }
     
     /**

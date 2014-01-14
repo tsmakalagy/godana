@@ -2,7 +2,7 @@
 namespace Godana\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection as Collection;
 /** 
  *
  * @ORM\Entity(repositoryClass="Godana\Entity\CategoryRepository")

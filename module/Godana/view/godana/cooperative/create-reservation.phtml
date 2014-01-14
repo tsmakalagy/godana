@@ -1,0 +1,515 @@
+<?php echo $this->headLink()
+                ->appendStylesheet($this->basePath() . '/css/select2.css')
+                ->appendStylesheet($this->basePath() . '/css/select2-bootstrap.css');?>
+
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+<div class="panel panel-primary">
+<div class="panel-heading">
+	<h3 class="panel-title"><?php echo $this->translate('Reservation'); ?></h3>
+</div>
+<div class="panel-body">
+<? if ($this->status):?>
+<div class="alert alert-dismissable alert-success">
+<button data-dismiss="alert" class="close">×</button>
+<strong><?= $this->translate('Success!'); ?></strong> <?= $this->translate('Reservation created successfully.'); ?> 
+</div>
+<? endif;?>
+<?php
+$form = $this->reservationForm;
+$form->prepare();
+$form->setAttribute('action', $this->url('admin/cooperative/reservation_create', array('lang' => $this->lang)));
+$form->setAttribute('method', 'post');
+$form->setAttribute('class', 'form-horizontal');
+?>
+<?php echo $this->form()->openTag($form) ?>
+<? $reservation = $form->get('reservation-form'); ?>
+<? echo $this->formHidden($reservation->get('id'));?>
+
+<? $zone = $reservation->get('zone'); ?>
+<div class="form-group <?php if($this->formElementErrors($zone)) 
+echo "has-error" ?>">
+<?php echo $this->formLabel($zone); ?>
+<div class="col-sm-7">
+<?php echo $this->formElement($zone) ?>
+<?php  echo $this->formElementErrors()
+	->setMessageOpenFormat('<div class="help-block">')
+    ->setMessageSeparatorString('</div><div class="help-block">')
+    ->setMessageCloseString('</div>')
+    ->render($zone); ?>
+</div>
+</div>
+
+<? $line = $reservation->get('line'); ?>
+<div class="form-group <?php if($this->formElementErrors($line)) 
+echo "has-error" ?>">
+<?php echo $this->formLabel($line); ?>
+<div class="col-sm-7">
+<?php echo $this->formElement($line) ?>
+<?php  echo $this->formElementErrors()
+	->setMessageOpenFormat('<div class="help-block">')
+    ->setMessageSeparatorString('</div><div class="help-block">')
+    ->setMessageCloseString('</div>')
+    ->render($line); ?>
+</div>
+</div>
+
+<? $cooperative = $reservation->get('cooperative'); ?>
+<div class="form-group <?php if($this->formElementErrors($cooperative)) 
+echo "has-error" ?>">
+<?php echo $this->formLabel($cooperative); ?>
+<div class="col-sm-7">
+<?php echo $this->formElement($cooperative) ?>
+<?php  echo $this->formElementErrors()
+	->setMessageOpenFormat('<div class="help-block">')
+    ->setMessageSeparatorString('</div><div class="help-block">')
+    ->setMessageCloseString('</div>')
+    ->render($cooperative); ?>
+</div>
+</div>
+
+<? $departureTime = $reservation->get('reservationBoard'); ?>
+<div class="form-group <?php if($this->formElementErrors($departureTime)) 
+echo "has-error" ?>">
+<?php echo $this->formLabel($departureTime); ?>
+<div class="col-sm-7">
+<?php echo $this->formElement($departureTime) ?>
+<?php  echo $this->formElementErrors()
+	->setMessageOpenFormat('<div class="help-block">')
+    ->setMessageSeparatorString('</div><div class="help-block">')
+    ->setMessageCloseString('</div>')
+    ->render($departureTime); ?>
+</div>
+</div>
+
+<? $car = $reservation->get('car'); ?>
+<div class="form-group <?php if($this->formElementErrors($car)) 
+echo "has-error" ?>">
+<?php echo $this->formLabel($car); ?>
+<div class="col-sm-7">
+<?php echo $this->formElement($car) ?>
+<?php  echo $this->formElementErrors()
+	->setMessageOpenFormat('<div class="help-block">')
+    ->setMessageSeparatorString('</div><div class="help-block">')
+    ->setMessageCloseString('</div>')
+    ->render($car); ?>
+</div>
+</div>
+
+<? $fare = $reservation->get('fare'); ?>
+<div class="form-group <?php if($this->formElementErrors($fare)) 
+echo "has-error" ?>">
+<?php echo $this->formLabel($fare); ?>
+<div class="col-sm-7">
+<div class="input-group">
+<?php echo $this->formElement($fare); ?>
+<?php  echo $this->formElementErrors()
+	->setMessageOpenFormat('<div class="help-block">')
+    ->setMessageSeparatorString('</div><div class="help-block">')
+    ->setMessageCloseString('</div>')
+    ->render($fare); ?>
+    <span class="input-group-addon">Ariary</span>
+</div>
+</div>
+</div>
+
+<? $seat = $reservation->get('seat'); ?>
+<div class="form-group <?php if($this->formElementErrors($seat)) 
+echo "has-error" ?>">
+<?php echo $this->formLabel($seat); ?>
+<div class="col-sm-7">
+<?php echo $this->formElement($seat) ?>
+<?php  echo $this->formElementErrors()
+	->setMessageOpenFormat('<div class="help-block">')
+    ->setMessageSeparatorString('</div><div class="help-block">')
+    ->setMessageCloseString('</div>')
+    ->render($seat); ?>
+</div>
+</div>
+
+<? $passenger = $reservation->get('passenger');?>
+<? echo $this->formHidden($passenger->get('id'));?>
+<div class="form-group">
+	<?=$this->formLabel($passenger->get('title')); ?>
+	<div class="col-sm-7">
+	<?=$this->formElement($passenger->get('title')); ?>			
+	</div>
+</div>
+<div class="form-group <?php if($this->formElementErrors($passenger->get('name'))) 
+echo "has-error" ?>">
+	<?=$this->formLabel($passenger->get('name')); ?>
+	<div class="col-sm-7">
+	<?=$this->formElement($passenger->get('name')); ?>
+	<?=$this->formElementErrors()
+		->setMessageOpenFormat('<div class="help-block">')
+	    ->setMessageSeparatorString('</div><div class="help-block">')
+	    ->setMessageCloseString('</div>')
+	    ->render($passenger->get('name')); ?>
+	</div>
+</div>
+<? $contactsCollection = $passenger->get('contacts');?>
+<div id="contacts-group">
+	<? foreach ($contactsCollection as $c):?>
+	<div class="contacts-element">
+		<? echo $this->formHidden($c->get('id'));?>
+		<div class="form-group">
+			<?=$this->formLabel($c->get('type')); ?>
+			<div class="col-sm-7">
+			<?=$this->formElement($c->get('type')); ?>			
+			</div>
+		</div>
+		<div class="form-group <?php if($this->formElementErrors($c->get('value'))) 
+echo "has-error" ?>">
+			<?=$this->formLabel($c->get('value')); ?>
+			<div class="col-sm-7">
+			<?=$this->formElement($c->get('value')); ?>
+			<?=$this->formElementErrors()
+				->setMessageOpenFormat('<div class="help-block">')
+			    ->setMessageSeparatorString('</div><div class="help-block">')
+			    ->setMessageCloseString('</div>')
+			    ->render($c->get('value')); ?>
+			</div>
+		</div>
+	</div>
+	<? endforeach;?>
+</div>
+<div class="form-group">
+	<span id="tplContact" data-template="<?=htmlspecialchars('<div class="contacts-element"><input type="hidden" value="" name="reservation-form[passenger-form][contacts][__placeholder__][id]"><div class="form-group"><label for="reservation-form[passenger-form][contacts][__placeholder__][type]" class="col-sm-3 control-label">').
+	$this->translate('Contact type').htmlspecialchars('</label><div class="col-sm-7"><select class="form-control" id="contact-chosen-__placeholder__" name="reservation-form[passenger-form][contacts][__placeholder__][type]"><option value="1">').
+	$this->translate('Mobile').htmlspecialchars('</option><option value="2">').$this->translate('Email').htmlspecialchars('</option><option value="3">').
+	$this->translate('Address').htmlspecialchars('</option></select></div></div><div class="form-group"><label for="reservation-form[passenger-form][contacts][__placeholder__][value]" class="col-sm-3 control-label">').
+	$this->translate('Contact value').htmlspecialchars('</label><div class="col-sm-7"><input type="text" value="" class="form-control" name="reservation-form[passenger-form][contacts][__placeholder__][value]"></div></div></div>') ?>"></span>
+	<div class="col-sm-7 col-sm-offset-3"></div>
+</div>
+
+<? $status = $reservation->get('status'); ?>
+<div class="form-group <?php if($this->formElementErrors($status)) 
+echo "has-error" ?>">
+<?php echo $this->formLabel($status); ?>
+<div class="col-sm-7">
+<?php echo $this->formElement($status) ?>
+<?php  echo $this->formElementErrors()
+	->setMessageOpenFormat('<div class="help-block">')
+    ->setMessageSeparatorString('</div><div class="help-block">')
+    ->setMessageCloseString('</div>')
+    ->render($status); ?>
+</div>
+</div>
+
+<? $payment = $reservation->get('payment'); ?>
+<div class="form-group <?php if($this->formElementErrors($payment)) 
+echo "has-error" ?>">
+<?php echo $this->formLabel($payment); ?>
+<div class="col-sm-7">
+<div class="input-group">
+<?php echo $this->formElement($payment) ?>
+<?php  echo $this->formElementErrors()
+	->setMessageOpenFormat('<div class="help-block">')
+    ->setMessageSeparatorString('</div><div class="help-block">')
+    ->setMessageCloseString('</div>')
+    ->render($payment); ?>
+    <span class="input-group-addon">Ariary</span>
+</div>
+</div>
+</div>
+
+<? echo $this->formHidden($reservation->get('created'));?>
+<? echo $this->formHidden($form->get('csrf'));?>
+
+<div class="form-group">
+<div class="col-sm-4 col-sm-offset-3">
+<? echo $this->formElement($form->get('submit'));?>
+</div>
+</div>
+<?php echo $this->form()->closeTag() ?>
+</div>
+</div>
+</div>
+</div>
+
+<? $this->inlineScript()
+			->appendFile($this->basePath() . '/js/select2.min.js');?>
+
+<script type="text/javascript">
+$(function() {	
+	$(".zone-select").select2({
+		placeholder: "Select zone",
+		minimumResultsForSearch: 10		
+	}).change(function(event){
+		if(event.target == this){
+			var zoneId = event.val;
+			$(".line-select").select2({
+				placeholder: "Select line",
+				minimumResultsForSearch: 10,
+				ajax: {
+					url: "/admin/cooperative/reservation/ajax?zoneId="+zoneId,
+			        dataType: 'json',
+			        quietMillis: 100,
+			        
+			        results: function (data) {
+			            return {results: data};
+			        }
+			    }
+			}).change(function(event){
+				if(event.target == this){
+					var lineId = event.val;
+					$(".cooperative-select").select2({
+						placeholder: "Select cooperative",
+						minimumResultsForSearch: 10,
+						ajax: {
+							url: "/admin/cooperative/reservation/ajax?lineId="+lineId,
+					        dataType: 'json',
+					        quietMillis: 100,
+					        
+					        results: function (data) {
+					            return {results: data};
+					        }
+					    }
+					}).change(function(event){
+						if(event.target == this){
+							var cooperativeId = event.val;
+							$(".departure-select").select2({
+								placeholder: "Select departure",
+								minimumResultsForSearch: 10,
+								ajax: {
+									url: "/admin/cooperative/reservation/ajax?cooperativeId="+cooperativeId+"&lineId="+lineId,
+							        dataType: 'json',
+							        quietMillis: 100,
+							        
+							        results: function (data) {
+							            return {results: data};
+							        }
+							    }
+							});
+						}
+					});
+				}
+			});
+		}
+	});
+
+	var zoneId = $(".zone-select").select2("val");
+	
+	$(".line-select").select2({
+		placeholder: "Select line",
+		minimumResultsForSearch: 10,
+		ajax: {
+			url: "/admin/cooperative/reservation/ajax?zoneId="+zoneId,
+	        dataType: 'json',
+	        quietMillis: 100,
+	        
+	        results: function (data) {
+	            return {results: data};
+	        }
+	    }
+	}).on("change", function(event){
+		if(event.target == this){
+			var lineId = event.val;
+			$(".cooperative-select").off("change");
+			$(".cooperative-select").select2({
+				placeholder: "Select cooperative",
+				minimumResultsForSearch: 10,
+				ajax: {
+					url: "/admin/cooperative/reservation/ajax?lineId="+lineId,
+			        dataType: 'json',
+			        quietMillis: 100,
+			        
+			        results: function (data) {
+			            return {results: data};
+			        }
+			    }
+			}).on("change", function(event){
+				if(event.target == this){
+					var cooperativeId = event.val;
+					$(".departure-select").select2({
+						placeholder: "Select departure",
+						minimumResultsForSearch: 10,
+						ajax: {
+							url: "/admin/cooperative/reservation/ajax?cooperativeId="+cooperativeId+"&lineId="+lineId,
+					        dataType: 'json',
+					        quietMillis: 100,
+					        
+					        results: function (data) {
+					            return {results: data};
+					        }
+					    }
+					});
+				}
+			});
+			var cooperativeId = $(".cooperative-select").select2("val");
+			$(".departure-select").select2({
+				placeholder: "Select departure",
+				minimumResultsForSearch: 10,
+				ajax: {
+					url: "/admin/cooperative/reservation/ajax?cooperativeId="+cooperativeId+"&lineId="+lineId,
+			        dataType: 'json',
+			        quietMillis: 100,
+			        
+			        results: function (data) {
+			            return {results: data};
+			        }
+			    }
+			});
+		}
+	});
+	var lineId = $(".line-select").select2("val");
+	$(".cooperative-select").select2({
+		placeholder: "Select cooperative",
+		minimumResultsForSearch: 10,
+		ajax: {
+			url: "/admin/cooperative/reservation/ajax?type=cooperative&lineId="+lineId,
+	        dataType: 'json',
+	        quietMillis: 100,
+	        
+	        results: function (data) {
+	            return {results: data};
+	        }
+	    }
+	}).on("change", function(event){
+		if(event.target == this){
+			var cooperativeId = event.val;
+			$(".departure-select").select2({
+				placeholder: "Select departure",
+				minimumResultsForSearch: 10,
+				ajax: {
+					url: "/admin/cooperative/reservation/ajax?cooperativeId="+cooperativeId+"&lineId="+lineId,
+			        dataType: 'json',
+			        quietMillis: 100,
+			        
+			        results: function (data) {
+			            return {results: data};
+			        }
+			    }
+			});
+		}
+	});
+
+	$(".departure-select").select2({
+		placeholder: "Select departure",
+		minimumResultsForSearch: 10,
+		ajax: {
+			url: "/admin/cooperative/reservation/ajax?type=departure",
+	        dataType: 'json',
+	        quietMillis: 100,
+	        
+	        results: function (data) {
+	            return {results: data};
+	        }
+	    }
+	}).on("change", function(event) {
+		if (event.target == this) {
+			var reservationBoardId = event.val;
+			$(".car-select").select2({
+				placeholder: "Select car",
+				minimumResultsForSearch: 10,
+				ajax: {
+					url: "/admin/cooperative/reservation/ajax?reservationBoardId="+reservationBoardId,
+			        dataType: 'json',
+			        quietMillis: 100,
+			        
+			        results: function (data) {
+						$('.fare-input').val(data.fare);
+			            return {results: data.car};
+			        }
+			    }
+			});
+			$(".seat-select").select2({
+				placeholder: "Select seat",
+				minimumResultsForSearch: 10,
+				ajax: {
+					url: "/admin/cooperative/reservation/ajax?reservationBoardId="+reservationBoardId,
+			        dataType: 'json',
+			        quietMillis: 100,
+			        
+			        results: function (data) {
+			            return {results: data.seat};
+			        }
+			    }
+			});
+		}
+	});
+	var reservationBoardId = $(".departure-select").select2("val");
+	$(".car-select").select2({
+		placeholder: "Select car",
+		minimumResultsForSearch: 10,
+		ajax: {
+			url: "/admin/cooperative/reservation/ajax?type=car",
+	        dataType: 'json',
+	        quietMillis: 100,
+	        
+	        results: function (data) {
+	            return {results: data};
+	        }
+	    }
+	});
+	
+	$(".seat-select").select2({
+		placeholder: "Select seat",
+		minimumResultsForSearch: 10,
+		ajax: {
+			url: "/admin/cooperative/reservation/ajax?type=seat",
+	        dataType: 'json',
+	        quietMillis: 100,
+	        
+	        results: function (data) {
+	            return {results: data};
+	        }
+	    }
+	});
+
+	$(".title-select").select2({minimumResultsForSearch: 10});
+	$(".chosen-select").select2({minimumResultsForSearch: 10});
+
+	/* ADDING MORE CONTACT */
+	var tplContact = $('#tplContact');
+	var tplContactManager = tplContact.parent();
+	var contactsGroup = $('#contacts-group');
+	
+	
+	var addContact = function () {	    	    
+		var contactsCount = contactsGroup.find('.contacts-element').length;
+	    contactsGroup.append(tplContact.data('template').replace(/__placeholder__/g, contactsCount));
+	    return contactsCount;
+	};
+
+	var removeBtnContacts =  $('<button class="btn btn-primary col-sm-offset-1"><i class="glyphicon glyphicon-minus"></i> <?=$this->translate('Contact'); ?></button>')
+    .button({
+        icons: {
+            primary: 'ui-icon-circle-plus'
+        }
+    }).on('click', function(e) {
+        e.preventDefault();        
+        count = contactsGroup.find('.contacts-element').length;
+        if (count == 2) {
+        	contactsGroup.find('.contacts-element:last-child').remove();
+            $(this).remove();
+        } else {
+        	contactsGroup.find('.contacts-element:last-child').remove();
+        }
+    });
+
+	
+
+	var btnContacts = $('<button class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> <?=$this->translate('Contact'); ?></button>')
+	    .button({
+	        icons: {
+	            primary: 'ui-icon-circle-plus'
+	        }
+	    }).on('click', function (e) {
+	    	tplContactManager.find('div').append(removeBtnContacts);
+	        e.preventDefault();
+	        $('.removeElement').html('');
+	        var index = addContact();
+	        $("#contact-chosen-"+index).select2({ 
+	    		width: '100%',
+	    		minimumResultsForSearch: 10
+	    	});
+	    });
+
+	tplContactManager.find('div').append(btnContacts);
+	var initContactsCount = contactsGroup.find('.contacts-element').length;
+	if (initContactsCount > 1) {	
+		tplContactManager.find('div').append(removeBtnContacts);
+	}
+});
+</script>

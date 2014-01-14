@@ -9,9 +9,7 @@ class AdminController extends AbstractActionController
 {
 	public function indexAction()
 	{
-		$view = new ViewModel(array(
-			'hello' => 'Hello world'
-		));
+		$view = new ViewModel();
  		$this->layout('layout/admin-layout');
  		return $view;
  	}

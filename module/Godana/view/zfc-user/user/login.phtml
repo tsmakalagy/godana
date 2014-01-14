@@ -1,3 +1,11 @@
+<!--<div id="fb-root"></div>-->
+<!--<script>(function(d, s, id) {-->
+<!--  var js, fjs = d.getElementsByTagName(s)[0];-->
+<!--  if (d.getElementById(id)) return;-->
+<!--  js = d.createElement(s); js.id = id;-->
+<!--  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=737653306264783";-->
+<!--  fjs.parentNode.insertBefore(js, fjs);-->
+<!--}(document, 'script', 'facebook-jssdk'));</script>-->
 <div class="row">
 <div class="col-md-8 col-md-offset-2">
 <div class="panel panel-primary">
@@ -8,7 +16,7 @@
 <?php
 $form = $this->loginForm;
 $form->prepare();
-$form->setAttribute('action', $this->url('zfcuser/login'));
+$form->setAttribute('action', $this->url('zfcuser/login', array(), array(), true));
 $form->setAttribute('method', 'post');
 $form->setAttribute('class', 'form-horizontal');
 $form->setAttribute('role', 'form');
@@ -40,14 +48,17 @@ $form->setAttribute('role', 'form');
         <?php endif ?>
 
         <div class="form-group">
-        <div class="col-sm-4 col-sm-offset-4"><?php echo $this->formButton($form->get('submit')) ?></div></div>
+        <div class="col-sm-3 col-sm-offset-4"><?php echo $this->formButton($form->get('submit')) ?></div>
+        <?php     echo $this->socialSignInButton('facebook') ?>
+<!--        <div class="fb-login-button" data-max-rows="1" data-show-faces="false"></div>-->
+        </div>
     
 
 <?php echo $this->form()->closeTag() ?>
 
 <?php if ($this->enableRegistration) : ?>
 <div class="col-sm-4 col-sm-offset-4">
-<?php echo $this->translate('Not registered?'); ?> <a href="<?php echo $this->url('zfcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Sign up!'); ?></a>
+<?php echo $this->translate('Not registered?'); ?> <a href="<?php echo $this->url('zfcuser/register', array(), array(), true) . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Sign up!'); ?></a>
 </div>
 <?php endif; ?>
 </div>

@@ -1,5 +1,6 @@
 <?php echo $this->headLink()
                 ->appendStylesheet($this->basePath() . '/css/blueimp-gallery.min.css');?>
+<? $this->headTitle($this->translate('Bid'));?>
 <div class="row">
 <? $bid = $this->bid;?>
 <? $type = $bid->getType();?>

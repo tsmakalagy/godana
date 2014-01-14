@@ -110,6 +110,20 @@ class Base extends ProvidesEventsForm
                 'type' => 'text'
             ),
         ));
+        
+//        $this->add(array(
+//            'name' => 'oldpass',
+//            'options' => array(
+//                'label' => 'Current password',
+//        		'label_attributes' => array(
+//		            'class' => 'col-sm-4 control-label',
+//		        ),
+//            ),
+//            'attributes' => array(
+//                'type' => 'password',
+//                'class' => 'form-control',
+//            ),
+//        ));
 
         $this->add(array(
             'name' => 'password',
