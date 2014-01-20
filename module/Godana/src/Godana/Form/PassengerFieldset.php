@@ -90,6 +90,10 @@ class PassengerFieldset extends Fieldset implements InputFilterProviderInterface
             'id' => array(
                 'required' => false
             ),
+            
+            'title' => array(
+            	'required' => false
+            ),
 
             'name' => array(
                 'required' => true,

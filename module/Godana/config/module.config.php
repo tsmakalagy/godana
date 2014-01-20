@@ -27,6 +27,7 @@ return array(
 			'myuser' => __NAMESPACE__ . '\Controller\MyUserController',
 			'search' => __NAMESPACE__ . '\Controller\SearchController',
 			'cooperative' => __NAMESPACE__ . '\Controller\CooperativeController',
+			'tools' => __NAMESPACE__ . '\Controller\ToolsController',
 		),
 	),
 	'view_manager' => array(
@@ -55,5 +56,10 @@ return array(
             ),
         ),
     ),
-    
+    'service_manager' => array(
+    	'aliases' => array(
+    		'zfcuser_doctrine_em' => 'Doctrine\ORM\EntityManager'
+    	),
+    	
+    )
 );

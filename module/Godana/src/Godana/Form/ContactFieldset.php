@@ -89,6 +89,10 @@ class ContactFieldset extends Fieldset implements InputFilterProviderInterface, 
             'id' => array(
                 'required' => false
             ),
+            
+            'type' => array(
+                'required' => false
+            ), 
 
             'value' => array(
                 'required' => true,

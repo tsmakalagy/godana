@@ -59,9 +59,18 @@ class ReservationBoardRepository extends EntityRepository
 	public function getReservationBoardFromNow()
 	{
 		$sql = 'SELECT r FROM Godana\Entity\ReservationBoard r
-		WHERE r.departureTime > CURRENT_TIMESTAMP()';
+		WHERE r.departureTime > CURRENT_TIMESTAMP() ORDER BY r.departureTime DESC';
 		$query = $this->_em->createQuery($sql);
 		$resBoards = $query->getResult();
 		return $resBoards;
 	}
+	
+	public function getAllReservationBoard()
+	{
+		$sql = 'SELECT r FROM Godana\Entity\ReservationBoard r ORDER BY r.departureTime ASC';
+		$query = $this->_em->createQuery($sql);
+		$resBoards = $query->getResult();
+		return $resBoards;
+	}
+	
 }

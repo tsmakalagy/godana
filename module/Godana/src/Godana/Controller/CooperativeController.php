@@ -34,6 +34,11 @@ class CooperativeController extends AbstractActionController
 	const ROUTE_CREATE_RESERVATION_BORD = 'admin/cooperative/reservation_board_create';
 	const ROUTE_CREATE_RESERVATION = 'admin/cooperative/reservation_create';
 	
+	const ROUTE_EDIT_COOPERATIVE = 'admin/cooperative/edit';
+	const ROUTE_LIST_COOPERATIVE = 'admin/cooperative';
+	
+	const ROUTE_USER_RESERVATION = 'tools/transportation_reservation';
+	
 	/**
      * @var Form
      */
@@ -89,15 +94,101 @@ class CooperativeController extends AbstractActionController
      */
     protected $reservationForm;
     
+     /**
+     * @var Form
+     */
+    protected $modifiedReservationForm;
+    
     
     /**
      * @var ObjectManager
      */
     protected $objectManager;
     
+    public function indexAction()
+    {
+    	
+    	$this->layout('layout/cooperative-layout');
+		$om = $this->getObjectManager(); 		
+	    $lang = $this->params()->fromRoute('lang', 'mg');
+	    
+	    $cooperatives = $om->getRepository('Godana\Entity\Cooperative')->findAll();
+	    $currentUser = $this->zfcUserAuthentication()->getIdentity();
+	    $currentRoles = $currentUser->getRoles();
+	    $isCooperative = false;
+	    foreach ($currentRoles as $role) {
+	    	if (strpos($role->getRoleId(), 'cooperative') === 0) {
+	    		$isCooperative = true;
+	    		break;
+	    	}
+	    }
+	    if ($isCooperative) {
+	    	$coops = array();
+	    	foreach ($cooperatives as $coop) {
+	    		if ($coop->hasUser($currentUser)) {
+	    			array_push($coops, $coop);
+	    		}
+	    	}
+	    	return array(
+	    		'cooperatives' => $coops,
+	    		'lang' => $lang,
+	    	);
+	    } else {
+	    	return array(
+	    		'cooperatives' => $cooperatives,
+	    		'lang' => $lang,
+	    	);
+	    }
+    }
+    
+    public function editCooperativeAction()
+    {
+    	$this->layout('layout/cooperative-layout');
+		$om = $this->getObjectManager(); 		
+	    $lang = $this->params()->fromRoute('lang', 'mg');
+	    $cooperativeId = $this->params()->fromRoute('cooperativeId', null);
+	    $form = $this->getCooperativeForm();
+	    if ($cooperativeId != null) {
+			$cooperative = $om->getRepository('Godana\Entity\Cooperative')->find($cooperativeId);
+			$form->bind($cooperative);
+			$url = $this->url()->fromRoute(static::ROUTE_EDIT_COOPERATIVE, array('lang' => $lang, 'cooperativeId' => $cooperativeId));
+		    $prg = $this->prg($url, true);
+	        if ($prg instanceof Response) {        	
+	            return $prg;
+	        } elseif ($prg === false) {
+	            return array(
+			    	'cooperativeForm' => $form,
+	            	'lang' => $lang,
+	            	'cooperativeId' => $cooperative->getId()
+			    );
+	        }
+	        $post = $prg;
+	        $form->setData($post);
+			if ($form->isValid()) {				
+				$admins = $post['cooperative-form']['admins'];
+				$tellers = $post['cooperative-form']['tellers'];
+				if ($admins == null) {
+					$cooperative->removeAllAdmins();
+				}
+				if ($tellers == null) {
+					$cooperative->removeAllTellers();
+				}
+	     		$om->persist($cooperative);
+	            $om->flush();
+				return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_LIST_COOPERATIVE, array('lang' => $lang, 'cooperativeId' => $cooperativeId)));
+	        }
+		}
+		return array(
+	    	'cooperativeForm' => $form,
+            'lang' => $lang,
+			'cooperativeId' => $cooperative->getId()
+	    );
+	    
+    }
+    
     public function createCooperativeAction()
     {
-    	$this->layout('layout/admin-layout');
+    	$this->layout('layout/cooperative-layout');
 		$om = $this->getObjectManager(); 		
 	    $lang = $this->params()->fromRoute('lang', 'mg');
 	    $form = $this->getCooperativeForm();
@@ -135,7 +226,7 @@ class CooperativeController extends AbstractActionController
     
 	public function addlineAction()
     {
-    	$this->layout('layout/admin-layout');
+    	$this->layout('layout/cooperative-layout');
 		$om = $this->getObjectManager(); 		
 	    $lang = $this->params()->fromRoute('lang', 'mg');
 	    $form = $this->getCooperativeLineForm();
@@ -182,6 +273,15 @@ class CooperativeController extends AbstractActionController
 	    
 	    $url = $this->url()->fromRoute(static::ROUTE_ADD_LINE, array('lang' => $lang));
 	    $prg = $this->prg($url, true);
+	    
+	     // Proxy for Cooperative
+	    $currentUser = $this->zfcUserAuthentication()->getIdentity()->getId();
+	    $cooperativeProxy = $form->get('cooperative-form')->get('cooperative')->getProxy();
+		$cooperativeProxy->setIsMethod(true)
+        	->setFindMethod(array(
+                'name'   => 'findCooperativeOfCurrentUser',
+                'params' => array('currentUser' => $currentUser),
+           ));
 
         if ($prg instanceof Response) {        	
             return $prg;
@@ -250,7 +350,7 @@ class CooperativeController extends AbstractActionController
     
 	public function createZoneAction()
 	{
-		$this->layout('layout/admin-layout');
+		$this->layout('layout/cooperative-layout');
 		$om = $this->getObjectManager(); 		
 	    $lang = $this->params()->fromRoute('lang', 'mg');
 	    $form = $this->getZoneForm();
@@ -288,7 +388,7 @@ class CooperativeController extends AbstractActionController
 	
 	public function createLineAction()
 	{
-		$this->layout('layout/admin-layout');
+		$this->layout('layout/cooperative-layout');
 		$om = $this->getObjectManager(); 		
 	    $lang = $this->params()->fromRoute('lang', 'mg');
 	    $form = $this->getLineForm();
@@ -330,7 +430,7 @@ class CooperativeController extends AbstractActionController
 	
 	public function addCarMakeAction()
 	{
-		$this->layout('layout/admin-layout');
+		$this->layout('layout/cooperative-layout');
 		$om = $this->getObjectManager(); 		
 	    $lang = $this->params()->fromRoute('lang', 'mg');
 	    $form = $this->getCarMakeForm();
@@ -368,7 +468,7 @@ class CooperativeController extends AbstractActionController
 	
 	public function addCarModelAction()
 	{
-		$this->layout('layout/admin-layout');
+		$this->layout('layout/cooperative-layout');
 		$om = $this->getObjectManager(); 		
 	    $lang = $this->params()->fromRoute('lang', 'mg');
 	    $form = $this->getCarModelForm();
@@ -405,7 +505,7 @@ class CooperativeController extends AbstractActionController
 	
 	public function addCarDriverAction()
 	{
-		$this->layout('layout/admin-layout');
+		$this->layout('layout/cooperative-layout');
 		$om = $this->getObjectManager(); 		
 	    $lang = $this->params()->fromRoute('lang', 'mg');
 	    $form = $this->getCarDriverForm();
@@ -415,6 +515,15 @@ class CooperativeController extends AbstractActionController
 	    $url = $this->url()->fromRoute(static::ROUTE_ADD_DRIVER, array('lang' => $lang));
 	    $prg = $this->prg($url, true);
 
+	    // Proxy for Cooperative
+	    $currentUser = $this->zfcUserAuthentication()->getIdentity()->getId();
+	    $cooperativeProxy = $form->get('car-driver-form')->get('cooperative')->getProxy();
+		$cooperativeProxy->setIsMethod(true)
+        	->setFindMethod(array(
+                'name'   => 'findCooperativeOfCurrentUser',
+                'params' => array('currentUser' => $currentUser),
+           ));
+	    
         if ($prg instanceof Response) {        	
             return $prg;
         } elseif ($prg === false) {
@@ -443,17 +552,29 @@ class CooperativeController extends AbstractActionController
 	
 	public function addCarAction()
 	{
-		$this->layout('layout/admin-layout');
+		$this->layout('layout/cooperative-layout');
 		$om = $this->getObjectManager(); 		
 	    $lang = $this->params()->fromRoute('lang', 'mg');
 	    $form = $this->getCarForm();
 	    
 		$makeId = $this->params()->fromQuery('makeId', null);
+		$cooperativeId = $this->params()->fromQuery('cooperativeId', null); 
 	    if ($makeId != null) {
 	    	$models = $om->getRepository('Godana\Entity\CarModel')->findModelsByMakeId($makeId);
 	    	$result = array();
 	    	foreach ($models as $model) {
-	    		$res = array('id' => $model->getId(), 'text' => strtoupper($model->getName()));
+	    		$res = array('id' => $model->getId(), 'text' => ucfirst($model->getName()));
+	    		array_push($result, $res);
+	    	}
+           	return new \Zend\View\Model\JsonModel($result);
+	    }
+	    
+	    if ($cooperativeId != null) {
+	    	$cooperative = $om->getRepository('Godana\Entity\Cooperative')->find($cooperativeId);
+	    	$drivers = $cooperative->getDrivers();
+	    	$result = array();
+	    	foreach ($drivers as $driver) {
+	    		$res = array('id' => $driver->getId(), 'text' => ucfirst($driver->getName()));
 	    		array_push($result, $res);
 	    	}
            	return new \Zend\View\Model\JsonModel($result);
@@ -463,6 +584,15 @@ class CooperativeController extends AbstractActionController
 	    $form->bind($car);
 	    $url = $this->url()->fromRoute(static::ROUTE_ADD_CAR, array('lang' => $lang));
 	    $prg = $this->prg($url, true);
+	    
+	    // Proxy for Cooperative
+	    $currentUser = $this->zfcUserAuthentication()->getIdentity()->getId();
+	    $cooperativeProxy = $form->get('car-form')->get('cooperative')->getProxy();
+		$cooperativeProxy->setIsMethod(true)
+        	->setFindMethod(array(
+                'name'   => 'findCooperativeOfCurrentUser',
+                'params' => array('currentUser' => $currentUser),
+           ));
 
         if ($prg instanceof Response) {        	
             return $prg;
@@ -492,7 +622,7 @@ class CooperativeController extends AbstractActionController
 	
 	public function addCarLineAction()
 	{
-		$this->layout('layout/admin-layout');
+		$this->layout('layout/cooperative-layout');
 		$om = $this->getObjectManager(); 		
 	    $lang = $this->params()->fromRoute('lang', 'mg');
 	    $form = $this->getLineCarForm();
@@ -502,6 +632,15 @@ class CooperativeController extends AbstractActionController
 	    $form->bind($lineCar);
 	    $url = $this->url()->fromRoute(static::ROUTE_ADD_LINE_CAR, array('lang' => $lang));
 	    $prg = $this->prg($url, true);
+	    
+	    // Proxy for Cooperative
+	    $currentUser = $this->zfcUserAuthentication()->getIdentity()->getId();
+	    $cooperativeProxy = $form->get('line-car-form')->get('cooperative')->getProxy();
+		$cooperativeProxy->setIsMethod(true)
+        	->setFindMethod(array(
+                'name'   => 'findCooperativeOfCurrentUser',
+                'params' => array('currentUser' => $currentUser),
+           ));
 
         if ($prg instanceof Response) {        	
             return $prg;
@@ -531,7 +670,7 @@ class CooperativeController extends AbstractActionController
 	
 	public function createReservationBoardAction()
 	{
-		$this->layout('layout/admin-layout');
+		$this->layout('layout/cooperative-layout');
 		$om = $this->getObjectManager(); 		
 	    $lang = $this->params()->fromRoute('lang', 'mg');
 	    $form = $this->getReservationBoardForm();
@@ -542,6 +681,15 @@ class CooperativeController extends AbstractActionController
 	    
         $url = $this->url()->fromRoute(static::ROUTE_CREATE_RESERVATION_BORD, array('lang' => $lang));
 	    $prg = $this->prg($url, true);
+	    
+	    // Proxy for Cooperative
+	    $currentUser = $this->zfcUserAuthentication()->getIdentity()->getId();
+	    $cooperativeProxy = $form->get('reservation-board-form')->get('cooperative')->getProxy();
+		$cooperativeProxy->setIsMethod(true)
+        	->setFindMethod(array(
+                'name'   => 'findCooperativeOfCurrentUser',
+                'params' => array('currentUser' => $currentUser),
+           ));
 
         if ($prg instanceof Response) {        	
             return $prg;
@@ -573,7 +721,7 @@ class CooperativeController extends AbstractActionController
 	
 	public function createReservationAction()
 	{
-		$this->layout('layout/admin-layout');
+		$this->layout('layout/cooperative-layout');
 		$om = $this->getObjectManager(); 		
 	    $lang = $this->params()->fromRoute('lang', 'mg');
 	    $form = $this->getReservationForm();
@@ -628,7 +776,8 @@ class CooperativeController extends AbstractActionController
 		    		$res = array('id' => $line->getId(), 'text' => $lineValue);			    		
 		    		array_push($result, $res);
 		    	}
-	           	return new \Zend\View\Model\JsonModel($result);    		
+		    	$jsonModel = new \Zend\View\Model\JsonModel($result);
+	           	return  $jsonModel;
 	    	} else if ($lineId != null) {
 	    		$cars = $om->getRepository('Godana\Entity\Line')->findCooperativeCarsNotInLine($lineId, $cooperativeId);
 	    		$result = array();
@@ -762,7 +911,7 @@ class CooperativeController extends AbstractActionController
 					->getReservationBoardByLineAndCooperativeFromNow($lineId, $cooperativeId);
 				foreach ($resBoards as $resBoard) {
 		    		$departure = $resBoard->getDepartureTime();
-		    		$res = array('id' => $resBoard->getId(), 'text' => date_format($departure, 'jS, F Y H:i'));					
+		    		$res = array('id' => $resBoard->getId(), 'text' => date_format($departure, 'l j F Y H:i'));					
 		    		array_push($result, $res);
 		    	}
 			} else {
@@ -843,6 +992,272 @@ class CooperativeController extends AbstractActionController
            ));
  		return $this->getResponse();
 	}
+	
+	public function listReservationBoardAction()
+	{
+		$this->layout('layout/cooperative-layout');
+		$om = $this->getObjectManager();
+		$lang = $this->params()->fromRoute('lang', 'mg');
+		$currentUser = $this->zfcUserAuthentication()->getIdentity();
+		$reservationBoards = $om->getRepository('Godana\Entity\ReservationBoard')
+			->getAllReservationBoard();
+		if ($currentUser->hasRole('admin')) {
+			return array(
+				'reservationBoards' => $reservationBoards,
+				'lang' => $lang
+			);	
+		} else {
+			$resBoards = array();
+			foreach ($reservationBoards as $reservationBoard) {
+				$cooperative = $reservationBoard->getCooperative();
+				if ($cooperative->hasUser($currentUser)) {
+					array_push($resBoards, $reservationBoard);
+				}				
+			}
+			return array(
+				'reservationBoards' => $resBoards,
+				'lang' => $lang
+			);
+		}
+		
+	}
+	
+	public function detailReservationBoardAction()
+	{
+		$this->layout('layout/cooperative-layout');
+		$om = $this->getObjectManager();
+		$lang = $this->params()->fromRoute('lang', 'mg');
+		$reservationBoardId = $this->params()->fromRoute('reservationBoardId', null);
+		if ($reservationBoardId != null) {
+			$reservationBoard = $om->getRepository('Godana\Entity\ReservationBoard')->find($reservationBoardId);
+			$departureTime = $reservationBoard->getDepartureTime();
+			return array(
+				'lang' => $lang, 
+				'reservationBoard' => $reservationBoard,
+				'reservationForm' => $this->getModifiedReservationForm()
+			);
+		} else {
+			return array('lang' => $lang, 'reservationForm' => $this->getModifiedReservationForm());
+		}
+	}
+	
+	public function showReservationFormAction()
+    {
+        $viewModel = new ViewModel();
+        $form = $this->getModifiedReservationForm();
+        $reservationId = $this->params()->fromQuery('reservationId', null);
+        $request = $this->getRequest();
+        $om = $this->getObjectManager(); 
+        //disable layout if request by Ajax
+        $viewModel->setTerminal($request->isXmlHttpRequest());
+        
+        if ($reservationId != null) {
+       		$reservation = $om->getRepository('Godana\Entity\Reservation')->find($reservationId);
+        	$form->bind($reservation); 
+        	$created = $reservation->getCreated();
+        	$reservationBoard = $reservation->getReservationBoard();
+        	$form->get('reservation-form')->get('reservationBoard')->setValue($reservationBoard->getId());
+			if (isset($created)) {
+				$form->get('reservation-form')->get('created')->setValue($created->format('m/d/Y H:i:s'));	
+			}
+        } else {
+        	$reservation = new Reservation();         	
+        	$form->bind($reservation);
+        	$form->get('reservation-form')->get('payment')->setValue(0);         	
+        }    
+       
+        $is_xmlhttprequest = 1;
+        if ( ! $request->isXmlHttpRequest()){
+            //if NOT using Ajax
+            $is_xmlhttprequest = 0;
+            if ($request->isPost()){
+            	$form->setData($request->getPost());
+                if ($form->isValid()){
+                	//$om->flush();	
+                }
+            }
+        }
+         
+        $viewModel->setVariables(array(
+                    'form' => $form,
+                    // is_xmlhttprequest is needed for check this form is in modal dialog or not
+                    // in view
+                    'is_xmlhttprequest' => $is_xmlhttprequest
+        ));
+         
+        return $viewModel;
+    }
+    
+	public function validatePostAjaxAction()
+    {
+        $form    = $this->getModifiedReservationForm();
+        $request = $this->getRequest();
+        $response = $this->getResponse();
+        
+        $om = $this->getObjectManager(); 
+        $reservationId = $this->params()->fromQuery('reservationId', null);
+        if ($reservationId != null) {
+       		$reservation = $om->getRepository('Godana\Entity\Reservation')->find($reservationId);
+        	$form->bind($reservation); 
+        	$created = $reservation->getCreated();
+        	$reservationBoard = $reservation->getReservationBoard();
+        	$form->get('reservation-form')->get('reservationBoard')->setValue($reservationBoard->getId());
+			if (isset($created)) {
+				$form->get('reservation-form')->get('created')->setValue($created->format('m/d/Y H:i:s'));	
+			}
+        } else {
+        	$reservation = new Reservation();
+        	$form->bind($reservation); 
+        }          
+	    
+        $messages = array();
+        if ($request->isPost()){
+            $form->setData($request->getPost());
+            if ( ! $form->isValid()) {
+                $errors = $form->getMessages();
+                $messages['name'] = array();
+            	$messages['value'] = array();
+            	$messages['payment'] = array();
+            	  
+                $passengerNameError = $form->get('reservation-form')->get('passenger')->get('name')->getMessages();
+                $passengerContactValueError = $form->get('reservation-form')->get('passenger')->get('contacts')->get(0)->get('value')->getMessages();
+                $paymentError = $form->get('reservation-form')->get('payment')->getMessages();
+                $i = 0;
+                foreach ($passengerNameError as $message) {
+                	$messages['name'][$i++] = $message;
+                }
+            	$i = 0;
+                foreach ($passengerContactValueError as $message) {
+                	$messages['value'][$i++] = $message;
+                }
+            	$i = 0;
+                foreach ($paymentError as $message) {
+                	$messages['payment'][$i++] = $message;
+                }
+            	
+            }             
+            if (!empty($errors)){     
+				$response->setContent(\Zend\Json\Json::encode($messages));
+            } else {
+            	$reservationBoard = $reservation->getReservationBoard();
+                $line = $reservationBoard->getLine();
+                $car = $reservationBoard->getCar();
+                $fare = $car->getLineCarFare($line);
+	            $is_fully_paid = true;
+				if ($reservation->getPayment() < $fare) {
+					$is_fully_paid = false;
+				}
+				if ($is_fully_paid) {
+					$reservation->setStatus(1);
+				} else if ($reservation->getPayment() == 0) {
+					$reservation->setStatus(2);
+				} else {
+					$reservation->setStatus(0);
+				}
+                $om->persist($reservation);
+                $om->flush();	
+                
+				$passenger = $reservation->getPassenger();
+				$p_name = $passenger->getName();
+				$p_title = $passenger->getTitle();
+				if ($p_title == 0) {
+					$title = "Mr ".ucwords($p_name);
+				} else if ($p_title == 1) {
+					$title = "Mme ".ucwords($p_name);
+				} else if ($p_title == 2) {
+					$title = "Ms ".ucwords($p_name);
+				}			
+                $response->setContent(\Zend\Json\Json::encode(
+                	array(
+                		'success'=>1, 
+                		'paid'=>$is_fully_paid, 
+                		'reservationId'=>$reservation->getId(),
+                		'title'=>$title
+                	))
+                );
+            }
+        }
+         
+        return $response;
+    }
+    
+    public function userReservationAction()
+    {
+    	$this->layout('layout/tools-layout');
+    	$om = $this->getObjectManager();
+    	$lang = $this->params()->fromRoute('lang', 'mg');
+    	$type = $this->params()->fromQuery('type', null);
+    	$zoneId = $this->params()->fromQuery('zoneId', null);
+    	if ($type != null && $type == 'zone') {
+	    	$zones = $om->getRepository('Godana\Entity\Zone')->findAll();
+	    	$result = array();
+	    	foreach ($zones as $zone) {
+	    		$res = array('id' => $zone->getId(), 'text' => $zone->getName());
+	    		array_push($result, $res);
+	    	}
+	    	return new \Zend\View\Model\JsonModel($result);
+	    } else if ($type == 'line' && $zoneId == null) {
+	    	$lines = $om->getRepository('Godana\Entity\Line')->findAll();
+	    	$result = array();
+	    	foreach ($lines as $line) {
+	    		$departure = $line->getDeparture()->getCityAccented();
+	    		$arrival = $line->getArrival()->getCityAccented();
+	    		$lineValue = $departure . ' ==> ' . $arrival;
+	    		$res = array('id' => $line->getId(), 'text' => $lineValue);		
+	    		array_push($result, $res);
+	    	}
+	    	return new \Zend\View\Model\JsonModel($result);
+	    }
+    	if ($zoneId != null) {
+    		$zone = $om->getRepository('Godana\Entity\Zone')->find($zoneId);	    		
+    		$lines = $zone->getLines();
+	    	$result = array();
+	    	foreach ($lines as $line) {
+	    		$departure = $line->getDeparture()->getCityAccented();
+	    		$arrival = $line->getArrival()->getCityAccented();
+	    		$lineValue = $departure . ' ==> ' . $arrival;
+	    		$res = array('id' => $line->getId(), 'text' => $lineValue);			    		
+	    		array_push($result, $res);
+	    	}
+           	return new \Zend\View\Model\JsonModel($result);    		
+    	}
+    	$url = $this->url()->fromRoute(static::ROUTE_USER_RESERVATION, array('lang' => $lang));
+	    $prg = $this->prg($url, true);
+        if ($prg instanceof Response) {        	
+            return $prg;
+        } elseif ($prg === false) {
+            return array(
+            	'lang' => $lang,
+		    );
+        }
+        $post = $prg;
+        $lineId = $post['line'];
+        $reservationBoards = $om->getRepository('Godana\Entity\ReservationBoard')
+        					->getReservationBoardByLineFromNow($lineId);
+        return array(
+    		'reservationBoards' => $reservationBoards,
+            'lang' => $lang,
+	    );
+    }
+    
+    public function detailUserReservationAction()
+    {
+    	$this->layout('layout/tools-layout');
+		$om = $this->getObjectManager();
+		$lang = $this->params()->fromRoute('lang', 'mg');
+		$reservationBoardId = $this->params()->fromRoute('reservationBoardId', null);
+		if ($reservationBoardId != null) {
+			$reservationBoard = $om->getRepository('Godana\Entity\ReservationBoard')->find($reservationBoardId);
+			$departureTime = $reservationBoard->getDepartureTime();
+			return array(
+				'lang' => $lang, 
+				'reservationBoard' => $reservationBoard,
+				'reservationForm' => $this->getModifiedReservationForm()
+			);
+		} else {
+			return array('lang' => $lang, 'reservationForm' => $this->getModifiedReservationForm());
+		}
+    }
 	
 	public function getZoneForm()
     {
@@ -985,6 +1400,19 @@ class CooperativeController extends AbstractActionController
     public function setReservationForm(Form $reservationForm)
     {
         $this->reservationForm = $reservationForm;
+    }
+    
+	public function getModifiedReservationForm()
+    {
+        if (!$this->modifiedReservationForm) {
+            $this->setModifiedReservationForm($this->getServiceLocator()->get('reservation_form'));
+        }
+        return $this->modifiedReservationForm;
+    }
+
+    public function setModifiedReservationForm(Form $modifiedReservationForm)
+    {
+        $this->modifiedReservationForm = $modifiedReservationForm;
     }
 
 	public function getObjectManager()

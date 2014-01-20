@@ -17,7 +17,7 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-    	$this->layout()->home_active = 'active';
+//    	$this->layout()->home_active = 'active';
     	return array('home_active' => 'active');
     }
 }

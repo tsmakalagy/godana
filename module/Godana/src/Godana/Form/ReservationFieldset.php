@@ -179,7 +179,7 @@ class ReservationFieldset extends Fieldset implements InputFilterProviderInterfa
         
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
-            'name' => 'created'
+            'name' => 'created',
         ));
         
         

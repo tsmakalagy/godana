@@ -353,4 +353,15 @@ class Line extends \Godana\Entity\Line implements \Doctrine\ORM\Proxy\Proxy
         return parent::addLineContact($lineContact);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getLineJourney()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLineJourney', array());
+
+        return parent::getLineJourney();
+    }
+
 }

@@ -67,9 +67,9 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
 		            'class' => 'col-sm-3 control-label',
 		        ),
             ),
-            'attributes' => array(
-                'type' => 'text',
-                'class' => 'datepicker form-control',
+            'attributes' => array(                
+                'class' => 'datepicker form-control',            	
+        		'type' => 'text',
             ),
         ));        
     

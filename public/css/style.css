@@ -304,3 +304,45 @@ div.container a.brand {
     border:  none !important;
     width: 30% !important;    
 }
+
+.user-sprite {
+	background: url("../img/user_sprite.png") no-repeat transparent;
+}
+
+.seat-available {
+	/*background: url("../img/seat-gray.png") no-repeat scroll 0 10px transparent;
+	*/
+	background-position: -240px 10px;
+	width: 60px;
+	height: 59px;
+	display: inline-block;
+	margin-left: 16px;
+}
+
+.driver {
+	background-position: 0px 10px;
+	width: 60px;
+	height: 59px;
+	display: inline-block;
+	margin-left: 16px;
+}
+
+.seat-taken {
+	background-position: -60px 10px;
+	width: 60px;
+	height: 59px;
+	display: inline-block;
+	margin-left: 16px;
+}
+
+.seat-paid {
+	background-position: -120px 10px;
+	width: 60px;
+	height: 59px;
+	display: inline-block;
+	margin-left: 16px;
+}
+
+a.detail-seat {
+	text-decoration: none;
+}

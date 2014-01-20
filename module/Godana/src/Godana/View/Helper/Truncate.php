@@ -15,6 +15,6 @@ class Truncate extends AbstractHelper
      */
     public function __invoke($str, $width = 25)
     {
-    	return current(explode("\n", wordwrap($str, $width, "...\n")));
+    	return current(explode("\n", wordwrap($str, $width, "&hellip;\n")));
     }
 }

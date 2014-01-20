@@ -21,7 +21,7 @@ class CarMake
 	protected $id;
 	
 	/**
-	 * @ORM\Column(type="string", length=128)
+	 * @ORM\Column(type="string", length=128, unique=true)
 	 * @var string
 	 */
 	protected $name;

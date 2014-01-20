@@ -16,7 +16,7 @@ use ZfcUser\Entity\UserInterface;
 /**
  * An example of how to implement a role aware user entity.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Godana\Entity\UserRepository")
  * @ORM\Table(name="users")
  *
  * @author Tom Oram <tom@scl.co.uk>
@@ -271,6 +271,17 @@ class User implements UserInterface, ProviderInterface
     public function addRole($role)
     {
         $this->roles[] = $role;
+    }
+    
+    public function hasRole($roleId)
+    {
+    	$hasRole = false;
+    	foreach ($this->roles as $role) {
+    		if ($role->getRoleId() == $roleId) {
+    			$hasRole = true;
+    		}
+    	}
+    	return $hasRole;
     }
     
 	/**

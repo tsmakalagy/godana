@@ -45,6 +45,66 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
             ),
         ));
         
+        $this->add(
+            array(
+                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                'name' => 'admins',
+                'attributes' => array(
+            		'class' => 'form-control admin-select',
+            		'multiple' => 'multiple'
+                ),                
+                'options' => array(
+                    'object_manager' => $this->objectManager,
+                    'target_class'   => 'SamUser\Entity\User',
+                    'property'       => 'firstname',
+                	'label_generator' => function($targetEntity) {
+                			return ucfirst($targetEntity->getFirstname());	
+		            },
+		            'find_method' => array(
+			        	'name' => 'findUserCooperative',
+			        	'params' => array(		        		
+			        		'roleId' => 'cooperative-admin'
+			        	),			        	
+			        ),
+                    'label'          => 'Admins',
+                	'label_attributes' => array(
+			            'class' => 'col-sm-3 control-label',
+			        ),
+                    'disable_inarray_validator' => true               
+                ),
+            )
+        ); 
+        
+        $this->add(
+            array(
+                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                'name' => 'tellers',
+                'attributes' => array(
+            		'class' => 'form-control teller-select',
+            		'multiple' => 'multiple'
+                ),                
+                'options' => array(
+                    'object_manager' => $this->objectManager,
+                    'target_class'   => 'SamUser\Entity\User',
+                    'property'       => 'firstname',
+                	'label_generator' => function($targetEntity) {
+                			return ucfirst($targetEntity->getFirstname());	
+		            },
+		            'find_method' => array(
+			        	'name' => 'findUserCooperative',
+			        	'params' => array(		        		
+			        		'roleId' => 'cooperative-teller'
+			        	),			        	
+			        ),
+                    'label'          => 'Tellers',
+                	'label_attributes' => array(
+			            'class' => 'col-sm-3 control-label',
+			        ),
+                    'disable_inarray_validator' => true               
+                ),
+            )
+        ); 
+        
         $this->add(array(
 	    	'type'    => 'Zend\Form\Element\Collection',
 	        'name'    => 'contacts',
@@ -62,25 +122,6 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
 			)			            
 	    ));
 	    
-//	    $this->add(
-//            array(
-//                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-//                'name' => 'zone',
-//                'attributes' => array(
-//            		'class' => 'form-control zone-select',
-//                ),                
-//                'options' => array(
-//                    'object_manager' => $this->objectManager,
-//                    'target_class'   => 'Godana\Entity\Zone',
-//                    'property'       => 'name',
-//                    'label'          => 'Zone',
-//                	'label_attributes' => array(
-//			            'class' => 'col-sm-3 control-label',
-//			        ),
-//                    'disable_inarray_validator' => true               
-//                ),
-//            )
-//        ); 
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
@@ -125,9 +166,12 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
                      array ('name' => 'StringTrim')
                 ),
             ),
-            'line' => array(
-            	'required' => true,
+            'admins' => array(
+            	'required' => false,
             ),
+            'tellers' => array(
+            	'required' => false,
+            )
         );
 	}
 	

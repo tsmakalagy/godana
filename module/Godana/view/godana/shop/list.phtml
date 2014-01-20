@@ -20,7 +20,7 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title"><?=$name; ?>
-			<a class="btn btn-default pull-right btn-xs" href="<?=$this->url('detail-shop', array('shopIdent' => $shopIdent)) ?>"><?=$this->translate('More'); ?> <i class="glyphicon glyphicon-chevron-right"></i></a></h3>
+			<a class="btn btn-default pull-right btn-xs" href="<?=$this->url('detail-shop', array('shopIdent' => $shopIdent), array(), true) ?>"><?=$this->translate('More'); ?> <i class="glyphicon glyphicon-chevron-right"></i></a></h3>
 		</div>
 		<div class="panel-body">
 			<p><?=$description; ?></p>

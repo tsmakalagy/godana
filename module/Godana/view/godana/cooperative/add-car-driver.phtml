@@ -24,6 +24,21 @@ $form->setAttribute('class', 'form-horizontal');
 <?php echo $this->form()->openTag($form) ?>
 <? $carDriver = $form->get('car-driver-form'); ?>
 <? echo $this->formHidden($carDriver->get('id'));?>
+
+<? $cooperative = $carDriver->get('cooperative'); ?>
+<div class="form-group <?php if($this->formElementErrors($cooperative)) 
+echo "has-error" ?>">
+<?php echo $this->formLabel($cooperative); ?>
+<div class="col-sm-7">
+<?php echo $this->formElement($cooperative) ?>
+<?php  echo $this->formElementErrors()
+	->setMessageOpenFormat('<div class="help-block">')
+    ->setMessageSeparatorString('</div><div class="help-block">')
+    ->setMessageCloseString('</div>')
+    ->render($cooperative); ?>
+</div>
+</div>
+
 <? $name = $carDriver->get('name'); ?>
 <div class="form-group <?php if($this->formElementErrors($name)) 
 echo "has-error" ?>">
@@ -92,6 +107,9 @@ echo "has-error" ?>">
 <script type="text/javascript">
 $(function() {
 	$(".chosen-select").select2({
+		minimumResultsForSearch: 10
+	});
+	$(".cooperative-select").select2({
 		minimumResultsForSearch: 10
 	});
 	/* ADDING MORE CONTACT */

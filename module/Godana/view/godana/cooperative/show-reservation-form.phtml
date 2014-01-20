@@ -1,0 +1,278 @@
+<?php echo $this->headLink()
+                ->appendStylesheet($this->basePath() . '/css/select2.css')
+                ->appendStylesheet($this->basePath() . '/css/select2-bootstrap.css');?>
+<?php
+$form = $this->form;
+$form->prepare();
+$form->setAttribute('class', 'form-horizontal');
+echo $this->form()->openTag($form); ?>
+<div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Reservation</h4>
+      </div>
+      <div class="modal-body">               
+
+<!--        <p>One fine body&hellip;</p>-->
+			
+			<? $reservation = $form->get('reservation-form'); ?>
+			<? echo $this->formHidden($reservation->get('id'));?>
+			<? $reservationBoardElement = $reservation->get('reservationBoard');?>
+			<? //$reservationBoardElement->setValue($reservationBoard->getId());?>
+			<? echo $this->formHidden($reservationBoardElement); ?>
+			<? echo $this->formHidden($reservation->get('seat')); ?>
+			
+			<? $passenger = $reservation->get('passenger');?>
+			<? echo $this->formHidden($passenger->get('id'));?>
+			<div class="form-group">
+				<?=$this->formLabel($passenger->get('title')); ?>
+				<div class="col-sm-7">
+				<?=$this->formElement($passenger->get('title')); ?>			
+				</div>
+			</div>
+			<div class="form-group <?php if($this->formElementErrors($passenger->get('name'))) 
+			echo "has-error" ?>">
+				<?=$this->formLabel($passenger->get('name')); ?>
+				<div class="col-sm-7">
+				<?=$this->formElement($passenger->get('name')); ?>
+				<?=$this->formElementErrors()
+					->setMessageOpenFormat('<div class="help-block">')
+				    ->setMessageSeparatorString('</div><div class="help-block">')
+				    ->setMessageCloseString('</div>')
+				    ->render($passenger->get('name')); ?>
+				</div>
+			</div>
+			<? $contactsCollection = $passenger->get('contacts');?>
+			<div id="contacts-group">
+				<? foreach ($contactsCollection as $c):?>
+				<div class="contacts-element">
+					<? echo $this->formHidden($c->get('id'));?>
+					<div class="form-group">
+						<?=$this->formLabel($c->get('type')); ?>
+						<div class="col-sm-7">
+						<?=$this->formElement($c->get('type')); ?>			
+						</div>
+					</div>
+					<div class="form-group <?php if($this->formElementErrors($c->get('value'))) 
+			echo "has-error" ?>">
+						<?=$this->formLabel($c->get('value')); ?>
+						<div class="col-sm-7">
+						<?=$this->formElement($c->get('value')); ?>
+						<?=$this->formElementErrors()
+							->setMessageOpenFormat('<div class="help-block">')
+						    ->setMessageSeparatorString('</div><div class="help-block">')
+						    ->setMessageCloseString('</div>')
+						    ->render($c->get('value')); ?>
+						</div>
+					</div>
+				</div>
+				<? endforeach;?>
+			</div>
+			
+			
+			<? $payment = $reservation->get('payment'); ?>
+			<div class="form-group <?php if($this->formElementErrors($payment)) 
+			echo "has-error" ?>">
+			<?php echo $this->formLabel($payment); ?>
+			<div class="col-sm-7">
+			<div class="input-group">
+			<?php echo $this->formElement($payment) ?>
+			<?php  echo $this->formElementErrors()
+				->setMessageOpenFormat('<div class="help-block">')
+			    ->setMessageSeparatorString('</div><div class="help-block">')
+			    ->setMessageCloseString('</div>')
+			    ->render($payment); ?>
+			    <span class="input-group-addon">Ariary</span>
+			</div>
+			</div>
+			</div>
+			<input type="hidden" id="blabla"/>
+			<? echo $this->formHidden($reservation->get('created'));?>
+			<? echo $this->formHidden($form->get('csrf'));?>			
+			
+	</div><!-- /.modal-body -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary btn-save" data-loading-text="Loading...">Save changes</button>
+      </div><!-- /.modal-footer -->
+    </div><!-- /.modal-content -->	
+      
+
+<?php echo $this->form()->closeTag() ?>  
+<? $this->inlineScript()
+			->appendFile($this->basePath() . '/js/select2.min.js');?>
+<script type="text/javascript">
+var is_xmlhttprequest = <?=$this->is_xmlhttprequest; ?>;
+var urlform           = '<?=$this->url('admin/cooperative/validate_post_ajax', array(), array(), true); ?>';
+$(function() {	
+	$(".title-select").select2({minimumResultsForSearch: 10});
+	$(".chosen-select").select2({minimumResultsForSearch: 10});
+
+	
+	var reservationId = $('input[name="reservation-form[id]"]').val();	
+	if (reservationId > 0) {
+		$("form#create-reservation-form").submit(function() {		
+	        //if not call by ajax
+	        //submit to showformAction
+	        if (is_xmlhttprequest == 0)
+	            return true;
+
+	        $('.btn-save').button('loading');
+	        var seat = $('input[name="reservation-form[seat]"]').val();
+	        //if by ajax
+	        //check by ajax : validatepostajaxAction
+			$.post(
+	        	urlform+'?reservationId='+reservationId,
+				$("form#create-reservation-form").serialize(),
+	            function(itemJson) {
+	            	var error = false;
+	            	var errorName = itemJson.name;
+	            	var errorContact = itemJson.value;
+	            	var errorPayment = itemJson.payment;
+	            	
+	                if (errorName != undefined) {
+		                var inputName = $('input[name="reservation-form[passenger][name]"]');
+		                $(inputName).parents('.form-group').addClass('has-error');
+		                var errorMessage = '';
+		                for (var i = 0; i < errorName.length; i++) {
+			                errorMessage += '<div class="help-block">'+errorName[i]+'</div>';
+		                }
+		                $(inputName).parents('div.col-sm-7').append(errorMessage);                     
+	                    error = true;
+	                } 
+	                if (errorContact != undefined) {
+		                var inputContact = $('input[name="reservation-form[passenger][contacts][0][value]"]');
+		                $(inputContact).parents('.form-group').addClass('has-error');
+		                var errorMessage = '';
+		                for (var i = 0; i < errorContact.length; i++) {
+			                errorMessage += '<div class="help-block">'+errorContact[i]+'</div>';
+		                }
+		                $(inputContact).parents('div.col-sm-7').append(errorMessage);                     
+	                    error = true;
+	                } 
+	                if (errorPayment != undefined) {
+		                var inputPayment = $('input[name="reservation-form[payment]"]');
+		                $(inputPayment).parents('.form-group').addClass('has-error');
+		                var errorMessage = '';
+		                for (var i = 0; i < errorPayment.length; i++) {
+			                errorMessage += '<div class="help-block">'+errorPayment[i]+'</div>';
+		                }
+		                $(inputPayment).parents('div.col-sm-7').append(errorMessage);                     
+	                    error = true;
+	                }
+	                 
+	                if (!error) {     
+	                	if (itemJson.success == 1){
+		                	var target = $('a[data-seat-id='+seat+']');
+		                	if (itemJson.reservationId > 0) {
+		                		var span = $(target).find('span');
+		                		if (itemJson.paid) {			                	
+				                	if ($(span).hasClass('seat-taken')) {
+					                	$(span).removeClass('seat-taken').addClass('seat-paid');
+				                	}
+				                	if ($(span).hasClass('seat-available')) {
+				                		$(span).removeClass('seat-available').addClass('seat-paid');
+				                	}
+			                	} else {
+			                		if ($(span).hasClass('seat-available')) {
+			                			$(span).removeClass('seat-available').addClass('seat-taken');
+				                	}
+			                	}
+			                	$(target).attr('title', itemJson.title);
+			                	$(target).attr('data-reservation-id', itemJson.reservationId);
+		                	}
+		                	
+	                		$('#myModal').modal('hide');
+	                    }
+	                }
+	                 
+	        	},
+	        	'json'
+	        );         
+	        return false;
+	    });		
+	} else {
+		$("form#create-reservation-form").submit(function() {		
+	        //if not call by ajax
+	        //submit to showformAction
+	        if (is_xmlhttprequest == 0)
+	            return true;
+	        $('.btn-save').button('loading'); 
+	        //if by ajax
+	        //check by ajax : validatepostajaxAction
+	        var seat = $('input[name="reservation-form[seat]"]').val();
+			$.post(
+	        	urlform,
+				$("form#create-reservation-form").serialize(),
+	            function(itemJson) {
+	            	var error = false;
+	            	var errorName = itemJson.name;
+	            	var errorContact = itemJson.value;
+	            	var errorPayment = itemJson.payment;
+	            	
+	                if (errorName != undefined) {
+		                var inputName = $('input[name="reservation-form[passenger][name]"]');
+		                $(inputName).parents('.form-group').addClass('has-error');
+		                var errorMessage = '';
+		                for (var i = 0; i < errorName.length; i++) {
+			                errorMessage += '<div class="help-block">'+errorName[i]+'</div>';
+		                }
+		                $(inputName).parents('div.col-sm-7').append(errorMessage);                     
+	                    error = true;
+	                } 
+	                if (errorContact != undefined) {
+		                var inputContact = $('input[name="reservation-form[passenger][contacts][0][value]"]');
+		                $(inputContact).parents('.form-group').addClass('has-error');
+		                var errorMessage = '';
+		                for (var i = 0; i < errorContact.length; i++) {
+			                errorMessage += '<div class="help-block">'+errorContact[i]+'</div>';
+		                }
+		                $(inputContact).parents('div.col-sm-7').append(errorMessage);                     
+	                    error = true;
+	                } 
+	                if (errorPayment != undefined) {
+		                var inputPayment = $('input[name="reservation-form[payment]"]');
+		                $(inputPayment).parents('.form-group').addClass('has-error');
+		                var errorMessage = '';
+		                for (var i = 0; i < errorPayment.length; i++) {
+			                errorMessage += '<div class="help-block">'+errorPayment[i]+'</div>';
+		                }
+		                $(inputPayment).parents('div.col-sm-7').append(errorMessage);                     
+	                    error = true;
+	                }
+	                 
+	                if (!error) {     
+	                	if (itemJson.success == 1){
+	                		
+		                	var target = $('a[data-seat-id='+seat+']');
+		                	if (itemJson.reservationId > 0) {
+		                		var span = $(target).find('span');
+		                		if (itemJson.paid) {			                	
+				                	if ($(span).hasClass('seat-taken')) {
+				                		$(span).removeClass('seat-taken').addClass('seat-paid');
+				                	}
+				                	if ($(span).hasClass('seat-available')) {
+				                		$(span).removeClass('seat-available').addClass('seat-paid');
+				                	}
+			                	} else {
+			                		if ($(span).hasClass('seat-available')) {
+			                			$(span).removeClass('seat-available').addClass('seat-taken');
+				                	}
+			                	}
+			                	$(target).attr('title', itemJson.title);
+			                	$(target).attr('data-reservation-id', itemJson.reservationId);
+			                	$(target).removeClass('detail-available').addClass('detail-taken');
+		                	}
+		                	
+	                		$('#myModal').modal('hide');
+	                    }
+	                }
+	                 
+	        	},
+	        	'json'
+	        );         
+	        return false;
+	    });	
+	}
+});
+</script>

@@ -6,9 +6,11 @@ use ZendSearch\Lucene\Document\Field;
 use Zend\Form\Form;
 use Godana\Entity\Post;
 use Godana\Entity\Bid;
+use Godana\Entity\File;
 use Godana\Form\PostForm;
 use JqueryFileUpload\Handler\CustomUploadHandler;
 use Doctrine\Common\Persistence\ObjectManager;
+use Zend\Http\PhpEnvironment\Response as Response;
 
 use ZendSearch\Lucene\Lucene;
 use ZendSearch\Lucene\Document;
@@ -25,6 +27,7 @@ use Zend\Paginator\Paginator;
 
 class BidController extends AbstractActionController
 {
+	const ROUTE_ADD_BID = 'add-bid';
 	
 	/**
      * @var Form
@@ -144,36 +147,48 @@ class BidController extends AbstractActionController
 	    $bid = new Bid();
 	    $form->bind($bid);
 	
-	    if ($this->request->isPost()) {
-	        $form->setData($this->request->getPost());
-			$listFileId = array();
-			
-	        if ($form->isValid()) {
-	        	$post = $bid->getPost();	        	
-	        	$post->setIdent($this->slug()->seoUrl($post->getTitle()));
-	            
-	            $listFileId = $this->request->getPost()->get('file-id');
-	            if (count($listFileId) > 0) {
-	            	foreach ($listFileId as $fileId) {
-	            		$file = $om->find('Godana\Entity\File', (int)$fileId);
-	            		if ($file instanceof \Godana\Entity\File) {
-	            			$post->addFile($file);
-	            			$om->persist($post);
-	            		}	            		
-	            	}
-	            	$om->flush();
-	            } else {
-	            	$om->persist($post);
-	            	$om->flush();
-	            }
-	            $user = $this->zfcUserAuthentication()->getIdentity();
-	            $bid->setUser($user);	            
-	            $om->persist($bid);
-	            $om->flush();
-	            return $this->redirect()->toRoute('bid');
-	        }
+	    $url = $this->url()->fromRoute(static::ROUTE_ADD_BID, array('lang' => $lang));
+	    $prg = $this->prg($url, true);
+
+        if ($prg instanceof Response) {        	
+            return $prg;
+        } elseif ($prg === false) {
+            return array(
+		    	'bidForm' => $form,
+		    	'fileForm' => $fileform,
+		    	'lang' => $lang,
+		    );
+        }
+        $post = $prg;
+        $form->setData($post);
+		$listFileId = array();
+		
+        if ($form->isValid()) {
+        	$post = $bid->getPost();	        	
+        	$post->setIdent($this->slug()->seoUrl($post->getTitle()));
+            
+            $listFileId = $this->request->getPost()->get('file-id');
+            if (count($listFileId) > 0) {
+            	foreach ($listFileId as $fileId) {
+            		$file = $om->find('Godana\Entity\File', (int)$fileId);
+            		if ($file instanceof File) {
+            			$post->addFile($file);
+            			$om->persist($post);
+            		}	            		
+            	}
+            	$om->flush();
+            } else {
+            	$om->persist($post);
+            	$om->flush();
+            }
+            $user = $this->zfcUserAuthentication()->getIdentity();
+            $bid->setUser($user);	            
+            $om->persist($bid);
+            $om->flush();
+            return $this->redirect()->toRoute('bid');
+        }
 	        
-	    }
+	    
 		
 	    return array(
 	    	'bidForm' => $form,

@@ -164,4 +164,34 @@ class Car
     {
     	$this->lineCars[] = $lineCar;
     }
+    
+    public function getLineCarSeats(Line $line)
+    {
+    	foreach ($this->lineCars as $lineCar) {
+    		if ($lineCar->getLine() == $line) {
+    			return $lineCar->getSeats();
+    		}
+    	}
+    	return null;
+    }
+    
+	public function getLineCarColumns(Line $line)
+    {
+    	foreach ($this->lineCars as $lineCar) {
+    		if ($lineCar->getLine() == $line) {
+    			return $lineCar->getColumn();
+    		}
+    	}
+    	return null;
+    }
+    
+	public function getLineCarFare(Line $line)
+    {
+    	foreach ($this->lineCars as $lineCar) {
+    		if ($lineCar->getLine() == $line) {
+    			return $lineCar->getFare();
+    		}
+    	}
+    	return null;
+    }
 }

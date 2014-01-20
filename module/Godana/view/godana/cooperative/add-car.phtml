@@ -116,6 +116,23 @@ echo "has-error" ?>">
 $(function() {
 	$(".cooperative-select").select2({
 		minimumResultsForSearch: 10
+	}).change(function(event) {
+		if (event.target == this) {
+			var cooperativeId = event.val;
+			$(".driver-select").select2({
+				placeholder: "Select driver",
+				minimumResultsForSearch: 10,
+				ajax: {
+			        url: "add?cooperativeId="+cooperativeId,
+			        dataType: 'json',
+			        quietMillis: 100,
+			        
+			        results: function (data) {
+			            return {results: data};
+			        }
+			    }
+			});
+		}
 	});
 	$(".make-select").select2({
 		minimumResultsForSearch: 10
@@ -137,8 +154,19 @@ $(function() {
 			});
 		}
 	});
+	var cooperativeId = $(".cooperative-select").select2("val");
 	$(".driver-select").select2({
-		minimumResultsForSearch: 10
+		placeholder: "Select driver",
+		minimumResultsForSearch: 10,
+		ajax: {
+	        url: "add?cooperativeId="+cooperativeId,
+	        dataType: 'json',
+	        quietMillis: 100,
+	        
+	        results: function (data) {
+	            return {results: data};
+	        }
+	    }
 	});
 
 	var makeId = $(".make-select").select2("val");

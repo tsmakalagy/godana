@@ -9,7 +9,8 @@ class IndexController extends AbstractActionController
 {
 	public function indexAction()
 	{
- 		return new ViewModel();
+		$lang = $this->params()->fromQuery('lang', 'mg');	
+ 		return new ViewModel(array('lang' => $lang));
  	}
 }
 

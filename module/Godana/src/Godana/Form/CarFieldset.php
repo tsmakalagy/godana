@@ -46,11 +46,17 @@ class CarFieldset extends Fieldset implements InputFilterProviderInterface, Serv
                     'target_class'   => 'Godana\Entity\Cooperative',
                     'property'       => 'name',
                 	'label_generator' => function($targetEntity) {
-		                return strtoupper($targetEntity->getName());
+		                return ucwords($targetEntity->getName());
 		            },
                     'label'          => 'Cooperative',
                 	'label_attributes' => array(
 			            'class' => 'col-sm-3 control-label',
+			        ),
+			        'find_method' => array(
+			        	'name' => 'findCooperativeOfCurrentUser',
+			        	'params' => array(		        		
+			        		'currentUser' => 1
+			        	),			        	
 			        ),
                     'disable_inarray_validator' => true               
                 ),
@@ -93,29 +99,20 @@ class CarFieldset extends Fieldset implements InputFilterProviderInterface, Serv
 		        ),
             ),
         ));
-        
-        $this->add(
-            array(
-                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-                'name' => 'driver',
-                'attributes' => array(
-            		'class' => 'form-control driver-select',
-                ),                
-                'options' => array(
-                    'object_manager' => $this->objectManager,
-                    'target_class'   => 'Godana\Entity\CarDriver',
-                    'property'       => 'name',
-                	'label_generator' => function($targetEntity) {
-		                return ucwords($targetEntity->getName());
-		            },		            
-                    'label'          => 'Driver',
-                	'label_attributes' => array(
-			            'class' => 'col-sm-3 control-label',
-			        ),
-                    'disable_inarray_validator' => true               
-                ),
-            )
-        );
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'driver',
+        	'attributes' => array(
+        		'class' => 'driver-select form-control'
+        	),
+        	'options' => array(
+                'label' => 'Driver',
+        		'label_attributes' => array(
+		            'class' => 'col-sm-3 control-label',
+		        ),
+            ),
+        ));
         
         $this->add(array(
             'name'    => 'license',

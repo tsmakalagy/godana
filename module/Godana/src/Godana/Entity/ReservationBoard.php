@@ -131,4 +131,14 @@ class ReservationBoard
 	{
 		$this->cooperative = $Cooperative;
 	}
+	
+	public function getSeatAvailable()
+	{
+		$seats = $this->getCar()->getLineCarSeats($this->getLine());
+		$reservations = $this->getReservations();
+		if ($seats != null) {
+			return $seats - count($reservations);
+		}
+		return 0;
+	}
 }

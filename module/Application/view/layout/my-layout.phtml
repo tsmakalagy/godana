@@ -55,7 +55,7 @@
                             <a href="#"><? echo $this->translate('Groups');?></a>
                         </li>
                         --><li>
-                            <a href="#"><? echo $this->translate('Tools');?></a>
+                            <a href="<?php echo $this->url('tools', array(), true) ?>"><? echo $this->translate('Tools');?></a>
                         </li>
                         <!--<li>
                             <a href="#"><? echo $this->translate('About');?></a>
@@ -81,12 +81,16 @@
 	                                    $roles = $this->currentUserRole();
 	                                    $isAdmin = false;
 	                                    $isShopOwner = false;	
+	                                    $isCooperative = false;
 	                                    foreach ($roles as $role) {
 	                                    	if ($role->getRoleId() == 'admin') {
 	                                    		$isAdmin = true;
 	                                    	}
 	                                    	if ($role->getRoleId() == 'shop-owner') {
 	                                    		$isShopOwner = true;
+	                                    	}
+	                                    	if (strpos($role->getRoleId(), 'cooperative') === 0) {
+	                                    		$isCooperative = true;
 	                                    	}
 	                                    }                    
 	                                    if ($isAdmin):?>
@@ -101,6 +105,12 @@
 	                                    </li>
 	                                    <li class="divider"></li>
 	                                    <? endif;?>
+	                                    <? if ($isCooperative || $isAdmin): ?>
+	                                    <li>
+	                                        <a tabindex="-1" href="<?=$this->url('admin/cooperative', array(), array(), true) ?>"><i class="fa fa-gear"></i> <? echo $this->translate('Cooperative');?></a>
+	                                    </li>
+	                                    <li class="divider"></li>
+	                                    <? endif;?>
 	                                    <li>
 	                                        <a tabindex="-1" href="<?php echo $this->url('zfcuser/logout', array(), array(), true) ?>"><i class="fa fa-power-off"></i> <?php echo $this->translate('Sign Out'); ?></a>
 	                                    </li>
@@ -110,7 +120,7 @@
                             	<li><a href="<?php echo $this->url('zfcuser/login', array(), array(), true); ?>"><? echo $this->translate('Login');?></a></li>
                             <? endif;?>
                     </ul>
-                    <form class="navbar-form navbar-left" role="search" action="<?php echo $this->url('search') ?>" method="get">
+                    <form class="navbar-form navbar-left" role="search" action="<?php echo $this->url('search', array(), array(), true) ?>" method="get">
     				    <span class="input-group">
     				    	<input type="text" class="form-control" placeholder="<?=$this->translate('Search'); ?>" name="q">
     				      <span class="input-group-btn">
@@ -124,9 +134,66 @@
         </nav>
         <div class="container">
             <?php echo $this->content; ?>
+            <?
+            $services = $this->getHelperPluginManager()->getServiceLocator();
+			$router = $services->get('router');
+			$request = $services->get('request');
+			
+			$routeMatch = $router->match($request);
+			
+			if (isset($routeMatch)) {
+				$routeName = $routeMatch->getMatchedRouteName();
+				$routeParams = $routeMatch->getParams();
+	            $params = $request->getUri()->getQuery();
+	            
+				$routeParamsEn = $routeParams;
+				if (array_key_exists('lang', $routeParamsEn)) {
+					$routeParamsEn['lang'] = 'en';
+	                $url_en = $this->url($routeName, $routeParamsEn);                
+	                if (strlen($params) > 0) {                    
+	                    $url_en .= '?'.$params;    
+	                }
+				}
+				$routeParamsFr = $routeParams;
+				if (array_key_exists('lang', $routeParamsFr)) {
+					$routeParamsFr['lang'] = 'fr';
+	                $url_fr = $this->url($routeName, $routeParamsFr);
+	                if (strlen($params) > 0) {                    
+	                    $url_fr .= '?'.$params;    
+	                }	
+				}
+				$routeParamsMg = $routeParams;
+				if (array_key_exists('lang', $routeParamsMg)) {
+					$routeParamsMg['lang'] = 'mg';	
+	                $url_mg = $this->url($routeName, $routeParamsMg);
+	                if (strlen($params) > 0) {                    
+	                    $url_mg .= '?'.$params;    
+	                }
+				}		
+			}
+			
+            ?>
             <hr>
             <footer>
-                <p>&copy; Fano Raiza <?=date('Y'); ?></p>
+            	<div class="row">
+                <div class="col-md-5"><h5>&copy; Fano Raiza <?=date('Y'); ?></h5></div>
+                <div class="col-md-5 col-xs-12">
+                <div class="btn-group">
+				  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+				  <?=$this->translate('Language');  ?>: <span class="selection label label-primary"><?=strtoupper($this->lang); ?></span>&nbsp;<span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" role="menu">
+				  	<li><a href="<?=$url_en; ?>">EN</a></li>
+				    <li class="divider"></li>
+				    <li><a href="<?=$url_fr; ?>">FR</a></li>
+				    <li class="divider"></li>
+				    <li><a href="<?=$url_mg; ?>">MG</a></li>
+				  </ul>
+				</div>
+                </div>
+                </div>
+                
+                
             </footer>
         </div> <!-- /container -->
         <?php echo $this->inlineScript() ?>

@@ -133,53 +133,68 @@ return array(
             ),
             
             'add-bid' => array(
-            	'type' => 'literal',
+            	'type' => 'Segment',
             	'options' => array(
-                	'route' => '/bid/add',
+                	'route' => '/[:lang/]bid/add',
                     'defaults' => array(
                     	'controller' => 'bid',
                         'action'     => 'add',
                   	),
+                  	'constraints' => array(
+            			'lang' => '(en|de|fr|mg)?',
+            		),
               	),
             ),
             'upload-bid' => array(
-            	'type' => 'literal',
+            	'type' => 'Segment',
             	'options' => array(
-                	'route' => '/bid/upload',
+                	'route' => '/[:lang/]bid/upload',
                     'defaults' => array(
                     	'controller' => 'bid',
                         'action'     => 'upload',
                   	),
+                  	'constraints' => array(
+            			'lang' => '(en|de|fr|mg)?',
+            		),
               	),
             ),
            	'edit-bid' => array(
-            	'type' => 'literal',
+            	'type' => 'Segment',
             	'options' => array(
-                	'route' => '/bid/edit',
+                	'route' => '/[:lang/]bid/edit',
                     'defaults' => array(
                     	'controller' => 'bid',
                         'action'     => 'edit',
                   	),
+                  	'constraints' => array(
+            			'lang' => '(en|de|fr|mg)?',
+            		),
               	),
             ),
             'ajax-bid' => array(
-            	'type' => 'literal',
+            	'type' => 'Segment',
             	'options' => array(
-                	'route' => '/bid/ajax',
+                	'route' => '/[:lang/]bid/ajax',
                     'defaults' => array(
                     	'controller' => 'bid',
                         'action'     => 'ajax',
                   	),
+                  	'constraints' => array(
+            			'lang' => '(en|de|fr|mg)?',
+            		),
               	),
             ),
             'city-bid' => array(
-            	'type' => 'literal',
+            	'type' => 'Segment',
             	'options' => array(
-                	'route' => '/bid/city',
+                	'route' => '/[:lang/]bid/city',
                     'defaults' => array(
                     	'controller' => 'bid',
                         'action'     => 'city',
                   	),
+                  	'constraints' => array(
+            			'lang' => '(en|de|fr|mg)?',
+            		),
               	),
             ),
             
@@ -566,6 +581,19 @@ return array(
                         ),
                         'may_terminate' => true,
                 		'child_routes' => array(
+                        	'edit' => array(
+		                        'type' => 'Segment',
+		                        'options' => array(
+		                            'route' => '/edit/:cooperativeId',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'editCooperative',
+		                            ),
+		                            'constraints' => array(
+		                            	'cooperativeId' => '[0-9]*',
+		                            ),
+		                        ),
+		                    ),
                         	'zone_create' => array(
 		                        'type' => 'literal',
 		                        'options' => array(
@@ -716,20 +744,108 @@ return array(
 		                            ),
 		                        ),
 		                    ),
+		                    'reservation_car_list' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/car/reservation',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'listReservationBoard',
+		                            ),
+		                        ),
+		                    ),
+		                    'reservation_car_detail' => array(
+		                        'type' => 'Segment',
+		                        'options' => array(
+		                            'route' => '/reservation/:reservationBoardId',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'detailReservationBoard',
+		                            ),
+		                            'constraints' => array(
+		                            	'reservationBoardId' => '[0-9]*',
+		                            ),
+		                        ),
+		                    ),
+		                    'show_reservation_form' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/reservation/show/form',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'showReservationForm',
+		                            ),
+		                        ),
+		                    ),
+		                    'validate_post_ajax' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/reservation/validate/post/ajax',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'validatePostAjax',
+		                            ),
+		                        ),
+		                    ),
 		            	),
 	            	),
                     
             	),
             ),
             'search' => array(
-            	'type' => 'literal',
+            	'type' => 'Segment',
             	'options' => array(
-                	'route' => '/search',
+                	'route' => '/[:lang/]search',
                     'defaults' => array(
                     	'controller' => 'search',
                         'action'     => 'index',
                   	),
+                  	'constraints' => array(
+                  		'lang' => '(en|de|fr|mg)?',
+                  	),
               	),
+            ),
+            'tools' => array(
+            	'type' => 'Segment',
+            	'options' => array(
+                	'route' => '/[:lang/]tools',
+                    'defaults' => array(
+                    	'controller' => 'tools',
+                        'action'     => 'index',
+                  	),
+                  	'constraints' => array(
+                  		'lang' => '(en|de|fr|mg)?',
+                  	),
+              	),
+              	'may_terminate' => true,
+                'child_routes' => array(
+                    'transportation_reservation' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/transportation/reservation',
+                            'defaults' => array(
+                                'controller' => 'cooperative',
+                                'action'     => 'userReservation',
+                            ),                            
+                        ),
+                        'may_terminate' => true,
+		                'child_routes' => array(
+		                    'detail' => array(
+		                        'type' => 'Segment',
+		                        'options' => array(
+		                            'route' => '/detail/:reservationBoardId',
+		                            'defaults' => array(
+		                                'controller' => 'cooperative',
+		                                'action'     => 'detailUserReservation',
+		                            ),
+		                            'constraints' => array(
+		                            	'reservationBoardId' => '[0-9]*',
+		                            ),
+		                        ),
+		            		),
+		            	),
+            		),
+            	),
             ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new

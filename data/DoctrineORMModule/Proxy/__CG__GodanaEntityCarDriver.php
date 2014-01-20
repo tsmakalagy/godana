@@ -64,10 +64,10 @@ class CarDriver extends \Godana\Entity\CarDriver implements \Doctrine\ORM\Proxy\
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'contacts');
+            return array('__isInitialized__', 'id', 'name', 'cooperative', 'contacts');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'contacts');
+        return array('__isInitialized__', 'id', 'name', 'cooperative', 'contacts');
     }
 
     /**
@@ -219,6 +219,28 @@ class CarDriver extends \Godana\Entity\CarDriver implements \Doctrine\ORM\Proxy\
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setName', array($name));
 
         return parent::setName($name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCooperative()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCooperative', array());
+
+        return parent::getCooperative();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCooperative($cooperative)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCooperative', array($cooperative));
+
+        return parent::setCooperative($cooperative);
     }
 
     /**

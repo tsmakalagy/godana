@@ -146,4 +146,11 @@ class Line
     {
     	$this->lineContacts[] = $contact;
     }
+    
+    public function getLineJourney()
+    {
+    	$departure = $this->getDeparture()->getCityAccented();
+    	$arrival = $this->getArrival()->getCityAccented();
+    	return $departure . '&rarr;' . $arrival;
+    }
 }

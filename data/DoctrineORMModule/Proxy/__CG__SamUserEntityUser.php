@@ -312,6 +312,28 @@ class User extends \SamUser\Entity\User implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function addRoles(\Doctrine\Common\Collections\Collection $roles)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addRoles', array($roles));
+
+        return parent::addRoles($roles);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeRoles(\Doctrine\Common\Collections\Collection $roles)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeRoles', array($roles));
+
+        return parent::removeRoles($roles);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getRoles()
     {
 
@@ -329,6 +351,17 @@ class User extends \SamUser\Entity\User implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'addRole', array($role));
 
         return parent::addRole($role);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function hasRole($roleId)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'hasRole', array($roleId));
+
+        return parent::hasRole($roleId);
     }
 
     /**

@@ -44,6 +44,15 @@ class ReservationBoardFieldset extends Fieldset implements InputFilterProviderIn
                     'target_class'   => 'Godana\Entity\Cooperative',
                     'property'       => 'name',
                     'label'          => 'Cooperative',
+                	'label_generator' => function($targetEntity) {
+		                return ucwords($targetEntity->getName());
+		            },
+		            'find_method' => array(
+			        	'name' => 'findCooperativeOfCurrentUser',
+			        	'params' => array(		        		
+			        		'currentUser' => 1
+			        	),			        	
+			        ),
                 	'label_attributes' => array(
 			            'class' => 'col-sm-3 control-label',
 			        ),

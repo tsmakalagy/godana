@@ -89,12 +89,30 @@ class Post
      */
     protected $files;
     
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts")
+     * @ORM\JoinTable(name="gdn_post_tag",
+     *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id_post")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     * ) 
+     */
+    protected $tags;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $comments;
+    
     
     public function __construct()
     {
-    	$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->files = new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->categories = new Collection();
+    	$this->contacts = new Collection();
+    	$this->files = new Collection();
+    	$this->tags = new Collection();
+    	$this->comments = new Collection();
     }
     
 	/**
@@ -258,7 +276,7 @@ class Post
      * @param Category $category
      * @return void
      */
-    public function addCategory($category)
+    public function addCategory(Category $category)
     {
     	$category->addPost($this);
     	$this->categories[] = $category;
@@ -290,8 +308,7 @@ class Post
         foreach ($contacts as $contact) {
             $this->contacts->removeElement($contact);
         }
-    }
-    
+    }    
     
     /**
      * 
@@ -309,7 +326,7 @@ class Post
      * @param Contact $contact
      * @return void
      */
-    public function addContact($contact)
+    public function addContact(Contact $contact)
     {
     	$this->contacts[] = $contact;
     }
@@ -319,7 +336,7 @@ class Post
     	return $this->files;
     }
     
-    public function addFile($file)
+    public function addFile(File $file)
     {
     	$this->files[] = $file;
     }
@@ -335,6 +352,55 @@ class Post
     {
         foreach ($files as $file) {
             $this->files->removeElement($file);
+        }
+    }
+    
+	public function getTags()
+    {
+    	return $this->tags;
+    }
+    
+    public function addTag(Tag $tag)
+    {
+    	$tag->addPost($this);
+    	$this->tags[] = $tag;
+    }
+    
+	public function addTags(Collection $tags)
+    {
+        foreach ($tags as $tag) {
+            $this->tags->add($tag);
+        }
+    }
+
+    public function removeTags(Collection $tags)
+    {
+        foreach ($tags as $tag) {
+            $this->tags->removeElement($tag);
+        }
+    }
+    
+	public function getComments()
+    {
+    	return $this->comments;
+    }
+    
+    public function addComment($comment)
+    {
+    	$this->comments[] = $comment;
+    }
+    
+	public function addComments(Collection $comments)
+    {
+        foreach ($comments as $comment) {
+            $this->comments->add($comment);
+        }
+    }
+
+    public function removeComments(Collection $comments)
+    {
+        foreach ($comments as $comment) {
+            $this->comments->removeElement($comment);
         }
     }
     

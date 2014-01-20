@@ -39,8 +39,17 @@ class LineCarFieldset extends Fieldset implements InputFilterProviderInterface, 
                     'target_class'   => 'Godana\Entity\Cooperative',
                     'property'       => 'name',
                     'label'          => 'Cooperative',
+                	'label_generator' => function($targetEntity) {
+		                return ucwords($targetEntity->getName());
+		            },
                 	'label_attributes' => array(
 			            'class' => 'col-sm-3 control-label',
+			        ),
+			        'find_method' => array(
+			        	'name' => 'findCooperativeOfCurrentUser',
+			        	'params' => array(		        		
+			        		'currentUser' => 1
+			        	),			        	
 			        ),
                     'disable_inarray_validator' => true               
                 ),

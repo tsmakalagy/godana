@@ -64,10 +64,10 @@ class Cooperative extends \Godana\Entity\Cooperative implements \Doctrine\ORM\Pr
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'name', 'zones', 'lines', 'contacts', 'lineContacts', 'cars');
+            return array('__isInitialized__', 'id', 'name', 'zones', 'lines', 'contacts', 'lineContacts', 'cars', 'drivers', 'admins', 'tellers');
         }
 
-        return array('__isInitialized__', 'id', 'name', 'zones', 'lines', 'contacts', 'lineContacts', 'cars');
+        return array('__isInitialized__', 'id', 'name', 'zones', 'lines', 'contacts', 'lineContacts', 'cars', 'drivers', 'admins', 'tellers');
     }
 
     /**
@@ -439,6 +439,171 @@ class Cooperative extends \Godana\Entity\Cooperative implements \Doctrine\ORM\Pr
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'addCar', array($car));
 
         return parent::addCar($car);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addDrivers(\Doctrine\Common\Collections\ArrayCollection $drivers)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addDrivers', array($drivers));
+
+        return parent::addDrivers($drivers);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeDrivers(\Doctrine\Common\Collections\ArrayCollection $drivers)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeDrivers', array($drivers));
+
+        return parent::removeDrivers($drivers);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDrivers()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDrivers', array());
+
+        return parent::getDrivers();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addDriver($driver)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addDriver', array($driver));
+
+        return parent::addDriver($driver);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addAdmins(\Doctrine\Common\Collections\ArrayCollection $admins)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addAdmins', array($admins));
+
+        return parent::addAdmins($admins);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeAdmins(\Doctrine\Common\Collections\ArrayCollection $admins)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeAdmins', array($admins));
+
+        return parent::removeAdmins($admins);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeAllAdmins()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeAllAdmins', array());
+
+        return parent::removeAllAdmins();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAdmins()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAdmins', array());
+
+        return parent::getAdmins();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addAdmin($admin)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addAdmin', array($admin));
+
+        return parent::addAdmin($admin);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addTellers(\Doctrine\Common\Collections\ArrayCollection $tellers)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addTellers', array($tellers));
+
+        return parent::addTellers($tellers);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeTellers(\Doctrine\Common\Collections\ArrayCollection $tellers)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeTellers', array($tellers));
+
+        return parent::removeTellers($tellers);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeAllTellers()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeAllTellers', array());
+
+        return parent::removeAllTellers();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTellers()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTellers', array());
+
+        return parent::getTellers();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addTeller($teller)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addTeller', array($teller));
+
+        return parent::addTeller($teller);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function hasUser($user)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'hasUser', array($user));
+
+        return parent::hasUser($user);
     }
 
 }

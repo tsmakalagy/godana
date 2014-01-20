@@ -39,6 +39,35 @@ echo "has-error" ?>">
     ->render($name); ?>
 </div>
 </div>
+
+<? $admins = $cooperative->get('admins'); ?>
+<div class="form-group <?php if($this->formElementErrors($admins)) 
+echo "has-error" ?>">
+<?php echo $this->formLabel($admins); ?>
+<div class="col-sm-7">
+<?php echo $this->formElement($admins) ?>
+<?php  echo $this->formElementErrors()
+	->setMessageOpenFormat('<div class="help-block">')
+    ->setMessageSeparatorString('</div><div class="help-block">')
+    ->setMessageCloseString('</div>')
+    ->render($admins); ?>
+</div>
+</div>
+
+<? $tellers = $cooperative->get('tellers'); ?>
+<div class="form-group <?php if($this->formElementErrors($tellers)) 
+echo "has-error" ?>">
+<?php echo $this->formLabel($tellers); ?>
+<div class="col-sm-7">
+<?php echo $this->formElement($tellers) ?>
+<?php  echo $this->formElementErrors()
+	->setMessageOpenFormat('<div class="help-block">')
+    ->setMessageSeparatorString('</div><div class="help-block">')
+    ->setMessageCloseString('</div>')
+    ->render($tellers); ?>
+</div>
+</div>
+
 <? $contactsCollection = $cooperative->get('contacts');?>
 <div id="contacts-group">
 	<? foreach ($contactsCollection as $c):?>
@@ -93,6 +122,12 @@ echo "has-error" ?>">
 <script type="text/javascript">
 $(function() {
 	$(".chosen-select").select2({
+		minimumResultsForSearch: 10
+	});
+	$(".admin-select").select2({
+		minimumResultsForSearch: 10
+	});
+	$(".teller-select").select2({
 		minimumResultsForSearch: 10
 	});
 

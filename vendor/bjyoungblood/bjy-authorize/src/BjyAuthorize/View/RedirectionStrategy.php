@@ -68,11 +68,17 @@ class RedirectionStrategy implements ListenerAggregateInterface
     {
         // Do nothing if the result is a response object
         $result     = $event->getResult();
-        $routeMatch = $event->getRouteMatch();
+        $routeMatch = $event->getRouteMatch();        
         $response   = $event->getResponse();
         $router     = $event->getRouter();
         $error      = $event->getError();
         $url        = $this->redirectUri;
+        if (isset($routeMatch)) {
+        	$routeName = $routeMatch->getMatchedRouteName();
+			$routeParams = $routeMatch->getParams();
+			$lang = $routeParams['lang'];	
+        }
+        
 
         if ($result instanceof Response
             || ! $routeMatch
@@ -90,7 +96,7 @@ class RedirectionStrategy implements ListenerAggregateInterface
         }
 
         if (null === $url) {
-            $url = $router->assemble(array(), array('name' => $this->redirectRoute));
+            $url = $router->assemble(array('lang' => $lang), array('name' => $this->redirectRoute));
         }
 
         $response = $response ?: new Response();

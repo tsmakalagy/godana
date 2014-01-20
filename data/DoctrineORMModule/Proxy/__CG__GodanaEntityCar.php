@@ -375,4 +375,37 @@ class Car extends \Godana\Entity\Car implements \Doctrine\ORM\Proxy\Proxy
         return parent::addLineCar($lineCar);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getLineCarSeats(\Godana\Entity\Line $line)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLineCarSeats', array($line));
+
+        return parent::getLineCarSeats($line);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLineCarColumns(\Godana\Entity\Line $line)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLineCarColumns', array($line));
+
+        return parent::getLineCarColumns($line);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLineCarFare(\Godana\Entity\Line $line)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLineCarFare', array($line));
+
+        return parent::getLineCarFare($line);
+    }
+
 }

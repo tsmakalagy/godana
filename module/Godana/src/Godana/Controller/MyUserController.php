@@ -75,7 +75,8 @@ class MyUserController extends AbstractActionController
 			$dob = $user->getDateofbirth();
 			if (isset($dob)) {
 				$form->get('user-form')->get('dateofbirth')->setValue($dob->format('m/d/Y'));	
-			}			
+			}		
+			
 			$url = $this->url()->fromRoute(static::ROUTE_EDIT_USER, array('lang' => $lang, 'userId' => $userId));
 		    $prg = $this->prg($url, true);
 	        if ($prg instanceof Response) {        	

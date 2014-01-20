@@ -27,6 +27,13 @@ class CarDriver
 	protected $name;
 	
 	/**
+	 * @ORM\ManyToOne(targetEntity="Cooperative", inversedBy="drivers")
+	 * @ORM\JoinColumn(name="cooperative_id", referencedColumnName="id")
+	 * @var \Godana\Entity\Cooperative
+	 */
+	protected $cooperative;
+	
+	/**
 	 * @var \Doctrine\Common\Collections\Collection
      * @ORM\ManyToMany(targetEntity="Contact", cascade="persist")
      * @ORM\JoinTable(name="gdn_driver_contact",
@@ -59,6 +66,16 @@ class CarDriver
 	public function setName($name)
 	{
 		$this->name = $name;
+	}
+	
+	public function getCooperative()
+	{
+		return $this->cooperative;
+	}
+	
+	public function setCooperative($cooperative)
+	{
+		$this->cooperative = $cooperative;
 	}
 	
 	public function addContacts(Collection $contacts)

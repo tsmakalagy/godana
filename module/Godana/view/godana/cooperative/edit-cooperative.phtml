@@ -1,0 +1,187 @@
+<?php echo $this->headLink()
+                ->appendStylesheet($this->basePath() . '/css/select2.css')
+                ->appendStylesheet($this->basePath() . '/css/select2-bootstrap.css')?>
+
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+<div class="panel panel-primary">
+<div class="panel-heading">
+	<h3 class="panel-title"><?php echo $this->translate('Cooperative'); ?></h3>
+</div>
+<div class="panel-body">
+<? if ($this->status):?>
+<div class="alert alert-dismissable alert-success">
+<button data-dismiss="alert" class="close">×</button>
+<strong><?= $this->translate('Success!'); ?></strong> <?= $this->translate('Cooperative created successfully.'); ?> 
+</div>
+<? endif;?>
+<?php
+$form = $this->cooperativeForm;
+$form->prepare();
+$form->setAttribute('action', $this->url('admin/cooperative/edit', array('lang' => $this->lang, 'cooperativeId' => $this->cooperativeId)));
+$form->setAttribute('method', 'post');
+$form->setAttribute('class', 'form-horizontal');
+?>
+<?php echo $this->form()->openTag($form) ?>
+<? $cooperative = $form->get('cooperative-form'); ?>
+<? echo $this->formHidden($cooperative->get('id'));?>
+
+<? $name = $cooperative->get('name'); ?>
+<div class="form-group <?php if($this->formElementErrors($name)) 
+echo "has-error" ?>">
+<?php echo $this->formLabel($name); ?>
+<div class="col-sm-7">
+<?php echo $this->formElement($name) ?>
+<?php  echo $this->formElementErrors()
+	->setMessageOpenFormat('<div class="help-block">')
+    ->setMessageSeparatorString('</div><div class="help-block">')
+    ->setMessageCloseString('</div>')
+    ->render($name); ?>
+</div>
+</div>
+
+<? $admins = $cooperative->get('admins'); ?>
+<div class="form-group <?php if($this->formElementErrors($admins)) 
+echo "has-error" ?>">
+<?php echo $this->formLabel($admins); ?>
+<div class="col-sm-7">
+<?php echo $this->formElement($admins) ?>
+<?php  echo $this->formElementErrors()
+	->setMessageOpenFormat('<div class="help-block">')
+    ->setMessageSeparatorString('</div><div class="help-block">')
+    ->setMessageCloseString('</div>')
+    ->render($admins); ?>
+</div>
+</div>
+
+<? $tellers = $cooperative->get('tellers'); ?>
+<div class="form-group <?php if($this->formElementErrors($tellers)) 
+echo "has-error" ?>">
+<?php echo $this->formLabel($tellers); ?>
+<div class="col-sm-7">
+<?php echo $this->formElement($tellers) ?>
+<?php  echo $this->formElementErrors()
+	->setMessageOpenFormat('<div class="help-block">')
+    ->setMessageSeparatorString('</div><div class="help-block">')
+    ->setMessageCloseString('</div>')
+    ->render($tellers); ?>
+</div>
+</div>
+
+<? $contactsCollection = $cooperative->get('contacts');?>
+<div id="contacts-group">
+	<? foreach ($contactsCollection as $c):?>
+	<div class="contacts-element">
+		<? echo $this->formHidden($c->get('id'));?>
+		<div class="form-group">
+			<?=$this->formLabel($c->get('type')); ?>
+			<div class="col-sm-7">
+			<?=$this->formElement($c->get('type')); ?>			
+			</div>
+		</div>
+		<div class="form-group <?php if($this->formElementErrors($c->get('value'))) 
+echo "has-error" ?>">
+			<?=$this->formLabel($c->get('value')); ?>
+			<div class="col-sm-7">
+			<?=$this->formElement($c->get('value')); ?>
+			<?=$this->formElementErrors()
+				->setMessageOpenFormat('<div class="help-block">')
+			    ->setMessageSeparatorString('</div><div class="help-block">')
+			    ->setMessageCloseString('</div>')
+			    ->render($c->get('value')); ?>
+			</div>
+		</div>
+	</div>
+	<? endforeach;?>
+</div>
+<div class="form-group">
+	<span id="tplContact" data-template="<?=htmlspecialchars('<div class="contacts-element"><input type="hidden" value="" name="cooperative-form[contacts][__placeholder__][id]"><div class="form-group"><label for="cooperative-form[contacts][__placeholder__][type]" class="col-sm-3 control-label">').
+	$this->translate('Contact type').htmlspecialchars('</label><div class="col-sm-7"><select class="form-control" id="contact-chosen-__placeholder__" name="cooperative-form[contacts][__placeholder__][type]"><option value="1">').
+	$this->translate('Mobile').htmlspecialchars('</option><option value="2">').$this->translate('Email').htmlspecialchars('</option><option value="3">').
+	$this->translate('Address').htmlspecialchars('</option></select></div></div><div class="form-group"><label for="cooperative-form[contacts][__placeholder__][value]" class="col-sm-3 control-label">').
+	$this->translate('Contact value').htmlspecialchars('</label><div class="col-sm-7"><input type="text" value="" class="form-control" name="cooperative-form[contacts][__placeholder__][value]"></div></div></div>') ?>"></span>
+	<div class="col-sm-7 col-sm-offset-3"></div>
+</div>
+
+<? echo $this->formHidden($form->get('csrf'));?>
+
+<div class="form-group">
+<div class="col-sm-4 col-sm-offset-3">
+<? echo $this->formElement($form->get('submit'));?>
+</div>
+</div>
+<?php echo $this->form()->closeTag() ?>
+</div>
+</div>
+</div>
+</div>
+
+<? $this->inlineScript()
+			->appendFile($this->basePath() . '/js/select2.min.js')?>
+
+<script type="text/javascript">
+$(function() {
+	$(".chosen-select").select2({
+		minimumResultsForSearch: 10
+	});
+	$(".admin-select").select2({
+		minimumResultsForSearch: 10
+	}).change(function(event) {
+	});
+	$(".teller-select").select2({
+		minimumResultsForSearch: 10
+	});
+
+	/* ADDING MORE CONTACT */
+	var tplContact = $('#tplContact');
+	var tplContactManager = tplContact.parent();
+	var contactsGroup = $('#contacts-group');
+	
+	
+	var addContact = function () {	    	    
+		var contactsCount = contactsGroup.find('.contacts-element').length;
+	    contactsGroup.append(tplContact.data('template').replace(/__placeholder__/g, contactsCount));
+	    return contactsCount;
+	};
+
+	var removeBtnContacts =  $('<button class="btn btn-primary col-sm-offset-1"><i class="glyphicon glyphicon-minus"></i> <?=$this->translate('Contact'); ?></button>')
+    .button({
+        icons: {
+            primary: 'ui-icon-circle-plus'
+        }
+    }).on('click', function(e) {
+        e.preventDefault();        
+        count = contactsGroup.find('.contacts-element').length;
+        if (count == 2) {
+        	contactsGroup.find('.contacts-element:last-child').remove();
+            $(this).remove();
+        } else {
+        	contactsGroup.find('.contacts-element:last-child').remove();
+        }
+    });
+
+	
+
+	var btnContacts = $('<button class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> <?=$this->translate('Contact'); ?></button>')
+	    .button({
+	        icons: {
+	            primary: 'ui-icon-circle-plus'
+	        }
+	    }).on('click', function (e) {
+	    	tplContactManager.find('div').append(removeBtnContacts);
+	        e.preventDefault();
+	        $('.removeElement').html('');
+	        var index = addContact();
+	        $("#contact-chosen-"+index).select2({ 
+	    		width: '100%',
+	    		minimumResultsForSearch: 10
+	    	});
+	    });
+
+	tplContactManager.find('div').append(btnContacts);
+	var initContactsCount = contactsGroup.find('.contacts-element').length;
+	if (initContactsCount > 1) {	
+		tplContactManager.find('div').append(removeBtnContacts);
+	}
+});
+</script>

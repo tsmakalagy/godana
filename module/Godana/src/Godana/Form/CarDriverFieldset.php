@@ -32,6 +32,35 @@ class CarDriverFieldset extends Fieldset implements InputFilterProviderInterface
             'name' => 'id'
         ));
         
+        $this->add(
+            array(
+                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                'name' => 'cooperative',
+                'attributes' => array(
+            		'class' => 'form-control cooperative-select',
+                ),                
+                'options' => array(
+                    'object_manager' => $this->objectManager,
+                    'target_class'   => 'Godana\Entity\Cooperative',
+                    'property'       => 'name',
+                	'label_generator' => function($targetEntity) {
+		                return ucwords($targetEntity->getName());
+		            },
+                    'label'          => 'Cooperative',
+                	'label_attributes' => array(
+			            'class' => 'col-sm-3 control-label',
+			        ),
+			        'find_method' => array(
+			        	'name' => 'findCooperativeOfCurrentUser',
+			        	'params' => array(		        		
+			        		'currentUser' => 1
+			        	),			        	
+			        ),
+                    'disable_inarray_validator' => true               
+                ),
+            )
+        );
+        
         $this->add(array(
             'name'    => 'name',
             'options' => array(

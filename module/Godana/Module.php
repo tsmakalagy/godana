@@ -56,6 +56,7 @@ class Module
     		'invokables' => array(
     			'godana_sendmail_service' => 'Godana\Service\Mail',
     		),
+    		
     		'factories' => array(
     			'godana_post_form' => function($sm) {                    
                     $om = $sm->get('Doctrine\ORM\EntityManager');
@@ -230,8 +231,17 @@ class Module
 			                    'target_class'   => 'Godana\Entity\Cooperative',
 			                    'property'       => 'name',
 			                    'label'          => 'Cooperative',
+			                	'label_generator' => function($targetEntity) {
+					                return ucwords($targetEntity->getName());
+					            },
 			                	'label_attributes' => array(
 						            'class' => 'col-sm-3 control-label',
+						        ),
+						        'find_method' => array(
+						        	'name' => 'findCooperativeOfCurrentUser',
+						        	'params' => array(		        		
+						        		'currentUser' => 1
+						        	),			        	
 						        ),
 			                    'disable_inarray_validator' => true               
 			                ),
@@ -348,7 +358,36 @@ class Module
                     ));
                     return $form;
                 },
-                
+                'reservation_form' => function($sm) {
+                	$forms = $sm->get('FormElementManager');
+                	$form = $forms->get('Godana\Form\ReservationForm');
+                	$reservationFieldset = $forms->get('ReservationFieldset');
+                	$reservationFieldset->remove('zone');
+                	$reservationFieldset->remove('line');
+                	$reservationFieldset->remove('cooperative');
+                	$reservationFieldset->remove('car');
+                	$reservationFieldset->remove('fare');
+                	$reservationFieldset->remove('status');
+			        $reservationFieldset->setUseAsBaseFieldset(true);
+                    $form->add($reservationFieldset);
+                    $form->setValidationGroup(array(
+					    'csrf',
+					    'reservation-form' => array(
+					        'payment',
+                    		'reservationBoard',
+                    		'seat',
+					        'passenger' => array(
+                    			'title',
+					            'name', 
+                    			'contacts' => array(
+                    				'type',
+                    				'value'
+                    			),                   			                    			
+					        ),
+					    ),
+					));
+                	return $form;
+                },
     		),
     	);
     }
@@ -391,6 +430,13 @@ class Module
    			$language = 'mg_MG';
    		}
    		$translator->setLocale($language);
+   		$view = $e->getViewModel();
+   		if ($view instanceof \Zend\View\Model\JsonModel) {
+   				
+   		} else {
+   			$view->setVariable( 'lang', $lang );
+   		}
+    	
    	}
    	
 	public function getFormElementConfig()

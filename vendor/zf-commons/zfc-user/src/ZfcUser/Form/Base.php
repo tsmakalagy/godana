@@ -66,7 +66,7 @@ class Base extends ProvidesEventsForm
                 'type' => 'text',
                 'class' => 'datepicker form-control',
             ),
-        ));        
+        ));		       
     
         $this->add(array(
             'name' => 'sex',

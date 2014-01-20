@@ -147,6 +147,40 @@ if ( $.fn.DataTable.TableTools ) {
 	} );
 }
 
+$.fn.dataTableExt.oSort['datetime-asc']  = function(a,b) {	
+	var exp = /^\d.*\s/, ma, mb;
+	if (exp.test(a) && exp.test(b)) {
+		ma = moment(a, 'DD MMM YYYY HH:mm', 'fr');
+		mb = moment(b, 'DD MMM YYYY HH:mm', 'fr');
+	} else {
+		ma = a;
+		mb = b;
+	}
+	
+    var x = new Date(ma);
+    var y = new Date(mb); 
+    x = x.getTime();
+    y = y.getTime();
+    return ((x < y) ? -1 : ((x > y) ?  1 : 0));
+};
+ 
+$.fn.dataTableExt.oSort['datetime-desc'] = function(a,b) {
+	var exp = /^\d.*\s/, ma, mb;
+	if (exp.test(a) && exp.test(b)) {
+		ma = moment(a, 'DD MMM YYYY HH:mm', 'fr');
+		mb = moment(b, 'DD MMM YYYY HH:mm', 'fr');
+	} else {
+		ma = a;
+		mb = b;
+	}
+	
+    var x = new Date(ma);
+    var y = new Date(mb); 
+    x = x.getTime();
+    y = y.getTime()
+    return ((x < y) ?  1 : ((x > y) ? -1 : 0));
+};
+
 
 /* Table initialisation */
 $(document).ready(function() {
@@ -155,7 +189,7 @@ $(document).ready(function() {
 		"sPaginationType": "bootstrap",
 		"oLanguage": {
 			"sLengthMenu": "_MENU_ records per page"
-		}
+		},		
 	} );
 	$('#example_length select').addClass('form-control');
 	$('#example_filter input').addClass('form-control');

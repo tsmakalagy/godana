@@ -109,14 +109,15 @@ echo "has-error" ?>">
 	</div>
 	<? endforeach;?>
 </div>
-<div class="form-group">
 
+
+<div class="form-group">
 	<span id="tplContact" data-template="<?=htmlspecialchars('<div class="contacts-element"><input type="hidden" value="" name="bid-form[post][contacts][__placeholder__][id]"><div class="form-group"><label for="bid-form[post][contacts][__placeholder__][type]" class="col-sm-3 control-label">').
-	$this->translate('Contact type').htmlspecialchars('</label><div class="col-sm-7"><select class="form-control new-contact-chosen" name="bid-form[post][contacts][__placeholder__][type]"><option value="1">').
-	$this->translate('mobile').htmlspecialchars('</option><option value="2">').$this->translate('mail').htmlspecialchars('</option><option value="3">').
-	$this->translate('address').htmlspecialchars('</option></select></div></div><div class="form-group"><label for="bid-form[post][contacts][__placeholder__][value]" class="col-sm-3 control-label">').
+	$this->translate('Contact type').htmlspecialchars('</label><div class="col-sm-7"><select class="form-control" id="contact-chosen-__placeholder__" name="bid-form[post][contacts][__placeholder__][type]"><option value="1">').
+	$this->translate('Mobile').htmlspecialchars('</option><option value="2">').$this->translate('Email').htmlspecialchars('</option><option value="3">').
+	$this->translate('Address').htmlspecialchars('</option></select></div></div><div class="form-group"><label for="bid-form[post][contacts][__placeholder__][value]" class="col-sm-3 control-label">').
 	$this->translate('Contact value').htmlspecialchars('</label><div class="col-sm-7"><input type="text" value="" class="form-control" name="bid-form[post][contacts][__placeholder__][value]"></div></div></div>') ?>"></span>
-	<div class="col-sm-4 col-sm-offset-3"></div>
+	<div class="col-sm-7 col-sm-offset-3"></div>
 </div>
 
 <? $city = $bid->get('idCity'); ?>
@@ -140,17 +141,18 @@ echo "has-error" ?>">
 echo "has-error" ?>">
 <?php echo $this->formLabel($price); ?>
 <div class="col-sm-7">
-<div class="input-group"> 
-<?php echo $this->formElement($price) ?>
+	<div class="input-group"> 
+		<?php echo $this->formElement($price) ?>
+	    <span class="input-group-addon">Ariary</span>
+	</div>
 <?php  echo $this->formElementErrors()
 	->setMessageOpenFormat('<div class="help-block">')
     ->setMessageSeparatorString('</div><div class="help-block">')
     ->setMessageCloseString('</div>')
     ->render($price); ?>
-    <span class="input-group-addon">Ariary</span>
 </div>
 </div>
-</div>
+
 <? echo $this->formHidden($post->get('published'));?>
 <? echo $this->formHidden($post->get('modified'));?>
 <? echo $this->formHidden($post->get('deleted'));?>
@@ -265,7 +267,6 @@ echo "has-error" ?>">
 
 <!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">
-
 {% for (var i=0, file; file=o.files[i]; i++) { %}
 <div class="col-md-3 template-upload fade">
 {% if (i) { %}
@@ -287,6 +288,7 @@ echo "has-error" ?>">
 </div>
 {% } %}
 </script>
+
 <!-- The template to display files available for download -->
 <script id="template-download" type="text/x-tmpl">
 {% for (var i=0, file; file=o.files[i]; i++) { %}
@@ -330,7 +332,7 @@ echo "has-error" ?>">
 <script type="text/javascript">
 $(function() {
 	$(".chosen-select").select2({
-		minimumResultsForSearch: 10,
+		minimumResultsForSearch: 10
 	});
 	$('#myModal').on('hidden.bs.modal', function () {
 		  //window.alert('hidden event fired!');
@@ -358,7 +360,7 @@ $(function() {
 	            return {
 	                q: term, // search term
 	                page_limit: 10,
-	                page: page, // page number
+	                page: page // page number
 	            };
 	        },
 	        results: function (data, page) { // parse the results into the format expected by Select2.
@@ -377,31 +379,55 @@ $(function() {
 
 	function format(item) { return item.text; };
 	
+	/* ADDING MORE CONTACT */
 	var tplContact = $('#tplContact');
 	var tplContactManager = tplContact.parent();
-
-	var addContact = function () {
-	    var contactsGroup = $('#contacts-group');
-	    var contactsCount = contactsGroup.find('.contacts-element').length;
+	var contactsGroup = $('#contacts-group');
+	
+	
+	var addContact = function () {	    	    
+		var contactsCount = contactsGroup.find('.contacts-element').length;
 	    contactsGroup.append(tplContact.data('template').replace(/__placeholder__/g, contactsCount));
-	}
+	    return contactsCount;
+	};
 
-	var btnContacts = $('<button class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i><?=$this->translate('Add contact'); ?></button>')
+	var removeBtnContacts =  $('<button class="btn btn-primary col-sm-offset-1"><i class="glyphicon glyphicon-minus"></i> <?=$this->translate('Contact'); ?></button>')
+    .on('click', function(e) {
+        e.preventDefault();        
+        count = contactsGroup.find('.contacts-element').length;
+        if (count == 2) {
+        	contactsGroup.find('.contacts-element:last-child').remove();
+        	$(this).off('click');
+            $(this).remove();
+        } else {
+        	contactsGroup.find('.contacts-element:last-child').remove();
+        }
+    });
+
+	
+
+	var btnContacts = $('<button class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> <?=$this->translate('Contact'); ?></button>')
 	    .button({
 	        icons: {
 	            primary: 'ui-icon-circle-plus'
 	        }
 	    }).on('click', function (e) {
+	    	tplContactManager.find('div').append(removeBtnContacts);
 	        e.preventDefault();
 	        $('.removeElement').html('');
-	        addContact();
-	        //addRemoveButton('#contacts');
-	        $(".new-contact-chosen").select2({ 
-	        	minimumResultsForSearch: 10,
+	        var index = addContact();
+	        $("#contact-chosen-"+index).select2({ 
+	    		width: '100%',
+	    		minimumResultsForSearch: 10
 	    	});
+	        //addRemoveButton('#contacts');
 	    });
 
 	tplContactManager.find('div').append(btnContacts);
+	var initContactsCount = contactsGroup.find('.contacts-element').length;
+	if (initContactsCount > 1) {	
+		tplContactManager.find('div').append(removeBtnContacts);
+	}
 	
 });
 </script>

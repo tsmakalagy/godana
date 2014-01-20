@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection as Collection;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Godana\Entity\CooperativeRepository")
  * @ORM\Table(name="gdn_cooperative")
  * @author raiza
  *
@@ -68,6 +68,32 @@ class Cooperative
 	 */
 	protected $cars;
 	
+	/**
+	 * @ORM\OneToMany(targetEntity="CarDriver", mappedBy="cooperative")
+	 * @var array
+	 */
+	protected $drivers;
+	
+	/**
+	 * @var \Doctrine\Common\Collections\Collection
+     * @ORM\ManyToMany(targetEntity="\SamUser\Entity\User")
+     * @ORM\JoinTable(name="gdn_cooperative_admin",
+     *      joinColumns={@ORM\JoinColumn(name="cooperative_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="admin_id", referencedColumnName="id")}
+     *      )
+     **/
+	protected $admins;
+	
+	/**
+	 * @var \Doctrine\Common\Collections\Collection
+     * @ORM\ManyToMany(targetEntity="\SamUser\Entity\User")
+     * @ORM\JoinTable(name="gdn_cooperative_teller",
+     *      joinColumns={@ORM\JoinColumn(name="cooperative_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="teller_id", referencedColumnName="id")}
+     *      )
+     **/
+	protected $tellers;
+	
 	public function __construct()
 	{
 		$this->zones = new Collection();
@@ -75,6 +101,9 @@ class Cooperative
 		$this->contacts = new Collection();
 		$this->lineContacts = new Collection();
 		$this->cars = new Collection();
+		$this->drivers = new Collection();
+		$this->admins = new Collection();
+		$this->tellers = new Collection();
 	}
 	
 	public function getId()
@@ -218,5 +247,96 @@ class Cooperative
     public function addCar($car)
     {
     	$this->cars[] = $car;
+    }
+    
+	public function addDrivers(Collection $drivers)
+    {
+        foreach ($drivers as $driver) {
+            $this->drivers->add($driver);
+        }
+    }
+
+    public function removeDrivers(Collection $drivers)
+    {
+        foreach ($drivers as $driver) {
+            $this->drivers->removeElement($driver);
+        }
+    }
+    
+    public function getDrivers()
+    {
+    	return $this->drivers;
+    }
+    
+    public function addDriver($driver)
+    {
+    	$this->drivers[] = $driver;
+    }
+    
+	public function addAdmins(Collection $admins)
+    {
+        foreach ($admins as $admin) {
+            $this->admins->add($admin);
+        }
+    }
+
+    public function removeAdmins(Collection $admins)
+    {
+        foreach ($admins as $admin) {
+            $this->admins->removeElement($admin);
+        }
+    }
+    
+    public function removeAllAdmins()
+    {
+    	foreach ($this->admins as $admin) {
+    		$this->admins->removeElement($admin);
+    	}
+    }
+    
+    public function getAdmins()
+    {
+    	return $this->admins;
+    }
+    
+    public function addAdmin($admin)
+    {
+    	$this->admins[] = $admin;
+    }
+    
+	public function addTellers(Collection $tellers)
+    {
+        foreach ($tellers as $teller) {
+            $this->tellers->add($teller);
+        }
+    }
+
+    public function removeTellers(Collection $tellers)
+    {
+        foreach ($tellers as $teller) {
+            $this->tellers->removeElement($teller);
+        }
+    }
+    
+	public function removeAllTellers()
+    {
+    	foreach ($this->tellers as $teller) {
+    		$this->tellers->removeElement($teller);
+    	}
+    }
+    
+    public function getTellers()
+    {
+    	return $this->tellers;
+    }
+    
+    public function addTeller($teller)
+    {
+    	$this->tellers[] = $teller;
+    }
+    
+    public function hasUser($user)
+    {
+    	return $this->admins->contains($user) || $this->tellers->contains($user);
     }
 }
