@@ -166,7 +166,8 @@ class BidController extends AbstractActionController
         if ($form->isValid()) {
         	$post = $bid->getPost();	        	
         	$post->setIdent($this->slug()->seoUrl($post->getTitle()));
-            
+            $user = $this->zfcUserAuthentication()->getIdentity();
+            $post->setUser($user);
             $listFileId = $this->request->getPost()->get('file-id');
             if (count($listFileId) > 0) {
             	foreach ($listFileId as $fileId) {
@@ -181,11 +182,31 @@ class BidController extends AbstractActionController
             	$om->persist($post);
             	$om->flush();
             }
-            $user = $this->zfcUserAuthentication()->getIdentity();
-            $bid->setUser($user);	            
+            $index = Lucene::open(DATA_PATH.'/search');
+			$doc = new Document();	            
             $om->persist($bid);
             $om->flush();
-            return $this->redirect()->toRoute('bid');
+            $title = $bid->getPost()->getTitle();
+			$detail = $bid->getPost()->getDetail();
+			$published = date_format($bid->getPost()->getPublished(), 'd M Y');
+			$ident = $bid->getPost()->getIdent();
+			$type = $bid->getType();
+			if ($type == 0) {
+				$typeBid = 'offer';
+			} else if ($type == 1) {
+				$typeBid = 'demand';
+			}
+			$link = $this->createDetailBidUrl($lang, $typeBid, $ident);
+			
+			$doc->addField(Document\Field::keyword('link', $link));
+			$doc->addField(Document\Field::text('title', $title));
+			$doc->addField(Document\Field::unIndexed('published', $published));
+			$doc->addField(Document\Field::unIndexed('type', $type));
+			$doc->addField(Document\Field::text('contents', $detail));
+			$index->addDocument($doc);
+			$index->commit();
+            return $this->redirect()->toRoute('bid', array('lang' => $lang,
+            'page' => null, 'type' => null, 'categoryIdent' => null), array(), true);
         }
 	        
 	    
@@ -290,6 +311,15 @@ class BidController extends AbstractActionController
     public function setObjectManager($objectManager)
     {
     	$this->objectManager = $objectManager;
+    }
+    
+	private function createDetailBidUrl($lang, $typeBid, $ident)
+    {
+    	return $this->url()->fromRoute('detail-bid', array(
+    		'lang' => $lang,
+    		'type' => $typeBid,
+    		'postIdent' => $ident
+    	));
     }
     
 }

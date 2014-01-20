@@ -64,10 +64,10 @@ class Post extends \Godana\Entity\Post implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'title', 'ident', 'detail', 'published', 'modified', 'deleted', 'categories', 'contacts', 'files');
+            return array('__isInitialized__', 'id', 'title', 'ident', 'detail', 'published', 'modified', 'deleted', 'categories', 'contacts', 'files', 'tags', 'comments', 'user');
         }
 
-        return array('__isInitialized__', 'id', 'title', 'ident', 'detail', 'published', 'modified', 'deleted', 'categories', 'contacts', 'files');
+        return array('__isInitialized__', 'id', 'title', 'ident', 'detail', 'published', 'modified', 'deleted', 'categories', 'contacts', 'files', 'tags', 'comments', 'user');
     }
 
     /**
@@ -356,7 +356,7 @@ class Post extends \Godana\Entity\Post implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function addCategory($category)
+    public function addCategory(\Godana\Entity\Category $category)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'addCategory', array($category));
@@ -422,7 +422,7 @@ class Post extends \Godana\Entity\Post implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function addContact($contact)
+    public function addContact(\Godana\Entity\Contact $contact)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'addContact', array($contact));
@@ -444,7 +444,7 @@ class Post extends \Godana\Entity\Post implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function addFile($file)
+    public function addFile(\Godana\Entity\File $file)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'addFile', array($file));
@@ -472,6 +472,116 @@ class Post extends \Godana\Entity\Post implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeFiles', array($files));
 
         return parent::removeFiles($files);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTags()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTags', array());
+
+        return parent::getTags();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addTag(\Godana\Entity\Tag $tag)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addTag', array($tag));
+
+        return parent::addTag($tag);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addTags(\Doctrine\Common\Collections\ArrayCollection $tags)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addTags', array($tags));
+
+        return parent::addTags($tags);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeTags(\Doctrine\Common\Collections\ArrayCollection $tags)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeTags', array($tags));
+
+        return parent::removeTags($tags);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getComments()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getComments', array());
+
+        return parent::getComments();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addComment($comment)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addComment', array($comment));
+
+        return parent::addComment($comment);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addComments(\Doctrine\Common\Collections\ArrayCollection $comments)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addComments', array($comments));
+
+        return parent::addComments($comments);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeComments(\Doctrine\Common\Collections\ArrayCollection $comments)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeComments', array($comments));
+
+        return parent::removeComments($comments);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUser()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUser', array());
+
+        return parent::getUser();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUser($user)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUser', array($user));
+
+        return parent::setUser($user);
     }
 
     /**

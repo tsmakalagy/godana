@@ -388,6 +388,26 @@ class Module
 					));
                 	return $form;
                 },
+                'discussion_form' => function($sm) {
+                	$om = $sm->get('Doctrine\ORM\EntityManager');
+                	$forms = $sm->get('FormElementManager');
+                	$form = $forms->get('Godana\Form\PostForm');
+                	$postFieldset = $forms->get('PostFieldset');
+                	$postFieldset->remove('categories');
+                	$postFieldset->remove('contacts');
+			        $postFieldset->setUseAsBaseFieldset(true);
+                    $form->add($postFieldset);
+                    $form->setValidationGroup(array(
+					    'csrf',
+					    'post-form' => array(
+					        'title',
+                    		'detail',
+                    		'tags',
+					        'published'   
+					    ),
+					));
+                	return $form;
+                },
     		),
     	);
     }

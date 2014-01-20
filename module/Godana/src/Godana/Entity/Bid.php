@@ -23,15 +23,7 @@ class Bid
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $type;
-    
-    /**
-     * 
-     * @ORM\ManyToOne(targetEntity="\SamUser\Entity\User")
-     * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
-     * @var \SamUser\Entity\User
-     */
-    protected $user;    
+    protected $type;       
     
     /**
      * @var \Godana\Entity\Post
@@ -90,26 +82,8 @@ class Bid
     public function setType($type)
     {
     	$this->type = (int) $type;
-    }
+    }   
     
-    /**
-     * Get User
-     * @return \SamUser\Entity\User
-     */
-    public function getUser()
-    {
-    	return $this->user;
-    }
-    
-    /**
-     * Set user
-     * @param \SamUser\Entity\User $user
-     * @return void
-     */
-    public function setUser($user)
-    {
-    	$this->user = $user;
-    }
     
     /**
      * Get Post

@@ -138,21 +138,7 @@ $(function () {
         }).done(function (result) {
             $(this).fileupload('option', 'done')
                 .call(this, $.Event('done'), {result: result});
-            
-//            $('.img-thumbnail').click(function() {
-//        		$(this).css('background-color', '#428BCA');
-//        		$(this).parent('.preview').find('.my-zoom-icon').
-//        			css('background-color', '#428BCA').css('display', 'inline').
-//        			find('a').css('color', '#FFFFFF');
-//        		
-//        	});
-//            $('.my-tooltip').tooltip();
-//            $('.deselect').click(function() {
-//            	$(this).parents('.preview').find('.img-thumbnail').css('background-color', '#FFFFFF');
-//            	$(this).parents('.preview').find('.my-zoom-icon').
-//    			css('background-color', '#FFFFFF').css('display', 'none').
-//    			find('a').css('color', '#428BCA');
-//            });
+
             $('.image-preview-container').click(function (e) {
             	var container = $(".preview");
        		    if (!container.is(e.target) // if the target of the click isn't the container...

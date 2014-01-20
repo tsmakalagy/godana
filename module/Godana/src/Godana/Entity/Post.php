@@ -105,6 +105,14 @@ class Post
      */
     protected $comments;
     
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="\SamUser\Entity\User")
+     * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     * @var \SamUser\Entity\User
+     */
+    protected $user; 
+    
     
     public function __construct()
     {
@@ -402,6 +410,25 @@ class Post
         foreach ($comments as $comment) {
             $this->comments->removeElement($comment);
         }
+    }
+    
+	/**
+     * Get User
+     * @return \SamUser\Entity\User
+     */
+    public function getUser()
+    {
+    	return $this->user;
+    }
+    
+    /**
+     * Set user
+     * @param \SamUser\Entity\User $user
+     * @return void
+     */
+    public function setUser($user)
+    {
+    	$this->user = $user;
     }
     
 	public function setOptions($options = array()) 

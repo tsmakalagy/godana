@@ -25,14 +25,14 @@
 <div class="item">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title"><?=$this->truncateText($bid->getPost()->getTitle(), 20); ?>
+			<h3 class="panel-title"><?=$this->truncateText(stripcslashes($bid->getPost()->getTitle()), 20); ?>
 			<? if ($this->zfcUserIdentity()):?>
 			<a class="btn btn-default pull-right btn-xs" href="<?=$this->url('detail-bid', array('lang' => $this->lang, 'type' => $typeBid, 'postIdent' => $postIdent)) ?>"><?=$this->translate('More'); ?> <i class="glyphicon glyphicon-chevron-right"></i></a>
 			<? endif;?>
 			</h3>
 		</div>
 		<div class="panel-body">
-			<p><?=$bid->getPost()->getDetail(); ?></p>
+			<p><?=stripcslashes($bid->getPost()->getDetail()); ?></p>
 			<? $files = $bid->getPost()->getFiles();?>
 			<? $postId = $bid->getPost()->getId();?>
 			<? if (isset($files) && count($files) > 0):?>

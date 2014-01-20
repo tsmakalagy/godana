@@ -100,6 +100,20 @@ class PostFieldset extends Fieldset implements InputFilterProviderInterface, Ser
 				'class' => 'my-fieldset',
 			)			            
 	    ));
+	    
+	    $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'tags',
+        	'attributes' => array(
+        		'class' => 'tag-select form-control'
+        	),
+        	'options' => array(
+                'label' => 'Tags',
+        		'label_attributes' => array(
+		            'class' => 'col-sm-3 control-label',
+		        ),
+            ),
+        ));
         
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
@@ -138,6 +152,9 @@ class PostFieldset extends Fieldset implements InputFilterProviderInterface, Ser
             ),
             'categories' => array(
                 'required' => true
+            ),
+            'tags' => array(
+            	'required' => false
             ),
             'title' => array (
     			'required' => true,

@@ -12,13 +12,13 @@
 <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<h3 class="panel-title"><?=$bid->getPost()->getTitle(); ?>
+			<h3 class="panel-title"><?=stripcslashes($bid->getPost()->getTitle()); ?>
 <!--			<span class="bid-heading-back pull-right">-->
 			<a class="btn btn-primary btn-xs pull-right" href="<?=$this->url('bid', array('lang' => $this->lang)) ?>"><i class="glyphicon glyphicon-chevron-left"></i> <?=$this->translate('Back'); ?></a>	</h3>
 					
 		</div>
 		<div class="panel-body">
-			<p><?=$bid->getPost()->getDetail(); ?></p>
+			<p><?=stripcslashes($bid->getPost()->getDetail()); ?></p>
 					
 			<? $files = $bid->getPost()->getFiles();?>
 			<? $postId = $bid->getPost()->getId();?>

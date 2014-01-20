@@ -24,13 +24,13 @@
 		break;
 ?>
 <? endswitch;?>
-<dt><?=$this->translate($typeHit); ?> - <a href="<?=$hit->link; ?>"><?=$hit->title; ?></a></dt>
+<dt><?=$this->translate($typeHit); ?> - <a href="<?=$hit->link; ?>"><?=stripcslashes($hit->title); ?></a></dt>
 <dd>
 <? if ($type == 0 || $type == 1):?>
 <?=$this->translate('Published on ');?><?=$hit->published; ?>
  - 
 <? endif;?>
-<?=$this->truncateText($hit->contents, 50);?>
+<?=$this->truncateText(stripcslashes($hit->contents), 50);?>
 </dd>
 <? endforeach;?>
 </dl>
