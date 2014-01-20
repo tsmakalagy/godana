@@ -181,6 +181,8 @@ return array(
                 array('route' => 'tools', 'roles' => array('guest')),
                 array('route' => 'tools/transportation_reservation', 'roles' => array('user')),
                 array('route' => 'tools/transportation_reservation/detail', 'roles' => array('user')),
+                array('route' => 'tools/discussion/create', 'roles' => array('user')),
+                array('route' => 'tools/discussion/ajax_tag', 'roles' => array('user')),
             ),
         ),
 	),

@@ -103,7 +103,7 @@ class PostFieldset extends Fieldset implements InputFilterProviderInterface, Ser
 	    
 	    $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
-            'name' => 'tags',
+            'name' => 'tag',
         	'attributes' => array(
         		'class' => 'tag-select form-control'
         	),
@@ -153,7 +153,7 @@ class PostFieldset extends Fieldset implements InputFilterProviderInterface, Ser
             'categories' => array(
                 'required' => true
             ),
-            'tags' => array(
+            'tag' => array(
             	'required' => false
             ),
             'title' => array (

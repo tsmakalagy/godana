@@ -402,8 +402,8 @@ class Module
 					    'post-form' => array(
 					        'title',
                     		'detail',
-                    		'tags',
-					        'published'   
+					        'published',
+                    		'deleted'   
 					    ),
 					));
                 	return $form;

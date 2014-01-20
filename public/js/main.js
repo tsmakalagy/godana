@@ -26,7 +26,7 @@ $(function () {
     $('#fileupload').fileupload({
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
-        url: 'ajax',
+        url: '/bid/ajax',
         maxFileSize: 5000000,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
         autoUpload: true,

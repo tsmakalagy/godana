@@ -28,6 +28,7 @@ return array(
 			'search' => __NAMESPACE__ . '\Controller\SearchController',
 			'cooperative' => __NAMESPACE__ . '\Controller\CooperativeController',
 			'tools' => __NAMESPACE__ . '\Controller\ToolsController',
+			'discussion' => __NAMESPACE__ . '\Controller\DiscussionController',
 		),
 	),
 	'view_manager' => array(

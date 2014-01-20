@@ -845,6 +845,39 @@ return array(
 		            		),
 		            	),
             		),
+            		'discussion' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/discussion',
+                            'defaults' => array(
+                                'controller' => 'discussion',
+                                'action'     => 'index',
+                            ),                            
+                        ),
+                        'may_terminate' => true,
+		                'child_routes' => array(
+		                    'create' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/create',
+		                            'defaults' => array(
+		                                'controller' => 'discussion',
+		                                'action'     => 'create',
+		                            ),
+		                        ),
+		            		),
+		            		'ajax_tag' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/ajax/tag',
+		                            'defaults' => array(
+		                                'controller' => 'discussion',
+		                                'action'     => 'ajaxTag',
+		                            ),
+		                        ),
+		            		),
+		            	),
+                	),
             	),
             ),
             // The following is a route to simplify getting started creating
