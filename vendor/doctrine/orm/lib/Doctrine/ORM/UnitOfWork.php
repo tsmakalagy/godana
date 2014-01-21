@@ -530,7 +530,7 @@ class UnitOfWork implements PropertyChangedListener
             $class = $this->em->getClassMetadata(get_class($entity));
         }
 
-        $invoke = $this->listenersInvoker->getSubscribedSystems($class, Events::preFlush);
+        $invoke = $this->listenersInvoker->getSubscribedSystems($class, Events::preFlush) & ~ListenersInvoker::INVOKE_MANAGER;
 
         if ($invoke !== ListenersInvoker::INVOKE_NONE) {
             $this->listenersInvoker->invoke($class, Events::preFlush, $entity, new PreFlushEventArgs($this->em), $invoke);
@@ -2233,6 +2233,8 @@ class UnitOfWork implements PropertyChangedListener
             function ($assoc) { return $assoc['isCascadeRemove']; }
         );
 
+        $entitiesToCascade = array();
+
         foreach ($associationMappings as $assoc) {
             if ($entity instanceof Proxy && !$entity->__isInitialized__) {
                 $entity->__load();
@@ -2245,17 +2247,21 @@ class UnitOfWork implements PropertyChangedListener
                 case (is_array($relatedEntities)):
                     // If its a PersistentCollection initialization is intended! No unwrap!
                     foreach ($relatedEntities as $relatedEntity) {
-                        $this->doRemove($relatedEntity, $visited);
+                        $entitiesToCascade[] = $relatedEntity;
                     }
                     break;
 
                 case ($relatedEntities !== null):
-                    $this->doRemove($relatedEntities, $visited);
+                    $entitiesToCascade[] = $relatedEntities;
                     break;
 
                 default:
                     // Do nothing
             }
+        }
+
+        foreach ($entitiesToCascade as $relatedEntity) {
+            $this->doRemove($relatedEntity, $visited);
         }
     }
 

@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+2.5.0
+-----
+
+* added a way to set a default command instead of `ListCommand`
+* added a way to set the process name of a command
+
 2.4.0
 -----
 

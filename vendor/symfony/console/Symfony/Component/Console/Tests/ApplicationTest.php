@@ -393,6 +393,19 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testFindAlternativeCommandsWithAnAlias()
+    {
+        $fooCommand = new \FooCommand();
+        $fooCommand->setAliases(array('foo2'));
+
+        $application = new Application();
+        $application->add($fooCommand);
+
+        $result = $application->find('foo');
+
+        $this->assertSame($fooCommand, $result);
+    }
+
     public function testFindAlternativeNamespace()
     {
         $application = new Application();
@@ -881,6 +894,28 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
         return $dispatcher;
     }
+
+    public function testSetRunCustomDefaultCommand()
+    {
+        $command = new \FooCommand();
+
+        $application = new Application();
+        $application->setAutoExit(false);
+        $application->add($command);
+        $application->setDefaultCommand($command->getName());
+
+        $tester = new ApplicationTester($application);
+        $tester->run(array());
+        $this->assertEquals('interact called'.PHP_EOL.'called'.PHP_EOL, $tester->getDisplay(), 'Application runs the default set command if different from \'list\' command');
+
+        $application = new CustomDefaultCommandApplication();
+        $application->setAutoExit(false);
+
+        $tester = new ApplicationTester($application);
+        $tester->run(array());
+
+        $this->assertEquals('interact called'.PHP_EOL.'called'.PHP_EOL, $tester->getDisplay(), 'Application runs the default set command if different from \'list\' command');
+    }
 }
 
 class CustomApplication extends Application
@@ -903,5 +938,20 @@ class CustomApplication extends Application
     protected function getDefaultHelperSet()
     {
         return new HelperSet(array(new FormatterHelper()));
+    }
+}
+
+class CustomDefaultCommandApplication extends Application
+{
+    /**
+     * Overwrites the constructor in order to set a different default command.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $command = new \FooCommand();
+        $this->add($command);
+        $this->setDefaultCommand($command->getName());
     }
 }

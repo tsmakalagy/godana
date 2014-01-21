@@ -17,32 +17,8 @@
         "doctrine/doctrine-orm-module": "0.*",
         "zf-commons/zfc-user": "dev-master",
         "socalnick/scn-social-auth": "dev-master",
-		"manuakasam/sam-user": "dev-master",
-		"zendframework/zend-stdlib": "2.*"
-    },
-    "repositories": [
-	    {
-	        "type": "composer",
-	        "url": "https://packages.zendframework.com/"
-	    },
-	    {
-	        "type": "package",
-	        "package": {
-	            "name": "zendframework/zendsearch",
-	            "version": "0.1",
-	            "source": {
-	                "url": "https://github.com/zendframework/ZendSearch.git",
-	                "type": "git",
-	                "reference": "master"
-	            },
-	            "autoload": {
-				    "psr-0": {
-				        "ZendSearch\\": "vendor/zendframework/zendsearch/library/"
-				    }
-				} 
-	        }
-	    }
-	]
+	"manuakasam/sam-user": "dev-master"
+    }  
 	  
 }
 
