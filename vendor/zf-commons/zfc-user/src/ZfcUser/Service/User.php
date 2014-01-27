@@ -12,6 +12,8 @@ use ZfcBase\EventManager\EventProvider;
 use ZfcUser\Mapper\UserInterface as UserMapperInterface;
 use ZfcUser\Options\UserServiceOptionsInterface;
 
+use Godana\Entity\File;
+
 
 class User extends EventProvider implements ServiceManagerAwareInterface
 {
@@ -116,8 +118,9 @@ class User extends EventProvider implements ServiceManagerAwareInterface
     public function editProfile(array $data)
     {
         $currentUser = $this->getAuthService()->getIdentity();
+        $om = $this->getServiceManager()->get('Doctrine\ORM\EntityManager');
     	$form  = $this->getProfileForm();
-        //$form->setHydrator($this->getFormHydrator());
+//        $form->setHydrator($this->getFormHydrator());
         //$form->bind($currentUser);
         $form->setData($data);
         if (!$form->isValid()) {
@@ -135,22 +138,26 @@ class User extends EventProvider implements ServiceManagerAwareInterface
         }
     	if (array_key_exists('sex', $data)) {
         	$currentUser->setSex($data['sex']);
-        }        
+        }       
+    	if (array_key_exists('username', $data)) {
+        	$currentUser->setUsername($data['username']);
+        } 
+        
+    	if (array_key_exists('file-id', $data)) {
+	    	$listFileId = $data['file-id'];	    	
+	        if (count($listFileId)) {	        	
+	            foreach ($listFileId as $fileId) {
+	            	$file = $om->find('Godana\Entity\File', (int)$fileId);
+		    		if ($file instanceof File) {
+		    			$currentUser->setFile($file);	
+		    		}
+	            }
+	        }
+    		
+    		
+        	
+        }
 
-//        $oldPass = $data['credential'];
-//        $newPass = $data['newCredential'];
-//
-//        $bcrypt = new Bcrypt;
-//        $bcrypt->setCost($this->getOptions()->getPasswordCost());
-//
-//        if (!$bcrypt->verify($oldPass, $currentUser->getPassword())) {
-//            return false;
-//        }
-//
-//        $pass = $bcrypt->create($newPass);
-//        $currentUser->setPassword($pass);
-//
-		
         $this->getEventManager()->trigger(__FUNCTION__, $this, array('user' => $currentUser));
         $this->getUserMapper()->update($currentUser);
         $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('user' => $currentUser));

@@ -115,7 +115,7 @@ class Module implements
                 'zfcuser_register_form' => function ($sm) {
                     $options = $sm->get('zfcuser_module_options');
                     $form = new Form\Register(null, $options);
-                    //$form->setCaptchaElement($sm->get('zfcuser_captcha_element'));
+                    //$form->setCaptchaElement($sm->get('zfcuser_captcha_element'));                    
                     $form->setInputFilter(new Form\RegisterFilter(
                         new Validator\NoRecordExists(array(
                             'mapper' => $sm->get('zfcuser_user_mapper'),
@@ -135,10 +135,35 @@ class Module implements
                 'zfcuser_profile_form' => function ($sm) {
                     $options = $sm->get('zfcuser_module_options');
                     $form = new Form\Register(null, $options);
+                    $inputFilter = new \Zend\InputFilter\InputFilter();
+                    $callbackValidator = new Validator\UsernameValidatorCallback($sm->get('zfcuser_user_mapper'));
+
+                    $usernameValidator = new \Zend\Validator\Callback(array(
+                    	'callback' => array($callbackValidator, 'validate'),
+                    	'messages' => array(\Zend\Validator\Callback::INVALID_VALUE => 'This value is already taken')));
+                    
+                    $inputFilter->add(array(
+		                'name'       => 'username',
+		                'required'   => false,
+		                'validators' => array(
+		                    array(
+		                        'name'    => 'StringLength',		                    	
+		                        'options' => array(
+		                            'min' => 3,
+		                            'max' => 255,
+		                        ),
+		                    ),
+		                    $usernameValidator,
+		                ),
+		            ));
+		            $inputFilter->add(array('name' => 'email', 'required' => false));
+		            $inputFilter->add(array('name' => 'file-id', 'required' => false));
+		            $form->setInputFilter($inputFilter);
                     $form->get('email')->setAttributes(array(
-                    	'class' => 'disabled form-control',
-                    	'disabled' => 'disabled'
+                    	'class' => 'form-control',
+                    	'readonly' => true
                     ));
+                    
                     $form->remove('password');
                     $form->remove('passwordVerify');
                     $form->get('submit')->setLabel('Save');                    

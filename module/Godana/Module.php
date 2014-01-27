@@ -37,12 +37,20 @@ class Module
         return array(
         	'invokables' => array(
         		'truncateText' => 'Godana\View\Helper\Truncate',
+        		'displayTimeInterval' => 'Godana\View\Helper\DisplayTimeInterval'
         	),
             'factories' => array(
                 'currentUserRole' => function ($sm) {
                     $locator = $sm->getServiceLocator();
                     $viewHelper = new View\Helper\CurrentUserRole;
                     $viewHelper->setAuthService($locator->get('zfcuser_auth_service'));
+                    return $viewHelper;
+                },
+                'userPicture' => function ($sm) {
+                    $locator = $sm->getServiceLocator();
+                    $viewHelper = new View\Helper\UserPicture($dimension);
+                    $viewHelper->setAuthService($locator->get('zfcuser_auth_service'));
+                    $viewHelper->setObjectManager($locator->get('Doctrine\ORM\EntityManager'));
                     return $viewHelper;
                 },
             ),
@@ -55,6 +63,7 @@ class Module
     	return array(
     		'invokables' => array(
     			'godana_sendmail_service' => 'Godana\Service\Mail',
+    			'WebinoImageThumb' => 'WebinoImageThumb\WebinoImageThumb'
     		),
     		
     		'factories' => array(
@@ -100,14 +109,14 @@ class Module
                 	$form->setAttribute('name', 'fileupload');
                 	return $form;
                 },
-                'upload_handler' => function($sm) {
+                'bid_upload_handler' => function($sm) {
                 	$om = $sm->get('Doctrine\ORM\EntityManager');
                 	$authService = $sm->get('zfcuser_auth_service');
                 	$options = array(
 						'delete_type' => 'POST',
                 		'user_dirs' => true,
 					);
-                	$uploadHandler = new \JqueryFileUpload\Handler\CustomUploadHandler($om, $authService, $options);
+                	$uploadHandler = new \JqueryFileUpload\Handler\BidUploadHandler($om, $authService, $options);
                 	return $uploadHandler;
                 },
                 'shop_form' => function($sm) {
@@ -388,25 +397,48 @@ class Module
 					));
                 	return $form;
                 },
-                'discussion_form' => function($sm) {
+                'feed_form' => function($sm) {
                 	$om = $sm->get('Doctrine\ORM\EntityManager');
                 	$forms = $sm->get('FormElementManager');
-                	$form = $forms->get('Godana\Form\PostForm');
-                	$postFieldset = $forms->get('PostFieldset');
+                	$form = $forms->get('Godana\Form\FeedForm');
+                	$feedFieldset = $forms->get('FeedFieldset'); 
+                	$postFieldset = $feedFieldset->get('post');
                 	$postFieldset->remove('categories');
                 	$postFieldset->remove('contacts');
-			        $postFieldset->setUseAsBaseFieldset(true);
-                    $form->add($postFieldset);
+			        $feedFieldset->setUseAsBaseFieldset(true);
+                    $form->add($feedFieldset);
                     $form->setValidationGroup(array(
 					    'csrf',
-					    'post-form' => array(
-					        'title',
-                    		'detail',
-					        'published',
-                    		'deleted'   
+					    'feed-form' => array(
+                    		'post' => array(
+                    			'title',
+	                    		'detail',
+						        'published',
+	                    		'deleted'
+                    		),					           
 					    ),
 					));
                 	return $form;
+                },
+                'user_upload_handler' => function($sm) {
+                	$om = $sm->get('Doctrine\ORM\EntityManager');
+                	$authService = $sm->get('zfcuser_auth_service');
+                	$options = array(
+						'delete_type' => 'POST',
+                		'user_dirs' => true,
+					);
+                	$uploadHandler = new \JqueryFileUpload\Handler\UserUploadHandler($om, $authService, $options);
+                	return $uploadHandler;
+                },
+                'feed_upload_handler' => function($sm) {
+                	$om = $sm->get('Doctrine\ORM\EntityManager');
+                	$authService = $sm->get('zfcuser_auth_service');
+                	$options = array(
+						'delete_type' => 'POST',
+                		'user_dirs' => true,
+					);
+                	$uploadHandler = new \JqueryFileUpload\Handler\FeedUploadHandler($om, $authService, $options);
+                	return $uploadHandler;
                 },
     		),
     	);
@@ -480,6 +512,7 @@ class Module
 	    		'ReservationBoardFieldset' => 'Godana\Form\ReservationBoardFieldset',
 	    	    'ReservationFieldset' => 'Godana\Form\ReservationFieldset',
 	    		'UserFieldset' => 'Godana\Form\UserFieldset',
+	    		'FeedFieldset' => 'Godana\Form\FeedFieldset',
             ),
 	        'initializers' => array(
 	            'ObjectManagerInitializer' => function ($element, $formElements) {

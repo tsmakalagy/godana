@@ -1,0 +1,116 @@
+<?php echo $this->headLink()
+                ->appendStylesheet($this->basePath() . '/css/blueimp-gallery.min.css');?>
+<? $this->headTitle($this->translate('Feed'));?>
+<style type="text/css">
+<!--
+.item-feed {
+	width: 40%;
+}
+.tag {
+	left: 830px;
+    position: absolute;
+    top: 75px;
+}
+.tag ul {
+    list-style: none outside none;
+    padding-left: 0;
+}
+.bj {
+  	padding:0 0 20px;
+  	overflow: hidden;
+}
+.add_cmt {
+	background-color:#FFFFFF;
+  	border:1px solid #DDDDDD;
+  	box-sizing:border-box;
+  	color:#999999;
+  	cursor:text;
+  	font-size:12px;
+  	height:auto;
+  	margin:0;
+  	padding:6px 8px;
+}
+-->
+</style>
+
+<div id="ctnr">
+<? $feeds = $this->feeds;?>
+<? $count = 0;?>
+<? foreach ($feeds as $feed):?>
+<? $post = $feed->getPost();?>
+<? $postIdent = $post->getIdent();?>
+<? $user = $post->getUser();?>
+<? $count++;?>
+<div class="item-feed">
+	<div class="panel panel-default">		
+		<div class="panel-body">
+			<div class="row post-header">
+				<div class="col-md-3"><img src="<?=$this->userPicture('sm', $user); ?>" class="img-circle"/></div>
+				<div class="col-md-9"><h4 class="post-user-name"><?=$this->zfcUserDisplayName($user) ?></h4>
+				<h5 class="post-date"><small><?=$this->displayTimeInterval($post->getPublished()) ?></small></h5></div>
+			</div>
+			<div class="post-body"><p><?=stripcslashes($post->getDetail()); ?></p></div>
+			
+			<? $files = $post->getFiles();?>
+			<? $postId = $post->getId();?>
+			<? if (isset($files) && count($files) > 0):?>
+				<div class="row" id="<?=$post->getId(); ?>">
+				<? foreach ($files as $file):?>					
+					  <div class="col-xs-6 col-sm-5 col-md-5" >					  
+					    <a href="<?=$file->getUrl(); ?>" class="img-thumbnail"  download="<?=$file->getName(); ?>" data-gallery="#blueimp-gallery-<?=$postId; ?>">
+					      <img src="<?=$file->getThumbnailUrl(); ?>" class="img-responsive">
+					    </a>
+					  </div>						  									
+				<? endforeach;?>
+				</div>
+			<? endif;?>
+			<h4 class="bid-info">
+			<? $tags = $post->getTags();?>
+			<? if (isset($tags) && count($tags) > 0):?>	
+			<br>	
+			<? foreach ($tags as $tag):?>
+				<a class="btn btn-primary btn-xs" href="#"><?=$tag->getTitle(); ?></a>
+			<? endforeach;?>
+			<? endif;?>			
+			</h4>
+			<div class="bj">
+				<div class="add_cmt" role="button">Add a comment...</div>
+			</div>
+		</div>		
+	</div>
+</div>
+<? endforeach;?>
+
+</div>
+<div class="col-md-2 tag">
+<div class="panel panel-default">		
+	<div class="panel-body">
+		<?=$this->cloud; ?>
+	</div>
+</div>
+</div>
+<!-- The blueimp Gallery widget -->
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+	<div class="slides"></div>
+	<h3 class="title"></h3>
+	<a class="prev">‹</a>
+	<a class="next">›</a>
+	<a class="close">×</a>
+	<a class="play-pause"></a>
+	<ol class="indicator"></ol>
+</div>
+
+<script type="text/javascript">
+<!--
+$(function() {
+	var container = document.querySelector('#ctnr');
+	var msnry = new Masonry( container, {
+	  // options
+	  columnWidth: 280,
+	  itemSelector: '.item-feed'
+	});
+});
+//-->
+</script>
+
+<? $this->inlineScript()->appendFile($this->basePath() . '/js/masonry.pkgd.min.js');?>

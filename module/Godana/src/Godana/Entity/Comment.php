@@ -47,11 +47,11 @@ class Comment
     protected $deleted;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id_post")
-     * @var Post
+     * @ORM\ManyToOne(targetEntity="Feed", inversedBy="comments")
+     * @ORM\JoinColumn(name="feed_id", referencedColumnName="id")
+     * @var Feed
      */
-    protected $post;
+    protected $feed;
     
 	/**
      * @ORM\PrePersist
@@ -123,14 +123,14 @@ class Comment
     	$this->deleted = $deleted;
     }
     
-	public function getPost()
+	public function getFeed()
     {
-    	return $this->post;
+    	return $this->feed;
     }
     
-    public function setPost($post)
+    public function setFeed($feed)
     {
-    	$this->post = $post;
+    	$this->feed = $feed;
     }
     
 }

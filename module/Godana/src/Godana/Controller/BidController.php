@@ -8,7 +8,6 @@ use Godana\Entity\Post;
 use Godana\Entity\Bid;
 use Godana\Entity\File;
 use Godana\Form\PostForm;
-use JqueryFileUpload\Handler\CustomUploadHandler;
 use Doctrine\Common\Persistence\ObjectManager;
 use Zend\Http\PhpEnvironment\Response as Response;
 
@@ -43,6 +42,8 @@ class BidController extends AbstractActionController
      * @var ObjectManager
      */
     protected $objectManager;
+    
+    protected $uploadHandler;
     
         
 	public function indexAction()
@@ -234,11 +235,16 @@ class BidController extends AbstractActionController
  		return new \Zend\View\Model\JsonModel($result);
  	}
  	
- 	public function ajaxAction()
+ 	public function uploadAjaxAction()
  	{ 		
-        $uploadhandler = $this->getServiceLocator()->get('upload_handler');        
+        $this->uploadhandler = $this->getServiceLocator()->get('bid_upload_handler');  
         return $this->getResponse();
         
+ 	}
+ 	
+ 	public function getUploadHandler()
+ 	{
+ 		return $this->uploadHandler;
  	}
  	
  	public function uploadAction()

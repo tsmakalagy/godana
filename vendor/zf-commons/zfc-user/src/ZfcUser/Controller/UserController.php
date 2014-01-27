@@ -2,6 +2,7 @@
 
 namespace ZfcUser\Controller;
 
+use Godana\Entity\File;
 use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Stdlib\ResponseInterface as Response;
@@ -39,6 +40,11 @@ class UserController extends AbstractActionController
      * @var Form
      */
     protected $profileForm;
+    
+    /**
+     * @var Form
+     */
+    protected $fileForm;
 
     /**
      * @var Form
@@ -253,18 +259,23 @@ class UserController extends AbstractActionController
         $service = $this->getUserService();
         $currentUser = $service->getAuthService()->getIdentity();
         $form = $this->getProfileForm();
+        $fileForm = $this->getFileForm();
+        //$form->bind($currentUser);
         
         
-        $prg = $this->prg(static::ROUTE_PROFILE);
-		$form->setHydrator($service->getFormHydrator());
+		$form->setHydrator($service->getFormHydrator());	
+    	
+		
         $data['firstname'] = $currentUser->getFirstname();
         $data['lastname'] = $currentUser->getLastname();
+        $data['username'] = $currentUser->getUsername();
         if ($currentUser->getDateofbirth()) {
         	$data['dateofbirth'] = $currentUser->getDateofbirth()->format('m/d/Y');
         }
         $data['sex'] = $currentUser->getSex();
         $data['email'] = $currentUser->getEmail();
         $form->setData($data);
+        $prg = $this->prg(static::ROUTE_PROFILE);
         $fm = $this->flashMessenger()->setNamespace('profile')->getMessages();
         if (isset($fm[0])) {
             $status = $fm[0];
@@ -279,16 +290,16 @@ class UserController extends AbstractActionController
                 'status' => $status,
             	'enableRegistration' => $this->getOptions()->getEnableRegistration(),
                 'profileForm' => $form,
+            	'fileForm' => $fileForm
             );
         }
-
         $form->setData($prg);
-
         if (!$form->isValid()) {
             return array(
                 'status' => false,
             	'enableRegistration' => $this->getOptions()->getEnableRegistration(),
                 'profileForm' => $form,
+            	'fileForm' => $fileForm
             );
         }
 
@@ -297,6 +308,7 @@ class UserController extends AbstractActionController
                 'status' => false,
             	'enableRegistration' => $this->getOptions()->getEnableRegistration(),
                 'profileForm' => $form,
+            	'fileForm' => $fileForm
             );
         }
 
@@ -406,6 +418,13 @@ class UserController extends AbstractActionController
         $this->flashMessenger()->setNamespace('change-email')->addMessage(true);
         return $this->redirect()->toRoute(static::ROUTE_CHANGEEMAIL);
     }
+    
+	public function uploadAjaxAction()
+ 	{ 		
+        $uploadhandler = $this->getServiceLocator()->get('user_upload_handler');  
+        return $this->getResponse();
+        
+ 	}
 
     /**
      * Getters/setters for DI stuff
@@ -533,4 +552,17 @@ class UserController extends AbstractActionController
         $this->changeEmailForm = $changeEmailForm;
         return $this;
     }
+    
+    public function getFileForm()
+    {
+        if (!$this->fileForm) {
+            $this->setFileForm($this->getServiceLocator()->get('file_form'));
+        }
+        return $this->fileForm;
+    }
+
+    public function setFileForm(Form $fileForm)
+    {
+        $this->fileForm = $fileForm;
+    }  
 }

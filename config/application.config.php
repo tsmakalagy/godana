@@ -15,6 +15,7 @@ return array(
     	'BjyAuthorize',
 		'SamUser',
 		'BjyProfiler',	
+		'WebinoImageThumb',
 		'jqueryFileUpload',			
 		'Godana'		
     ),

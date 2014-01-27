@@ -32,7 +32,7 @@ $(function () {
         autoUpload: true,
         previewMaxWidth: 100,
         previewMaxHeight: 100,
-        previewCrop: true,
+        previewCrop: true
     }).on('fileuploadsubmit', function (e, data) {
         data.formData = data.context.find(':input').serializeArray();        
     }).on('fileuploaddone', function (e, data) {

@@ -172,16 +172,13 @@ return array(
               	),
             ),
             'ajax-bid' => array(
-            	'type' => 'Segment',
+            	'type' => 'Literal',
             	'options' => array(
-                	'route' => '/[:lang/]bid/ajax',
+                	'route' => '/bid/upload/ajax',
                     'defaults' => array(
                     	'controller' => 'bid',
-                        'action'     => 'ajax',
+                        'action'     => 'uploadAjax',
                   	),
-                  	'constraints' => array(
-            			'lang' => '(en|de|fr|mg)?',
-            		),
               	),
             ),
             'city-bid' => array(
@@ -845,24 +842,24 @@ return array(
 		            		),
 		            	),
             		),
-            		'discussion' => array(
+            		'feed' => array(
                         'type' => 'literal',
                         'options' => array(
-                            'route' => '/discussion',
+                            'route' => '/feed',
                             'defaults' => array(
-                                'controller' => 'discussion',
+                                'controller' => 'feed',
                                 'action'     => 'index',
                             ),                            
                         ),
                         'may_terminate' => true,
 		                'child_routes' => array(
-		                    'create' => array(
+		                    'add' => array(
 		                        'type' => 'literal',
 		                        'options' => array(
-		                            'route' => '/create',
+		                            'route' => '/add',
 		                            'defaults' => array(
-		                                'controller' => 'discussion',
-		                                'action'     => 'create',
+		                                'controller' => 'feed',
+		                                'action'     => 'add',
 		                            ),
 		                        ),
 		            		),
@@ -871,14 +868,44 @@ return array(
 		                        'options' => array(
 		                            'route' => '/ajax/tag',
 		                            'defaults' => array(
-		                                'controller' => 'discussion',
+		                                'controller' => 'feed',
 		                                'action'     => 'ajaxTag',
 		                            ),
 		                        ),
 		            		),
 		            	),
                 	),
-            	),
+            	),            	
+            ),
+            'crop' => array(
+            	'type' => 'Literal',
+            	'options' => array(
+                	'route' => '/crop',
+                    'defaults' => array(
+                    	'controller' => 'crop',
+                        'action'     => 'index',
+                  	),
+              	),
+            ),
+            'user-upload' => array(
+            	'type' => 'Literal',
+            	'options' => array(
+                	'route' => '/user/upload/ajax',
+                    'defaults' => array(
+                    	'controller' => 'zfcuser',
+                        'action'     => 'uploadAjax',
+                  	),
+              	),
+            ),
+            'feed-upload' => array(
+            	'type' => 'Literal',
+            	'options' => array(
+                	'route' => '/feed/upload/ajax',
+                    'defaults' => array(
+                    	'controller' => 'feed',
+                        'action'     => 'uploadAjax',
+                  	),
+              	),
             ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new

@@ -13,6 +13,20 @@ class Base extends ProvidesEventsForm
         parent::__construct();
 
         $this->add(array(
+            'name' => 'email',
+            'options' => array(
+                'label' => 'Email',
+        		'label_attributes' => array(
+		            'class' => 'col-sm-4 control-label',
+		        ),
+            ),
+            'attributes' => array(
+                'type' => 'text',
+                'class' => 'form-control',
+            ),
+        ));
+        
+        $this->add(array(
             'name' => 'username',
             'options' => array(
                 'label' => 'Username',
@@ -85,21 +99,7 @@ class Base extends ProvidesEventsForm
             	'class' => 'chosen-select form-control',
             ),        
               
-        ));
-
-        $this->add(array(
-            'name' => 'email',
-            'options' => array(
-                'label' => 'Email',
-        		'label_attributes' => array(
-		            'class' => 'col-sm-4 control-label',
-		        ),
-            ),
-            'attributes' => array(
-                'type' => 'text',
-                'class' => 'form-control',
-            ),
-        ));
+        ));        
 
         $this->add(array(
             'name' => 'display_name',

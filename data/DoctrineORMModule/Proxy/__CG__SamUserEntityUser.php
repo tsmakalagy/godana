@@ -64,10 +64,10 @@ class User extends \SamUser\Entity\User implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'username', 'email', 'displayName', 'password', 'state', 'roles', 'firstname', 'lastname', 'dateofbirth', 'sex');
+            return array('__isInitialized__', 'id', 'username', 'email', 'displayName', 'password', 'state', 'roles', 'firstname', 'lastname', 'dateofbirth', 'sex', 'file');
         }
 
-        return array('__isInitialized__', 'id', 'username', 'email', 'displayName', 'password', 'state', 'roles', 'firstname', 'lastname', 'dateofbirth', 'sex');
+        return array('__isInitialized__', 'id', 'username', 'email', 'displayName', 'password', 'state', 'roles', 'firstname', 'lastname', 'dateofbirth', 'sex', 'file');
     }
 
     /**
@@ -450,6 +450,28 @@ class User extends \SamUser\Entity\User implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSex', array($sex));
 
         return parent::setSex($sex);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getFile()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFile', array());
+
+        return parent::getFile();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setFile($file)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFile', array($file));
+
+        return parent::setFile($file);
     }
 
 }

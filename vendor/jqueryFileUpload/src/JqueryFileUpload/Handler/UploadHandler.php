@@ -1,6 +1,16 @@
 <?php
 namespace JqueryFileUpload\Handler;
 
+/*
+ * jQuery File Upload Plugin PHP Class 6.9.1
+ * https://github.com/blueimp/jQuery-File-Upload
+ *
+ * Copyright 2010, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ */
 class UploadHandler
 {
 
@@ -116,8 +126,7 @@ class UploadHandler
                 // Uncomment the following to create medium sized images:
                 
                 'medium' => array(
-                    'max_width' => 300,
-                    'max_height' => 300
+                    'max_width' => 300
                 ),
                 
                 'thumbnail' => array(
@@ -185,14 +194,14 @@ class UploadHandler
         return session_id();
     }
 
-    protected function get_user_path() {
+    protected  function get_user_path() {
         if ($this->options['user_dirs']) {
             return $this->get_user_id().'/';
         }
         return '';
     }
 
-    protected function get_upload_path($file_name = null, $version = null) {
+    public function get_upload_path($file_name = null, $version = null) {
         $file_name = $file_name ? $file_name : '';
         if (empty($version)) {
             $version_path = '';
@@ -1290,6 +1299,14 @@ class UploadHandler
             $response[$file_name] = $success;
         }
         return $this->generate_response($response, $print_response);
+    }
+    
+	public function getOption($option)
+    {
+    	if (array_key_exists($option, $this->options)) {
+    		return $this->options[$option];
+    	}
+    	return false;
     }
 
 }

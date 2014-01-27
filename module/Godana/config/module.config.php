@@ -28,9 +28,11 @@ return array(
 			'search' => __NAMESPACE__ . '\Controller\SearchController',
 			'cooperative' => __NAMESPACE__ . '\Controller\CooperativeController',
 			'tools' => __NAMESPACE__ . '\Controller\ToolsController',
-			'discussion' => __NAMESPACE__ . '\Controller\DiscussionController',
+			'feed' => __NAMESPACE__ . '\Controller\FeedController',
+			'crop' => __NAMESPACE__ . '\Controller\CropController',
 		),
 	),
+	
 	'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions'       => true,

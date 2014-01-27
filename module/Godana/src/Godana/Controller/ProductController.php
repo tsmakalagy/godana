@@ -159,8 +159,14 @@ class ProductController extends AbstractActionController
  	}
  	
 	public function ajaxAction()
- 	{ 		
-        $uploadhandler = $this->getServiceLocator()->get('upload_handler');        
+ 	{ 	
+ 		$om = $this->getObjectManager();	
+        //$uploadhandler = $this->getServiceLocator()->get('bid_upload_handler');
+        $options = array(
+			'delete_type' => 'POST',
+                'user_dirs' => true,
+		);
+        $uploadhandler = new \JqueryFileUpload\Handler\ProductUploadHandler($om, 1, $options);        
         return $this->getResponse();
         
  	}

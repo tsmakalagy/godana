@@ -12,4 +12,6 @@ class UserRepository extends EntityRepository
 		$query->setParameter(1, $roleId);
 		return $query->getResult();		
 	}
+	
+	
 }

@@ -2,10 +2,11 @@
 namespace Godana\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection as Collection;
 
 /** 
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Godana\Entity\FileRepository")
  * @ORM\Table(name="gdn_file")
  * 
  */
@@ -60,6 +61,17 @@ class File
      * @var text
      */
     protected $description;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Godana\Entity\Image", mappedBy="file")
+     * @var array
+     */
+    protected $images;
+    
+    public function __construct()
+    {
+    	$this->images = new Collection();
+    }
     
     public function getId()
     {
@@ -131,10 +143,50 @@ class File
     	$this->description = $description;
     }
     
+	public function getImages()
+	{
+		return $this->images;
+	}
+	
+	public function addImage($image)
+	{
+		$this->images[] = $image;
+	}
+	
+	public function addImages(Collection $images)
+	{
+		foreach($images as $image) {
+			$this->images->add($image);
+		}
+	}
+	
+	public function removeImages(Collection $images)
+    {
+        foreach ($images as $image) {
+            $this->images->removeElement($image);
+        }
+    }
+    
     public function getThumbnailUrl()
     {
     	$url = $this->url;
     	$imgUrl = substr($url, 0, strrpos($url, '/'));
     	return $imgUrl . '/thumbnail/' . $this->name;
+    } 
+
+	public function getImageUrlByDimension($dimension)
+    {    	
+		$images = $this->getImages();
+		$url = $this->getUrl();
+		foreach ($images as $image) {
+			$dim = $image->getDimension();
+			if ($dim == $dimension) {
+				$imageName = $image->getName();
+				break;
+			}
+		}		
+		$imgUrl = substr($url, 0, strrpos($url, '/'));
+    	return $imgUrl . '/' . $imageName;
     }
+    
 }

@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection as Collection;
 
 /** 
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Godana\Entity\PostRepository")
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="gdn_post")
  * 
@@ -97,13 +97,7 @@ class Post
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      * ) 
      */
-    protected $tags;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    protected $comments;
+    protected $tags;    
     
     /**
      * 
@@ -386,31 +380,7 @@ class Post
         foreach ($tags as $tag) {
             $this->tags->removeElement($tag);
         }
-    }
-    
-	public function getComments()
-    {
-    	return $this->comments;
-    }
-    
-    public function addComment($comment)
-    {
-    	$this->comments[] = $comment;
-    }
-    
-	public function addComments(Collection $comments)
-    {
-        foreach ($comments as $comment) {
-            $this->comments->add($comment);
-        }
-    }
-
-    public function removeComments(Collection $comments)
-    {
-        foreach ($comments as $comment) {
-            $this->comments->removeElement($comment);
-        }
-    }
+    }	
     
 	/**
      * Get User

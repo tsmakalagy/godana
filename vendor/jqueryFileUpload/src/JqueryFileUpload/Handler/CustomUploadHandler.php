@@ -3,29 +3,16 @@ namespace JqueryFileUpload\Handler;
 
 use Godana\Entity\File;
 use Doctrine\Common\Persistence\ObjectManager as ObjectManager;
-use Zend\Authentication\AuthenticationService;
 
 class CustomUploadHandler extends UploadHandler
-{
+{	  
+	protected $objectManager;	
 	
-	/**
-     * @var AuthenticationService
-     */
-    protected $authService;
-    
-	protected $objectManager;
-	
-	public function __construct(ObjectManager $om, AuthenticationService $as, $options)
+	public function __construct(ObjectManager $om, $options)
 	{
 		$this->objectManager = $om;
-		$this->authService = $as;
 		parent::__construct($options);
-	}
-	
-	protected function get_user_id()
-	{
-		return $this->getAuthService()->getIdentity()->getId();
-	}
+	}	
 	
 	protected function handle_form_data($file, $index) {
     	$file->title = @$_REQUEST['title'][$index];
@@ -102,27 +89,7 @@ class CustomUploadHandler extends UploadHandler
     public function setObjectManager(ObjectManager $objectManager)
     {
     	$this->objectManager = $objectManager;
-    }
-    
-	/**
-     * Get authService.
-     *
-     * @return AuthenticationService
-     */
-    public function getAuthService()
-    {
-        return $this->authService;
-    }
+    }  
 
-    /**
-     * Set authService.
-     *
-     * @param AuthenticationService $authService
-     * @return \ZfcUser\View\Helper\ZfcUserIdentity
-     */
-    public function setAuthService(AuthenticationService $authService)
-    {
-        $this->authService = $authService;
-        return $this;
-    }
+    
 }

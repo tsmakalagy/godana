@@ -76,7 +76,12 @@ class RedirectionStrategy implements ListenerAggregateInterface
         if (isset($routeMatch)) {
         	$routeName = $routeMatch->getMatchedRouteName();
 			$routeParams = $routeMatch->getParams();
-			$lang = $routeParams['lang'];	
+			if (array_key_exists('lang', $routeParams)) {
+				$lang = $routeParams['lang'];	
+			} else {
+				$lang = 'mg';
+			}
+				
         }
         
 

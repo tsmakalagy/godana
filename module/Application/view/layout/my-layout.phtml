@@ -69,10 +69,11 @@
                     <ul class="nav navbar-nav navbar-right">
                          <? if ($this->zfcUserIdentity()):?>
                             	<li class="dropdown">
-	                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $this->zfcUserDisplayName() ?> <i class="caret"></i>
+	                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><img src="<?=$this->userPicture('xs'); ?>" class="img-rounded"> <?php echo $this->zfcUserDisplayName() ?> <i class="caret"></i>
+	                                <!-- <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $this->zfcUserDisplayName() ?> <i class="caret"></i>-->
 	
 	                                </a>
-	                                <ul class="dropdown-menu">
+	                                <ul class="dropdown-menu">	                               
 	                                    <li>
 	                                        <a tabindex="-1" href="<?php echo $this->url('zfcuser/profile') ?>"><i class="fa fa-user"></i> <? echo $this->translate('Profile');?></a>
 	                                    </li>
@@ -114,6 +115,7 @@
 	                                    <li>
 	                                        <a tabindex="-1" href="<?php echo $this->url('zfcuser/logout', array(), array(), true) ?>"><i class="fa fa-power-off"></i> <?php echo $this->translate('Sign Out'); ?></a>
 	                                    </li>
+	                                    
 	                                </ul>
 	                            </li>
                             <? else: ?>
