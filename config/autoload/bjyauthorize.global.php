@@ -125,6 +125,7 @@ return array(
                 
                 array('route' => 'bid', 'roles' => array('guest', 'user')),
                 array('route' => 'add-bid', 'roles' => array('user')),
+                array('route' => 'add-ajax-bid', 'roles' => array('user')),
                 array('route' => 'upload-bid', 'roles' => array('user')),
                 array('route' => 'ajax-bid', 'roles' => array('user')),
                 array('route' => 'city-bid', 'roles' => array('user')),
@@ -183,11 +184,15 @@ return array(
                 array('route' => 'tools/transportation_reservation/detail', 'roles' => array('user')),
                 array('route' => 'tools/feed', 'roles' => array('guest')),
                 array('route' => 'tools/feed/add', 'roles' => array('user')),
+                array('route' => 'tools/feed/add_ajax', 'roles' => array('user')),
                 array('route' => 'tools/feed/ajax_tag', 'roles' => array('user')),
+                array('route' => 'tools/feed/load_ajax', 'roles' => array('guest')),
                 
                 array('route' => 'crop', 'roles' => array('user')),
                 array('route' => 'user-upload', 'roles' => array('user')),
                 array('route' => 'feed-upload', 'roles' => array('user')),
+                array('route' => 'feed-comment', 'roles' => array('user')),
+                array('route' => 'remove-comment', 'roles' => array('user')),
             ),
         ),
 	),

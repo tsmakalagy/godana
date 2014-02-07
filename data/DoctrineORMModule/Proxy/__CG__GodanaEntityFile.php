@@ -389,6 +389,17 @@ class File extends \Godana\Entity\File implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getMediumUrl()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMediumUrl', array());
+
+        return parent::getMediumUrl();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getImageUrlByDimension($dimension)
     {
 

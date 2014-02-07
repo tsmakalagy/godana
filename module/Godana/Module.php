@@ -1,6 +1,11 @@
 <?php
 namespace Godana;
+
 use DoctrineModule\Persistence\ObjectManagerAwareInterface;
+use Zend\Mvc\ModuleRouteListener;
+use Zend\Mvc\MvcEvent;
+use Zend\I18n\Translator\Translator;
+use Zend\Validator\AbstractValidator;
 
 class Module
 {	
@@ -403,8 +408,8 @@ class Module
                 	$form = $forms->get('Godana\Form\FeedForm');
                 	$feedFieldset = $forms->get('FeedFieldset'); 
                 	$postFieldset = $feedFieldset->get('post');
-                	$postFieldset->remove('categories');
-                	$postFieldset->remove('contacts');
+//                	$postFieldset->remove('categories');
+//                	$postFieldset->remove('contacts');
 			        $feedFieldset->setUseAsBaseFieldset(true);
                     $form->add($feedFieldset);
                     $form->setValidationGroup(array(
@@ -449,7 +454,7 @@ class Module
    		$sharedEvents = $moduleManager
    			->getEventManager()->getSharedManager();
    		$sharedEvents->attach(
-   			'Godana\Controller\IndexController',
+   			'index',
    			'dispatch',
    				function($e) {
    					$controller = $e->getTarget();
@@ -459,12 +464,28 @@ class Module
    		);
    	}
    	
-   	public function onBootstrap($e)
-   	{
-   		$app = $e->getParam('application');
-   		$app->getEventManager()->attach('dispatch', array($this, 'setTranslator'));
-   		
-   	}
+	public function onBootstrap(MvcEvent $e)
+    {
+        $eventManager        = $e->getApplication()->getEventManager();
+        $moduleRouteListener = new ModuleRouteListener();
+        $moduleRouteListener->attach($eventManager);
+        $translator = $e->getApplication()->getServiceManager()->get('translator');
+        
+        $eventManager->attach(MvcEvent::EVENT_ROUTE, function($e) { 
+            $routeMatch = $e->getRouteMatch(); 
+            $language = $routeMatch->getParam('lang', 'en');
+            $translator = $e->getApplication()->getServiceManager()->get('translator');
+            $translator->addTranslationFile(
+		        'phpArray',
+		        './vendor/zendframework/zendframework/resources/languages/'.$language.'/Zend_Validate.php'
+		
+			);
+			AbstractValidator::setDefaultTranslator($translator);
+        }); 
+        
+   		$eventManager->attach('dispatch', array($this, 'setTranslator'));
+        
+    }
    	
    	public function setTranslator($e)
    	{
@@ -482,6 +503,8 @@ class Module
    			$language = 'mg_MG';
    		}
    		$translator->setLocale($language);
+//		$translator->setLocale(\Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+//			->setFallbackLocale($language);
    		$view = $e->getViewModel();
    		if ($view instanceof \Zend\View\Model\JsonModel) {
    				

@@ -23,7 +23,6 @@ class BidForm extends Form implements ServiceLocatorAwareInterface, ObjectManage
 	public function init()
     {
         $this->setAttribute('method','post')
-             ->setAttribute('class','form-horizontal')
              ->setHydrator(new DoctrineHydrator($this->objectManager, '\Godana\Entity\Bid'))
              ->setInputFilter(new InputFilter());
 
@@ -31,13 +30,23 @@ class BidForm extends Form implements ServiceLocatorAwareInterface, ObjectManage
             'name' => 'csrf',
             'type' => 'Zend\Form\Element\Csrf'
         ));
+        
+        $resetElement = new \Zend\Form\Element\Button('reset');
+        $resetElement
+            ->setLabel('Cancel')
+            ->setAttributes(array(
+                'type'  => 'reset',
+				'class' => 'btn btn-danger reset_bid',
+            ));
+        $this->add($resetElement);
 
         $submitElement = new \Zend\Form\Element\Button('submit');
         $submitElement
             ->setLabel('Save')
             ->setAttributes(array(
                 'type'  => 'submit',
-            	'class' => 'btn btn-primary',
+            	'class' => 'btn btn-default',
+            	'id' => 'save_bid'
             ));
         $this->add($submitElement);
 //		$this->setValidationGroup(array(

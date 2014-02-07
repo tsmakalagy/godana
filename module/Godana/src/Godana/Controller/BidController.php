@@ -51,36 +51,42 @@ class BidController extends AbstractActionController
 		$lang = $this->params()->fromRoute('lang', 'mg');
 		$om = $this->getObjectManager();
 		
-		$typeBid = $this->params()->fromRoute('type', null);
-		$categoryIdent = $this->params()->fromRoute('categoryIdent', null);
-		if ($typeBid == null) {
-			$query = $om->getRepository('Godana\Entity\Bid')->getBids(0);	
-		} else if ($typeBid == 'offer') {
-			if ($categoryIdent == null) {
-				$query = $om->getRepository('Godana\Entity\Bid')->getBidsByType(0);	
-			} else {
-				$query = $om->getRepository('Godana\Entity\Bid')->getBidsByTypeAndCategoryIdent(0, $categoryIdent);
-			}			
-		} else if ($typeBid == 'demand') {
-			if ($categoryIdent == null) {
-				$query = $om->getRepository('Godana\Entity\Bid')->getBidsByType(1);	
-			} else {
-				$query = $om->getRepository('Godana\Entity\Bid')->getBidsByTypeAndCategoryIdent(1, $categoryIdent);
-			}			
-		}
-		$page = $this->params()->fromRoute('page', 1);
-		$adapter = new DoctrineAdapter(new ORMPaginator($query));
-   		
-		$paginator = new Paginator($adapter);
-   		$paginator->setDefaultItemCountPerPage(6);
-		$paginator->setCurrentPageNumber($page);
-				
+		$form = $this->getBidForm();
+	    $fileform = $this->getFileForm();
+		
+//		$typeBid = $this->params()->fromRoute('type', null);
+//		$categoryIdent = $this->params()->fromRoute('categoryIdent', null);
+//		if ($typeBid == null) {
+//			$query = $om->getRepository('Godana\Entity\Bid')->getBids(0);	
+//		} else if ($typeBid == 'offer') {
+//			if ($categoryIdent == null) {
+//				$query = $om->getRepository('Godana\Entity\Bid')->getBidsByType(0);	
+//			} else {
+//				$query = $om->getRepository('Godana\Entity\Bid')->getBidsByTypeAndCategoryIdent(0, $categoryIdent);
+//			}			
+//		} else if ($typeBid == 'demand') {
+//			if ($categoryIdent == null) {
+//				$query = $om->getRepository('Godana\Entity\Bid')->getBidsByType(1);	
+//			} else {
+//				$query = $om->getRepository('Godana\Entity\Bid')->getBidsByTypeAndCategoryIdent(1, $categoryIdent);
+//			}			
+//		}
+//		$page = $this->params()->fromRoute('page', 1);
+//		$adapter = new DoctrineAdapter(new ORMPaginator($query));
+//   		
+//		$paginator = new Paginator($adapter);
+//   		$paginator->setDefaultItemCountPerPage(6);
+//		$paginator->setCurrentPageNumber($page);
+		$bids = $om->getRepository('Godana\Entity\Bid')->getAllBids();		
  		return new ViewModel(
  			array(
- 				'paginator' => $paginator,
+// 				'paginator' => $paginator,
  				'lang' => $lang,
- 				'typeBid' => $typeBid,
- 				'categoryIdent' => $categoryIdent
+// 				'typeBid' => $typeBid,
+// 				'categoryIdent' => $categoryIdent,
+				'bids' => $bids,
+ 				'bidForm' => $form,
+		    	'fileForm' => $fileform,
  			)
  		);
  	}
@@ -217,7 +223,124 @@ class BidController extends AbstractActionController
 	    	'fileForm' => $fileform,
 	    	'lang' => $lang,
 	    ); 		
+ 	} 	
+ 	
+ 	public function addAjaxAction()
+ 	{
+ 		$form    = $this->getBidForm();
+        $request = $this->getRequest();
+        $response = $this->getResponse();
+        
+        $om = $this->getObjectManager(); 
+
+        
+        $bid = new Bid();
+	    $form->bind($bid);	    
+	    
+        $messages = array();        
+        if ($request->isPost()){
+        	$post = $request->getPost();
+            $form->setData($request->getPost());
+            if ( ! $form->isValid()) {
+                $bidFieldset = $form->get('bid-form');
+            	$messages['type'] = array();            	
+                $typeError = $bidFieldset->get('type')->getMessages();
+                $i = 0;
+                foreach ($typeError as $message) {
+                	$messages['type'][$i++] = $message;
+                }
+                $messages['city'] = array(); 
+            	$cityError = $bidFieldset->get('city')->getMessages();
+                $i = 0;
+                foreach ($cityError as $message) {
+                	$messages['city'][$i++] = $message;
+                }
+                $messages['price'] = array(); 
+            	$priceError = $bidFieldset->get('price')->getMessages();
+                $i = 0;
+                foreach ($priceError as $message) {
+                	$messages['price'][$i++] = $message;
+                }
+                $postFieldset = $bidFieldset->get('post');
+                $messages['post'] = array();
+                
+            	$messages['post']['categories'] = array(); 
+            	$categoriesError = $postFieldset->get('categories')->getMessages();
+                $i = 0;
+                foreach ($categoriesError as $message) {
+                	$messages['post']['categories'][$i++] = $message;
+                }
+            	$messages['post']['title'] = array(); 
+            	$titleError = $postFieldset->get('title')->getMessages();
+                $i = 0;
+                foreach ($titleError as $message) {
+                	$messages['post']['title'][$i++] = $message;
+                }
+                $contacts = $postFieldset->get('contacts');
+                $messages['post']['contacts'] = array();
+                foreach ($contacts as $key => $contact) {
+					$messages['post']['contacts'][$key]['value'] = array();	
+					$i = 0;
+					$contactError = $contact->get('value')->getMessages();	
+	                foreach ($contactError as $message) {
+	                	$messages['post']['contacts'][$key]['value'][$i++] = $message;
+	                }			                	
+                }
+				
+            }             
+            if (!empty($messages)){     
+				$response->setContent(\Zend\Json\Json::encode($messages));
+            } else {
+            	$post = $bid->getPost();	        	
+	        	$post->setIdent($this->slug()->seoUrl($post->getTitle()));
+	            $user = $this->zfcUserAuthentication()->getIdentity();
+	            $post->setUser($user);
+	            $listFileId = $this->request->getPost()->get('file-id');
+	            if (count($listFileId) > 0) {
+	            	foreach ($listFileId as $fileId) {
+	            		$file = $om->find('Godana\Entity\File', (int)$fileId);
+	            		if ($file instanceof File) {
+	            			$post->addFile($file);
+	            			$om->persist($post);
+	            		}	            		
+	            	}
+	            	$om->flush();
+	            } else {
+	            	$om->persist($post);
+	            	$om->flush();
+	            }
+	            $index = Lucene::open(DATA_PATH.'/search');
+				$doc = new Document();	            
+	            $om->persist($bid);
+	            $om->flush();
+	            $title = $bid->getPost()->getTitle();
+				$detail = $bid->getPost()->getDetail();
+				$published = date_format($bid->getPost()->getPublished(), 'd M Y');
+				$ident = $bid->getPost()->getIdent();
+				$type = $bid->getType();
+				if ($type == 0) {
+					$typeBid = 'offer';
+				} else if ($type == 1) {
+					$typeBid = 'demand';
+				}
+				$link = $this->createDetailBidUrl($lang, $typeBid, $ident);
+				
+				$doc->addField(Document\Field::keyword('link', $link));
+				$doc->addField(Document\Field::text('title', $title));
+				$doc->addField(Document\Field::unIndexed('published', $published));
+				$doc->addField(Document\Field::unIndexed('type', $type));
+				$doc->addField(Document\Field::text('contents', $detail));
+				$index->addDocument($doc);
+				$index->commit();
+	            
+		 		$item_feed = $this->createFeedDiv($feed, 'sm', 1);
+		 		return new \Zend\View\Model\JsonModel(array('success' => true, 'item_feed' => $item_feed));	
+            }
+        }
+         
+        return $response;
  	}
+ 	
  	
  	public function cityAction()
  	{

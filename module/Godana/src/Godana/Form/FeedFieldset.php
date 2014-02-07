@@ -32,7 +32,7 @@ InputFilterProviderInterface, ServiceLocatorAwareInterface, ObjectManagerAwareIn
         ));
         
         $this->add(array(
-        	'type' => 'Godana\Form\PostFieldset',
+        	'type' => 'Godana\Form\PostFeedFieldset',
         	'name' => 'post',
         ));
 	}

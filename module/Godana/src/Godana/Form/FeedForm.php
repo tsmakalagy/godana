@@ -23,7 +23,7 @@ class FeedForm extends Form implements ServiceLocatorAwareInterface, ObjectManag
 	public function init()
     {
         $this->setAttribute('method','post')
-             ->setAttribute('class','form-horizontal')
+//             ->setAttribute('class','form-horizontal')
              ->setHydrator(new DoctrineHydrator($this->objectManager, '\Godana\Entity\Feed'))
              ->setInputFilter(new InputFilter());
 
@@ -31,17 +31,26 @@ class FeedForm extends Form implements ServiceLocatorAwareInterface, ObjectManag
             'name' => 'csrf',
             'type' => 'Zend\Form\Element\Csrf'
         ));
+        
+        $resetElement = new \Zend\Form\Element\Button('reset');
+        $resetElement
+            ->setLabel('Cancel')
+            ->setAttributes(array(
+                'type'  => 'reset',
+				'class' => 'btn btn-danger btn-xs reset_feed',
+            ));
+        $this->add($resetElement);
 
         $submitElement = new \Zend\Form\Element\Button('submit');
         $submitElement
             ->setLabel('Save')
             ->setAttributes(array(
                 'type'  => 'submit',
-            	'class' => 'btn btn-primary',
+				'id' => 'save_feed',
+				'class' => 'btn btn-primary btn-xs',
+            	'data-loading-text' => _('Loading...')
             ));
-        $this->add($submitElement);
-
-        
+        $this->add($submitElement);    
     }
 	
     public function getObjectManager()

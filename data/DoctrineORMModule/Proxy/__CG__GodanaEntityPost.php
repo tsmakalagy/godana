@@ -64,10 +64,10 @@ class Post extends \Godana\Entity\Post implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'title', 'ident', 'detail', 'published', 'modified', 'deleted', 'categories', 'contacts', 'files', 'tags', 'user');
+            return array('__isInitialized__', 'id', 'title', 'ident', 'detail', 'published', 'modified', 'deleted', 'categories', 'contacts', 'files', 'tags', 'user', 'comments');
         }
 
-        return array('__isInitialized__', 'id', 'title', 'ident', 'detail', 'published', 'modified', 'deleted', 'categories', 'contacts', 'files', 'tags', 'user');
+        return array('__isInitialized__', 'id', 'title', 'ident', 'detail', 'published', 'modified', 'deleted', 'categories', 'contacts', 'files', 'tags', 'user', 'comments');
     }
 
     /**
@@ -550,6 +550,50 @@ class Post extends \Godana\Entity\Post implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setOptions', array($options));
 
         return parent::setOptions($options);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getComments()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getComments', array());
+
+        return parent::getComments();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addComment($comment)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addComment', array($comment));
+
+        return parent::addComment($comment);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addComments(\Doctrine\Common\Collections\ArrayCollection $comments)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addComments', array($comments));
+
+        return parent::addComments($comments);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeComments(\Doctrine\Common\Collections\ArrayCollection $comments)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeComments', array($comments));
+
+        return parent::removeComments($comments);
     }
 
 }

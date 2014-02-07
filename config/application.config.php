@@ -7,7 +7,7 @@ return array(
 		'GMaps',
 		'DoctrineModule',
 		'DoctrineORMModule',
-        'Application',
+//        'Application',
 		'ScnSocialAuth',
 		'ZfcBase',
 		'ZfcUser',		

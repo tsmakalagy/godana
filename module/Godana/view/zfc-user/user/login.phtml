@@ -7,21 +7,19 @@
 <!--  fjs.parentNode.insertBefore(js, fjs);-->
 <!--}(document, 'script', 'facebook-jssdk'));</script>-->
 <div class="row">
-<div class="col-md-8 col-md-offset-2">
-<div class="panel panel-primary">
-<div class="panel-heading">
-	<h3 class="panel-title"><?php echo $this->translate('Sign In'); ?></h3>
-</div>
+<div class="col-md-6 col-md-offset-3">
+<div class="panel panel-default">
 <div class="panel-body">
 <?php
 $form = $this->loginForm;
 $form->prepare();
 $form->setAttribute('action', $this->url('zfcuser/login', array(), array(), true));
 $form->setAttribute('method', 'post');
-$form->setAttribute('class', 'form-horizontal');
+//$form->setAttribute('class', 'form-horizontal');
+//$form->setAttribute('class', 'form-inline');
 $form->setAttribute('role', 'form');
 ?>
-
+<div class="gdn_form_area">
 <?php echo $this->form()->openTag($form) ?>
 
 <? if($this->formElementErrors($form->get('identity'))): ?>
@@ -36,19 +34,19 @@ $form->setAttribute('role', 'form');
 <? endif;?>
 <!--        <?php echo $this->formElementErrors($form->get('identity')) ?>-->
 <div class="form-group">
-        <?php echo $this->formLabel($form->get('identity')) ?>
-        <div class="col-sm-5"><?php echo $this->formInput($form->get('identity')) ?></div>
+        <?php echo $this->translate($this->formLabel($form->get('identity'))) ?>
+        <div class="gdn_input_margin"><?php echo $this->formInput($form->get('identity')) ?></div>
 </div>
 <div class="form-group">
         <?php echo $this->formLabel($form->get('credential')) ?>
-        <div class="col-sm-5"><?php echo $this->formInput($form->get('credential')) ?></div>
+        <div class="gdn_input_margin"><?php echo $this->formInput($form->get('credential')) ?></div>
 </div>
         <?php if ($this->redirect): ?>
             <input type="hidden" name="redirect" value="<?php echo $this->escapeHtml($this->redirect) ?>" />
         <?php endif ?>
 
         <div class="form-group">
-        <div class="col-sm-3 col-sm-offset-4"><?php echo $this->formButton($form->get('submit')) ?></div>
+        <div class="col-sm-3 col-sm-offset-3 col-xs-6 col-xs-offset-1"><?php echo $this->formButton($form->get('submit')) ?></div>
         <?php     echo $this->socialSignInButton('facebook') ?>
 <!--        <div class="fb-login-button" data-max-rows="1" data-show-faces="false"></div>-->
         </div>
@@ -57,11 +55,21 @@ $form->setAttribute('role', 'form');
 <?php echo $this->form()->closeTag() ?>
 
 <?php if ($this->enableRegistration) : ?>
-<div class="col-sm-4 col-sm-offset-4">
+<div class="row">
+<div class="col-sm-7">
 <?php echo $this->translate('Not registered?'); ?> <a href="<?php echo $this->url('zfcuser/register', array(), array(), true) . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Sign up!'); ?></a>
 </div>
+</div>
 <?php endif; ?>
-</div>
-</div>
-</div>
-</div>
+</div><!-- end .gdn_form_area -->
+</div><!-- end .panel-body -->
+</div><!-- end .panel -->
+</div><!-- end .col-md-8 -->
+</div><!-- end row -->
+<script type="text/javascript">
+$(function() {
+	window.setTimeout(function() {
+		$('.alert').fadeOut("slow");
+	}, 3000);
+});
+</script>

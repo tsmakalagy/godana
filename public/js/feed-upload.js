@@ -7,7 +7,11 @@ $(function () {
 		$('.row-media').removeClass('hide');
 		$('.row-upload').addClass('hide');
 		$('.btn-preview-add-image').removeClass('hide');
-		
+//		$('.img-thumbnail-preview').popover({
+//			placement: 'right',
+//			trigger: 'hover',
+//			content: 'Press ctrl+click to select multiple'
+//		});
 		return false;
 	});
 	
@@ -77,7 +81,9 @@ function deselectImg() {
 
 function previewImage(files) {
 	$(document).on('click', '.img-thumbnail-preview', function(e) {
-		deselectImg();
+		//deselectImg();
+		
+		mouseDown(e);
 		$('#save-images').removeAttr('disabled');
 		$(this).css('background-color', '#428BCA');
 		$(this).parent('.preview').find('.my-zoom-icon').
@@ -90,7 +96,7 @@ function previewImage(files) {
 		for (var i=0, file; file=files[i]; i++) {
 			if (file.id == fileId) {
 				var detail = '<div class="img-medium-container col-sm-6 col-md-12">';
-				detail += '<img src="'+file.mediumUrl+'" id="imgToCrop" class="img-thumbnail">'
+				detail += '<img src="'+file.mediumUrl+'" id="imgToCrop" class="img-thumbnail">';
 				detail += '</div>';
 				$('.image-detail-container').html(detail);
 				$('.my-tooltip').tooltip({placement: 'bottom'});				
@@ -119,6 +125,7 @@ function previewImage(files) {
 			});
 			$('#save-images').attr('disabled', 'disabled');
 			$('.image-detail-container').html("");
+			//$('.img-thumbnail-preview').popover("destroy");
 		}
 	});	
 }
@@ -137,4 +144,76 @@ function loadExistingFiles(){
             }
         });
     });
+}
+
+function mouseDown(e) {
+	var ctrlPressed=0;
+	var altPressed=0;
+	var shiftPressed=0;
+
+	if (parseInt(navigator.appVersion)>3) {
+		var evt = e ? e:window.event;
+
+		if (document.layers && navigator.appName=="Netscape"
+			&& parseInt(navigator.appVersion)==4) {
+			// NETSCAPE 4 CODE
+			var mString =(e.modifiers+32).toString(2).substring(3,6);
+			shiftPressed=(mString.charAt(0)=="1");
+			ctrlPressed =(mString.charAt(1)=="1");
+			altPressed  =(mString.charAt(2)=="1");
+			self.status="modifiers="+e.modifiers+" ("+mString+")";
+		} else {
+			// NEWER BROWSERS [CROSS-PLATFORM]
+			shiftPressed = evt.shiftKey;
+			altPressed  = evt.altKey;
+			ctrlPressed = evt.ctrlKey;
+			self.status = ""
+				+  "shiftKey="+shiftPressed 
+				+", altKey="  +altPressed 
+				+", ctrlKey=" +ctrlPressed;
+		}
+		if (shiftPressed || altPressed || ctrlPressed) 
+			alert ("Mouse clicked with the following keys:\n"
+					+ (shiftPressed ? "Shift ":"")
+					+ (altPressed   ? "Alt "  :"")
+					+ (ctrlPressed  ? "Ctrl " :"")
+			);
+	}
+	return true;
+}
+
+function mouseOver(e) {
+	var ctrlPressed=0;
+	var altPressed=0;
+	var shiftPressed=0;
+
+	if (parseInt(navigator.appVersion)>3) {
+		var evt = e ? e:window.event;
+
+		if (document.layers && navigator.appName=="Netscape"
+			&& parseInt(navigator.appVersion)==4) {
+			// NETSCAPE 4 CODE
+			var mString =(e.modifiers+32).toString(2).substring(3,6);
+			shiftPressed=(mString.charAt(0)=="1");
+			ctrlPressed =(mString.charAt(1)=="1");
+			altPressed  =(mString.charAt(2)=="1");
+			self.status="modifiers="+e.modifiers+" ("+mString+")";
+		} else {
+			// NEWER BROWSERS [CROSS-PLATFORM]
+			shiftPressed = evt.shiftKey;
+			altPressed  = evt.altKey;
+			ctrlPressed = evt.ctrlKey;
+			self.status = ""
+				+  "shiftKey="+shiftPressed 
+				+", altKey="  +altPressed 
+				+", ctrlKey=" +ctrlPressed;
+		}
+		if (shiftPressed || altPressed || ctrlPressed) 
+			alert ("Mouse clicked with the following keys:\n"
+					+ (shiftPressed ? "Shift ":"")
+					+ (altPressed   ? "Alt "  :"")
+					+ (ctrlPressed  ? "Ctrl " :"")
+			);
+	}
+	return true;
 }

@@ -168,10 +168,9 @@ class UserController extends AbstractActionController
                 . ($redirect ? '?redirect='.$redirect : ''));
         }
 
-        if ($this->getOptions()->getUseRedirectParameterIfPresent() && $redirect) {
+        if ($this->getOptions()->getUseRedirectParameterIfPresent() && $redirect) {        	
             return $this->redirect()->toUrl($redirect);
         }
-
         return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute(), array('lang' => $lang));
     }
 
@@ -261,10 +260,9 @@ class UserController extends AbstractActionController
         $form = $this->getProfileForm();
         $fileForm = $this->getFileForm();
         //$form->bind($currentUser);
-        
+        $lang = $this->params()->fromRoute('lang', 'mg');
         
 		$form->setHydrator($service->getFormHydrator());	
-    	
 		
         $data['firstname'] = $currentUser->getFirstname();
         $data['lastname'] = $currentUser->getLastname();
@@ -290,7 +288,8 @@ class UserController extends AbstractActionController
                 'status' => $status,
             	'enableRegistration' => $this->getOptions()->getEnableRegistration(),
                 'profileForm' => $form,
-            	'fileForm' => $fileForm
+            	'fileForm' => $fileForm,
+            	'lang' => $lang,
             );
         }
         $form->setData($prg);
@@ -299,7 +298,8 @@ class UserController extends AbstractActionController
                 'status' => false,
             	'enableRegistration' => $this->getOptions()->getEnableRegistration(),
                 'profileForm' => $form,
-            	'fileForm' => $fileForm
+            	'fileForm' => $fileForm,
+            	'lang' => $lang,
             );
         }
 
@@ -308,12 +308,13 @@ class UserController extends AbstractActionController
                 'status' => false,
             	'enableRegistration' => $this->getOptions()->getEnableRegistration(),
                 'profileForm' => $form,
-            	'fileForm' => $fileForm
+            	'fileForm' => $fileForm,
+            	'lang' => $lang,
             );
         }
 
         $this->flashMessenger()->setNamespace('profile')->addMessage(true);
-        return $this->redirect()->toRoute(static::ROUTE_PROFILE);
+        return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_PROFILE, array('lang' => $lang)));
     }
     
 
@@ -330,7 +331,8 @@ class UserController extends AbstractActionController
 
         $form = $this->getChangePasswordForm();
         $prg = $this->prg(static::ROUTE_CHANGEPASSWD);
-
+		$lang = $this->params()->fromRoute('lang', 'mg');
+		
         $fm = $this->flashMessenger()->setNamespace('change-password')->getMessages();
         if (isset($fm[0])) {
             $status = $fm[0];
@@ -344,6 +346,7 @@ class UserController extends AbstractActionController
             return array(
                 'status' => $status,
                 'changePasswordForm' => $form,
+            	'lang' => $lang,
             );
         }
 
@@ -353,6 +356,7 @@ class UserController extends AbstractActionController
             return array(
                 'status' => false,
                 'changePasswordForm' => $form,
+            	'lang' => $lang,
             );
         }
 
@@ -360,6 +364,7 @@ class UserController extends AbstractActionController
             return array(
                 'status' => false,
                 'changePasswordForm' => $form,
+            	'lang' => $lang,
             );
         }
 

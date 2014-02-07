@@ -49,6 +49,54 @@ class RegisterFilter extends ProvidesEventsInputFilter
                 $this->emailValidator
             ),
         ));
+        
+        $this->add(array(
+            'name'       => 'dateofbirth',
+            'required'   => true,
+        	'validators' => array(
+                array(
+                    'name' => 'Date',
+                	'options' => array('format' => 'm/d/Y')                	
+                ),
+				
+            ),
+        ));
+        
+        $this->add(array(
+            'name'       => 'firstname',
+            'required'   => true,
+            'filters'    => array(
+        		array('name' => 'StringTrim'),
+        		array('name' => 'StripTags'),
+        	),
+            'validators' => array(
+            	array(
+                	'name'    => 'StringLength',
+                    'options' => array(
+                    	'min' => 2,
+                        'max' => 128,
+                    ),
+                ),
+            ),
+        ));
+        
+        $this->add(array(
+            'name'       => 'lastname',
+            'required'   => false,
+            'filters'    => array(
+        		array('name' => 'StringTrim'),
+        		array('name' => 'StripTags'),
+        	),
+            'validators' => array(
+            	array(
+                	'name'    => 'StringLength',
+                    'options' => array(
+                    	'min' => 2,
+                        'max' => 128,
+                    ),
+                ),
+            ),
+        ));
 
         if ($this->getOptions()->getEnableDisplayName()) {
             $this->add(array(

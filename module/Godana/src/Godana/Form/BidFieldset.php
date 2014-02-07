@@ -37,15 +37,16 @@ InputFilterProviderInterface, ServiceLocatorAwareInterface, ObjectManagerAwareIn
             'options' => array(
                 'label' => 'Type',
         		'label_attributes' => array(
-		            'class' => 'col-sm-3 control-label',
+		            'class' => 'sr-only',
 		        ),
+		        'empty_option' => 'Type',
 		        'value_options' => array(
 	            	'0' => 'Offer',
 	           	 	'1' => 'Demand',
 			   	),			   	
             ),
             'attributes' => array(
-            	'class' => 'chosen-select form-control',
+            	'class' => 'type-select gdn_select',
             ),           
               
         ));
@@ -60,13 +61,14 @@ InputFilterProviderInterface, ServiceLocatorAwareInterface, ObjectManagerAwareIn
                 'type' => 'text',
                 'name' => 'idCity',
                 'attributes' => array(
-            		'class' => 'form-control',
+            		'class' => 'gdn_select',
             		'id' => 'id_city',
+            		'placeholder' => 'City',
                 ),                
                 'options' => array(
                     'label'          => 'City',
                 	'label_attributes' => array(
-			            'class' => 'col-sm-3 control-label',
+			            'class' => 'sr-only',
 			        ),    
                 ),
             )
@@ -85,12 +87,13 @@ InputFilterProviderInterface, ServiceLocatorAwareInterface, ObjectManagerAwareIn
         		'type' => 'text',
         		'name' => 'price',
         		'attributes' => array(
-        			'class' => 'form-control',
+        			'class' => 'gdn_text',
+        			'placeholder' => 'Price',
         		),
         		'options' => array(
                     'label'          => 'Price',
                 	'label_attributes' => array(
-			            'class' => 'col-sm-3 control-label',
+			            'class' => 'sr-only',
 			        ),    
                 ),
         	)
@@ -107,7 +110,7 @@ InputFilterProviderInterface, ServiceLocatorAwareInterface, ObjectManagerAwareIn
             	'required' => true
             ),
             'idCity' => array(
-            	'required' => true
+            	'required' => false
             ),
             'city' => array(
             	'required' => true

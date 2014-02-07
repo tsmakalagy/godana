@@ -89,11 +89,13 @@ table.tablesorter thead tr th:hover {
   /* Wrappers */
 
   #wrapper {
-	padding-left: 225px;
+	/*padding-left: 225px*/;
+	padding-left: 145px;
   }
 
   #page-wrapper {
-	padding: 15px 25px;
+	/*padding: 15px 25px*/;
+	padding: 19px 0;
   }
 
   /* Side Nav */
@@ -120,15 +122,18 @@ table.tablesorter thead tr th:hover {
     /*overflow-y: auto;*/
     position: fixed;
     top: 77px;
-    width: 225px;
-  }
+    width: 145px;
+    /*width: 225px;
+  */}
  
 
   /* Bootstrap Default Overrides - Customized Dropdowns for the Side Nav */
 
   .side-nav>li.dropdown>ul.dropdown-menu {
 	position: relative;
-	min-width: 225px;
+	/*min-width: 225px;
+	*/
+	min-width: 145px;
 	margin: 0;
 	padding: 0;
 	border: none;
@@ -152,7 +157,8 @@ table.tablesorter thead tr th:hover {
   }
 
   .side-nav>li>a {
-	width: 225px;
+  	width: 145px
+	/*width: 225px*/;
   }
 
   .navbar-inverse .navbar-nav>li>a:hover,

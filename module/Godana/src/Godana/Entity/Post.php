@@ -107,6 +107,12 @@ class Post
      */
     protected $user; 
     
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $comments;
+    
     
     public function __construct()
     {
@@ -411,4 +417,34 @@ class Post
 		} 
 		return $this; 
 	}
+	
+	public function getComments()
+    {
+    	$c = array();
+    	foreach ($this->comments as $comment) {
+    		if ($comment->getDeleted() === 0) {
+    			array_push($c, $comment);
+    		}
+    	}
+    	return $c;
+    }
+    
+    public function addComment($comment)
+    {
+    	$this->comments[] = $comment;
+    }
+    
+	public function addComments(Collection $comments)
+    {
+        foreach ($comments as $comment) {
+            $this->comments->add($comment);
+        }
+    }
+
+    public function removeComments(Collection $comments)
+    {
+        foreach ($comments as $comment) {
+            $this->comments->removeElement($comment);
+        }
+    }
 }

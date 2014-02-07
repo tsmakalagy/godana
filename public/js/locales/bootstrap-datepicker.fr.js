@@ -12,6 +12,6 @@
 		today: "Aujourd'hui",
 		clear: "Effacer",
 		weekStart: 1,
-		format: "dd/mm/yyyy"
+		format: "mm/dd/yyyy"
 	};
 }(jQuery));

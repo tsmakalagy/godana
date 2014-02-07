@@ -43,6 +43,19 @@ class BidRepository extends EntityRepository
 //		return $query->getResult();
 //	}
 
+	public function getAllBids($limit = null, $offset = null)
+	{
+		$sql = 'SELECT b FROM Godana\Entity\Bid b LEFT JOIN b.post p ORDER BY p.published DESC';
+		$query = $this->_em->createQuery($sql);
+		if ($limit > 0) {
+			$query->setMaxResults($limit);
+		}
+		if ($offset > 0) {
+			$query->setFirstResult($offset);
+		}
+		return $query->getResult();	
+	}
+	
 	public function getBids($limit = 5)
 	{
 		$sql = 'SELECT b FROM Godana\Entity\Bid b LEFT JOIN b.post p ORDER BY p.published DESC';

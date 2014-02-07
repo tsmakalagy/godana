@@ -5,6 +5,8 @@ use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Mail\Message as MailMessage;
 use Zend\Mail\Transport\Sendmail;
+use Zend\Mail\Transport\Smtp as SmtpTransport;
+use Zend\Mail\Transport\SmtpOptions;
 use Zend\Mime\Message as MimeMessage;
 use Zend\Mime\Part as MimePart;
 
@@ -35,8 +37,22 @@ class Mail implements ServiceManagerAwareInterface
 	    $message->setBody($body);
 	    $message->getHeaders()->get('content-type')->setType('multipart/alternative');
 		
-	    $transport = new Sendmail();
-	    $transport->send($message);
+//	    $transport = new Sendmail();
+//	    $transport->send($message);
+		$transport = new SmtpTransport();
+		$options = new SmtpOptions(array(
+			'name'             => 'yahoo.com',
+       		'host'             => 'smtp.mail.yahoo.com',
+       		'port'             => 465, // Notice port change for TLS is 587
+       		'connection_class' => 'login',
+   			'connection_config' => array(
+       			'username' => 'tsmakalagy@yahoo.fr',
+            	'password' => 'acRUt156d',
+       			'ssl'      => 'ssl',
+   			),
+		));
+		$transport->setOptions($options);
+		$transport->send($message);
 	}
     
 	/**

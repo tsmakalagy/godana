@@ -15,7 +15,7 @@ return array(
                 'options' => array(
                     'route'    => '/[:lang[/]]',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'index',
                         'action'     => 'index',
                     ),
                     'constraints' => array(
@@ -28,7 +28,6 @@ return array(
             	'type' => 'Segment',
                 'options' => array(
                 	'route' => '/[:lang/]user',
-//            		'route' => '/user',
                    	'defaults' => array(
                     	'controller' => 'zfcuser',
                     	'action' => 'index',
@@ -193,87 +192,7 @@ return array(
             			'lang' => '(en|de|fr|mg)?',
             		),
               	),
-            ),
-            
-//            'bid' => array(
-//            	'type' => 'Segment',
-//            	'options' => array(
-//            		'route' => '/[:lang/]bid[/page/:page]',
-//            		'defaults' => array(
-//            			'controller' => 'bid',
-//            			'action' => 'index',
-//            			'lang' => 'mg',
-//            			'page' => 1,
-//            		),
-//            		'constraints' => array(
-//            			'lang' => '(en|de|fr|mg)?',
-//            			'page' => '[0-9]*',
-//            		),
-//            	),
-//            	'may_terminate' => true,
-//                'child_routes' => array(
-//                    'add' => array(
-//                        'type' => 'literal',
-//                        'options' => array(
-//                            'route' => '/add',
-//                            'defaults' => array(
-//                                'controller' => 'bid',
-//                                'action'     => 'add',
-//                            ),
-//                        ),
-//                    ),
-//                    'upload' => array(
-//                        'type' => 'literal',
-//                        'options' => array(
-//                            'route' => '/upload',
-//                            'defaults' => array(
-//                                'controller' => 'bid',
-//                                'action'     => 'upload',
-//                            ),
-//                        ),
-//                    ),
-//                    'media' => array(
-//                        'type' => 'literal',
-//                        'options' => array(
-//                            'route' => '/media',
-//                            'defaults' => array(
-//                                'controller' => 'bid',
-//                                'action'     => 'media',
-//                            ),
-//                        ),
-//                    ),
-//                    'ajax' => array(
-//                        'type' => 'literal',
-//                        'options' => array(
-//                            'route' => '/ajax',
-//                            'defaults' => array(
-//                                'controller' => 'bid',
-//                                'action'     => 'ajax',
-//                            ),
-//                        ),
-//                    ),
-//                    'city' => array(
-//                        'type' => 'literal',
-//                        'options' => array(
-//                            'route' => '/city',
-//                            'defaults' => array(
-//                                'controller' => 'bid',
-//                                'action'     => 'city',
-//                            ),
-//                        ),
-//                    ),
-//                    'edit' => array(
-//                        'type' => 'literal',
-//                        'options' => array(
-//                            'route' => '/edit',
-//                            'defaults' => array(
-//                                'controller' => 'bid',
-//                                'action'     => 'edit',
-//                            ),
-//                        ),
-//                    ),
-//                ),            	
-//            ),
+            ),            
             'detail-bid' => array(
             	'type' => 'Segment',
             	'options' => array(
@@ -809,6 +728,7 @@ return array(
                     'defaults' => array(
                     	'controller' => 'tools',
                         'action'     => 'index',
+            			'lang' => 'mg'
                   	),
                   	'constraints' => array(
                   		'lang' => '(en|de|fr|mg)?',
@@ -863,6 +783,16 @@ return array(
 		                            ),
 		                        ),
 		            		),
+		            		'add_ajax' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/add/ajax',
+		                            'defaults' => array(
+		                                'controller' => 'feed',
+		                                'action'     => 'addAjax',
+		                            ),
+		                        ),
+		            		),
 		            		'ajax_tag' => array(
 		                        'type' => 'literal',
 		                        'options' => array(
@@ -870,6 +800,16 @@ return array(
 		                            'defaults' => array(
 		                                'controller' => 'feed',
 		                                'action'     => 'ajaxTag',
+		                            ),
+		                        ),
+		            		),
+		            		'load_ajax' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/load/ajax',
+		                            'defaults' => array(
+		                                'controller' => 'feed',
+		                                'action'     => 'loadAjax',
 		                            ),
 		                        ),
 		            		),
@@ -904,6 +844,29 @@ return array(
                     'defaults' => array(
                     	'controller' => 'feed',
                         'action'     => 'uploadAjax',
+                  	),
+              	),
+            ),
+            'feed-comment' => array(
+            	'type' => 'Segment',
+            	'options' => array(
+                	'route' => '/[:lang/]feed/comment/ajax',
+                    'defaults' => array(
+                    	'controller' => 'feed',
+                        'action'     => 'commentAjax',
+                  	),
+                  	'constraints' => array(
+                  		'lang' => '(en|de|fr|mg)?',
+                  	),
+              	),
+            ),
+            'remove-comment' => array(
+            	'type' => 'Literal',
+            	'options' => array(
+                	'route' => '/feed/remove/comment/ajax',
+                    'defaults' => array(
+                    	'controller' => 'feed',
+                        'action'     => 'removeCommentAjax',
                   	),
               	),
             ),
@@ -970,7 +933,7 @@ return array(
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
         'template_map' => array(
-            'layout/layout'           => __DIR__ . '/../view/layout/my-layout.phtml',
+//            'layout/layout'           => __DIR__ . '/../view/layout/my-layout.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
@@ -986,18 +949,4 @@ return array(
             ),
         ),
     ),
-    /*'doctrine' => array(
-		'driver' => array(
-			'application_entities' => array(
-		    	'class' =>'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-		      	'cache' => 'array',
-		      	'paths' => array(__DIR__ . '/../src/Application/Entity')
-	    	),		
-		    'orm_default' => array(
-		      	'drivers' => array(
-		        	'Application\Entity' => 'application_entities'
-		      	)
-			)
-		)
-	),*/
 );

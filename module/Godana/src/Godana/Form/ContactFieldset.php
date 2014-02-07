@@ -32,29 +32,37 @@ class ContactFieldset extends Fieldset implements InputFilterProviderInterface, 
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'id'
         ));
+        
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'type',
+        	'attributes' => array(
+        		'class' => 'contact_type'
+        	)
+        ));
 
-        $this->add(
-            array(
-                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-                'name' => 'type',
-                'attributes' => array(
-            		'class' => 'chosen-select form-control',
-                ),                
-                'options' => array(
-                    'object_manager' => $this->objectManager,
-                    'target_class'   => 'Godana\Entity\ContactType',
-                    'property'       => 'name',
-                    'label'          => 'Contact type',
-                	'label_generator' => function($targetEntity) {
-		                return ucfirst($targetEntity->getName());
-		            },
-                	'label_attributes' => array(
-			            'class' => 'col-sm-3 control-label',
-			        ),
-                    'disable_inarray_validator' => true               
-                ),
-            )
-        );
+//        $this->add(
+//            array(
+//                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+//                'name' => 'type',
+//                'attributes' => array(
+//            		'class' => 'chosen-select form-control',
+//                ),                
+//                'options' => array(
+//                    'object_manager' => $this->objectManager,
+//                    'target_class'   => 'Godana\Entity\ContactType',
+//                    'property'       => 'name',
+//                    'label'          => 'Contact type',
+//                	'label_generator' => function($targetEntity) {
+//		                return ucfirst($targetEntity->getName());
+//		            },
+//                	'label_attributes' => array(
+//			            'class' => 'col-sm-3 control-label',
+//			        ),
+//                    'disable_inarray_validator' => true               
+//                ),
+//            )
+//        );
 
 //        $this->add(array(
 //        	'type' => 'Zend\Form\Element\Hidden',
@@ -67,13 +75,14 @@ class ContactFieldset extends Fieldset implements InputFilterProviderInterface, 
             'options' => array(
                 'label' => 'Contact value',
         		'label_attributes' => array(
-			    	'class' => 'col-sm-3 control-label',
+			    	'class' => 'sr-only',
 			    ),			    
             ),
             'attributes' => array(
             	'type' => 'text',
             	//'pattern' => '^03[2-4][-. ]?[0-9]{2}[-. ]?[0-9]{3}[-. ]?[0-9]{2}$',
-            	'class' => 'form-control',
+            	'class' => 'gdn_text',
+            	'placeholder' => 'Contact'
             ),
         ));
     }

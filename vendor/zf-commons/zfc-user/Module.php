@@ -160,12 +160,13 @@ class Module implements
 		            $inputFilter->add(array('name' => 'file-id', 'required' => false));
 		            $form->setInputFilter($inputFilter);
                     $form->get('email')->setAttributes(array(
-                    	'class' => 'form-control',
+                    	'class' => 'gdn_text',
                     	'readonly' => true
                     ));
                     
                     $form->remove('password');
                     $form->remove('passwordVerify');
+                    $form->remove('captcha');
                     $form->get('submit')->setLabel('Save');                    
                     return $form;
                 },

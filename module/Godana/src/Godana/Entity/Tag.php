@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection as Collection;
 
 /** 
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Godana\Entity\TagRepository")
  * @ORM\Table(name="gdn_tag")
  * 
  */

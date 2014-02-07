@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-17 13:34+0300\n"
-"PO-Revision-Date: 2014-01-17 13:35+0300\n"
+"POT-Creation-Date: 2014-01-31 08:53+0300\n"
+"PO-Revision-Date: 2014-01-31 11:33+0300\n"
 "Last-Translator: Fano <rhfano@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: \n"
@@ -16,882 +16,898 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: module/Godana/src/Godana/Form/Base.php:107
-msgid "Submit"
-msgstr "Envoyer"
+#: ../src/Godana/Controller/FeedController.php:361
+#, php-format
+msgid "%s months ago"
+msgstr "Il y a %s mois"
 
-#: module/Godana/src/Godana/Form/BidForm.php:37
-#: module/Godana/src/Godana/Form/CarDriverForm.php:37
-#: module/Godana/src/Godana/Form/CarForm.php:37
-#: module/Godana/src/Godana/Form/CarMakeForm.php:37
-msgid "Save"
-msgstr "Enregistrer"
+#: ../src/Godana/Controller/FeedController.php:364
+#, php-format
+msgid "%s days ago"
+msgstr "Il y a %s jours"
 
-#: vendor/zf-commons/zfc-user/src/ZfcUser/Form/Login.php:70
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:18
-msgid "Sign In"
-msgstr "Se connecter"
+#: ../src/Godana/Controller/FeedController.php:367
+#, php-format
+msgid "%s hours ago"
+msgstr "Il y a %s heures"
 
-#: vendor/zf-commons/zfc-user/src/ZfcUser/Form/Profile.php:36
-#: vendor/zf-commons/zfc-user/src/ZfcUser/Form/Register.php:36
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:19
-msgid "Register"
-msgstr "S'inscrire"
+#: ../src/Godana/Controller/FeedController.php:370
+#, php-format
+msgid "%s minutes ago"
+msgstr "Il y a %s minutes"
 
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:6
-msgid "Username"
-msgstr "Utilisateur"
+#: ../src/Godana/Controller/FeedController.php:373
+#, php-format
+msgid "%s seconds ago"
+msgstr "Il y a %s secondes"
 
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:7
-msgid "Email"
-msgstr "Email"
+#: ../src/Godana/Controller/FeedController.php:375
+msgid "Just now."
+msgstr "Tout à l'heure"
 
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:8
-msgid "New Email"
-msgstr "Nouvel email"
+#: ../src/Godana/Controller/FeedController.php:444
+#: ../src/Godana/Controller/FeedController.php:551
+msgid "Remove"
+msgstr "Supprimer"
 
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:9
-msgid "Verify New Email"
-msgstr "V&eacute;rifier nouvel email"
-
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:10
-msgid "Display Name"
-msgstr "Nom"
-
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:11
-msgid "Password"
-msgstr "Mot de passe"
-
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:12
-msgid "Password Verify"
-msgstr "V&eacute;rification de mot de passe"
-
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:13
-msgid "Current Password"
-msgstr "Mot de passe actuel"
-
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:14
-msgid "Verify New Password"
-msgstr "V&eacute;rifier mot de passe"
-
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:15
-msgid "New Password"
-msgstr "Nouveau mot de passe"
-
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:16
-msgid "Please type the following text"
+#: ../src/Godana/Controller/FeedController.php:563
+msgid "Add a comment..."
 msgstr ""
 
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:20
-msgid "No record matching the input was found"
-msgstr "Cet email n'existe pas"
+#: ../src/Godana/Controller/FeedController.php:567
+msgid "Loading..."
+msgstr "Chargemennt..."
 
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:21
-msgid "A record matching the input was found"
-msgstr "Cet email est d&eacute;j&agrave; pris"
+#: ../src/Godana/Controller/FeedController.php:568
+msgid "Comment"
+msgstr ""
 
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:22
-msgid "Authentication failed. Please try again."
-msgstr "Erreur de connexion. Essayer à nouveau."
+#: ../src/Godana/Controller/FeedController.php:569
+msgid "Cancel"
+msgstr "Annuler"
 
-#: module/Application/view/application/index/index.phtml:2
-#, php-format
-msgid "Welcome to %sZend Framework 2%s"
-msgstr "Bienvenue dans le %sZend Framework 2%s"
+#: ../src/Godana/Form/PostFeedFieldset.php:43
+msgid "About what?"
+msgstr "A propos?"
 
-#: module/Application/view/application/index/index.phtml:3
-#, php-format
-msgid "Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2."
-msgstr "Félicitations ! Vous avez installé avec succès le %sZF2 Skeleton Application%s. Vous utilisez actuellement Zend Framework version %s. Cette structure peut vous servir comme un point de départ simple pour démarrer la construction de votre application avec ZF2."
+#: ../src/Godana/Form/PostFeedFieldset.php:59
+msgid "Tell us..."
+msgstr "Dites-nous..."
 
-#: module/Application/view/application/index/index.phtml:4
-msgid "Fork Zend Framework 2 on GitHub"
-msgstr "Faites un Fork de Zend Framework 2 sur GitHub"
-
-#: module/Application/view/application/index/index.phtml:12
-msgid "Follow Development"
-msgstr "Suivre le développement"
-
-#: module/Application/view/application/index/index.phtml:15
-#, php-format
-msgid "Zend Framework 2 is under active development. If you are interested in following the development of ZF2, there is a special ZF2 portal on the official Zend Framework website which provides links to the ZF2 %swiki%s, %sdev blog%s, %sissue tracker%s, and much more. This is a great resource for staying up to date with the latest developments!"
-msgstr "Zend Framework 2 est en cours de développement. Si vous êtes intéressé pour suivre l'évolution de ZF2, il existe un portail dédié à ZF2 sur le site officiel Zend Framework qui propose des liens vers le %swiki%s ZF2, %sdev blog%s, %ssuivi des problèmes%s, et bien plus encore. Il s'agit d'une excellente ressource pour rester à jour sur les dernières évolutions !"
-
-#: module/Application/view/application/index/index.phtml:16
-msgid "ZF2 Development Portal"
-msgstr "Portail sur le développement de ZF2"
-
-#: module/Application/view/application/index/index.phtml:24
-msgid "Discover Modules"
-msgstr "Découvrez les modules"
-
-#: module/Application/view/application/index/index.phtml:27
-#, php-format
-msgid "The community is working on developing a community site to serve as a repository and gallery for ZF2 modules. The project is available %son GitHub%s. The site is currently live and currently contains a list of some of the modules already available for ZF2."
-msgstr "La communauté travaille sur le développement d'un site communautaire avec l'objectif de servir de dépôt et de galerie  pour les modules ZF2. Le projet est disponible %ssur GitHub%s. Le site est déjà en ligne, et contient une liste non exhaustive des modules déjà disponibles pour ZF2."
-
-#: module/Application/view/application/index/index.phtml:28
-msgid "Explore ZF2 Modules"
-msgstr "Explorer les modules ZF2"
-
-#: module/Application/view/application/index/index.phtml:36
-msgid "Help &amp; Support"
-msgstr "Aide &amp; support"
-
-#: module/Application/view/application/index/index.phtml:39
-#, php-format
-msgid "If you need any help or support while developing with ZF2, you may reach us via IRC: %s#zftalk on Freenode%s. We'd love to hear any questions or feedback you may have regarding the beta releases. Alternatively, you may subscribe and post questions to the %smailing lists%s."
-msgstr "Si vous avez besoin d'aide ou de support en développant avec ZF2, vous pouvez nous joindre sur IRC : %s#zftalk sur Freenode%s. Nous aimerions avoir vos questions ou vos commentaires que vous pourriez avoir au sujet des versions bêta. Sinon, vous pouvez vous abonner, et poser des questions sur la %sliste de diffusion%s."
-
-#: module/Application/view/application/index/index.phtml:40
-msgid "Ping us on IRC"
-msgstr "Rejoignez-nous sur IRC"
-
-#: module/Application/view/error/404.phtml:1
-#: module/Godana/view/error/404.phtml:1
+#: ../view/error/404.phtml:1
 msgid "A 404 error occurred"
 msgstr "Une erreur 404 est survenue"
 
-#: module/Application/view/error/404.phtml:10
-#: module/Godana/view/error/404.phtml:10
+#: ../view/error/404.phtml:10
 msgid "The requested controller was unable to dispatch the request."
 msgstr "Le contrôleur demandé n'a pas pu dispatcher la requête."
 
-#: module/Application/view/error/404.phtml:13
-#: module/Godana/view/error/404.phtml:13
+#: ../view/error/404.phtml:13
 msgid "The requested controller could not be mapped to an existing controller class."
 msgstr "Le contrôleur demandé ne correspond pas à une classe existante de contrôleur."
 
-#: module/Application/view/error/404.phtml:16
-#: module/Godana/view/error/404.phtml:16
+#: ../view/error/404.phtml:16
 msgid "The requested controller was not dispatchable."
 msgstr "Le contrôleur demandé n'est pas dispatchable."
 
-#: module/Application/view/error/404.phtml:19
-#: module/Godana/view/error/404.phtml:19
+#: ../view/error/404.phtml:19
 msgid "The requested URL could not be matched by routing."
 msgstr "L'URL demandée n'a pas pu trouver de route correspondante."
 
-#: module/Application/view/error/404.phtml:22
-#: module/Godana/view/error/404.phtml:22
+#: ../view/error/404.phtml:22
 msgid "We cannot determine at this time why a 404 was generated."
 msgstr "Nous ne pouvons pas déterminer pour le moment pourquoi une 404 a été générée."
 
-#: module/Application/view/error/404.phtml:34
-#: module/Godana/view/error/404.phtml:34
+#: ../view/error/404.phtml:34
 msgid "Controller"
 msgstr "Contrôleur"
 
-#: module/Application/view/error/404.phtml:41
-#: module/Godana/view/error/404.phtml:41
+#: ../view/error/404.phtml:41
 #, php-format
 msgid "resolves to %s"
 msgstr "résout en %s"
 
-#: module/Application/view/error/404.phtml:53
-#: module/Application/view/error/index.phtml:8
-#: module/Godana/view/error/404.phtml:53
+#: ../view/error/404.phtml:53
+#: ../view/error/index.phtml:8
 msgid "Additional information"
 msgstr "Informations complémentaires"
 
-#: module/Application/view/error/404.phtml:56
-#: module/Application/view/error/404.phtml:80
-#: module/Application/view/error/index.phtml:11
-#: module/Application/view/error/index.phtml:35
-#: module/Godana/view/error/404.phtml:56
-#: module/Godana/view/error/404.phtml:80
+#: ../view/error/404.phtml:56
+#: ../view/error/404.phtml:80
+#: ../view/error/index.phtml:11
+#: ../view/error/index.phtml:35
 msgid "File"
 msgstr "Fichier"
 
-#: module/Application/view/error/404.phtml:60
-#: module/Application/view/error/404.phtml:84
-#: module/Application/view/error/index.phtml:15
-#: module/Application/view/error/index.phtml:39
-#: module/Godana/view/error/404.phtml:60
-#: module/Godana/view/error/404.phtml:84
+#: ../view/error/404.phtml:60
+#: ../view/error/404.phtml:84
+#: ../view/error/index.phtml:15
+#: ../view/error/index.phtml:39
 msgid "Message"
 msgstr "Message"
 
-#: module/Application/view/error/404.phtml:64
-#: module/Application/view/error/404.phtml:88
-#: module/Application/view/error/index.phtml:19
-#: module/Application/view/error/index.phtml:43
-#: module/Godana/view/error/404.phtml:64
-#: module/Godana/view/error/404.phtml:88
+#: ../view/error/404.phtml:64
+#: ../view/error/404.phtml:88
+#: ../view/error/index.phtml:19
+#: ../view/error/index.phtml:43
 msgid "Stack trace"
 msgstr "Pile d'exécution"
 
-#: module/Application/view/error/404.phtml:74
-#: module/Application/view/error/index.phtml:29
-#: module/Godana/view/error/404.phtml:74
+#: ../view/error/404.phtml:74
+#: ../view/error/index.phtml:29
 msgid "Previous exceptions"
 msgstr "Exceptions précédentes"
 
-#: module/Application/view/error/404.phtml:103
-#: module/Application/view/error/index.phtml:58
-#: module/Godana/view/error/404.phtml:103
+#: ../view/error/404.phtml:103
+#: ../view/error/index.phtml:58
 msgid "No Exception available"
 msgstr "Aucune exception disponible"
 
-#: module/Application/view/error/index.phtml:1
+#: ../view/error/index.phtml:1
 msgid "An error occurred"
 msgstr "Une erreur est survenue"
 
-#: module/Application/view/layout/gdn-layout.phtml:73
-#: module/Application/view/layout/layout.phtml:55
-#: module/Application/view/layout/my-layout.phtml:80
-msgid "Profile"
-msgstr "Profil"
-
-#: module/Application/view/layout/gdn-layout.phtml:80
-#: module/Application/view/layout/layout.phtml:62
-#: module/Application/view/layout/my-layout.phtml:101
-#: module/Application/view/layout/my-layout.phtml:107
-msgid "Admin"
-msgstr "Admin"
-
-#: module/Application/view/layout/gdn-layout.phtml:85
-#: module/Application/view/layout/layout.phtml:67
-#: module/Application/view/layout/my-layout.phtml:118
-msgid "Sign Out"
-msgstr "Se d&eacute;connecter"
-
-#: module/Application/view/layout/gdn-layout.phtml:90
-#: module/Application/view/layout/layout.phtml:72
-#: module/Application/view/layout/my-layout.phtml:123
-msgid "Login"
-msgstr "Se connecter"
-
-#: module/Application/view/layout/gdn-layout.phtml:96
-#: module/Application/view/layout/layout.phtml:77
-#: module/Application/view/layout/my-layout.phtml:49
-msgid "Home"
-msgstr "Accueil"
-
-#: module/Application/view/layout/gdn-layout.phtml:99
-#: module/Application/view/layout/layout.phtml:80
-#: module/Application/view/layout/my-layout.phtml:52
+#: ../view/godana/bid/add.phtml:9
+#: ../view/godana/bid/add.phtml:14
+#: ../view/godana/bid/detail.phtml:3
+#: ../view/godana/bid/edit.phtml:31
+#: ../view/godana/bid/index.phtml:4
 msgid "Bid"
 msgstr "Offre & Demande"
 
-#: module/Application/view/layout/gdn-layout.phtml:102
-#: module/Application/view/layout/layout.phtml:83
-#: module/Application/view/layout/my-layout.phtml:55
-msgid "Shops"
-msgstr "Boutique"
-
-#: module/Application/view/layout/gdn-layout.phtml:105
-#: module/Application/view/layout/layout.phtml:86
-#: module/Application/view/layout/my-layout.phtml:58
-msgid "Groups"
-msgstr "Groupe"
-
-#: module/Application/view/layout/gdn-layout.phtml:108
-#: module/Application/view/layout/layout.phtml:89
-#: module/Application/view/layout/my-layout.phtml:61
-msgid "Tools"
-msgstr "Outils"
-
-#: module/Application/view/layout/gdn-layout.phtml:111
-#: module/Application/view/layout/layout.phtml:92
-#: module/Application/view/layout/my-layout.phtml:64
-msgid "About"
-msgstr "A propos"
-
-#: module/Application/view/layout/layout.phtml:6
-msgid "Skeleton Application"
-msgstr "Skeleton Application"
-
-#: module/Application/view/layout/layout.phtml:102
-msgid "All rights reserved."
-msgstr "Tous droits réservés."
-
-#: module/Application/view/layout/my-layout.phtml:113
-msgid "Cooperative"
-msgstr ""
-
-#: module/Application/view/layout/my-layout.phtml:128
-msgid "Search"
-msgstr "Recherche"
-
-#: module/Application/view/layout/my-layout.phtml:155
-msgid "Language"
-msgstr "Langue"
-
-#: module/Godana/view/godana/bid/add.phtml:116
-#: module/Godana/view/godana/bid/translate.phtml:14
-#: module/Godana/view/godana/cooperative/add-car-driver.phtml:84
-#: module/Godana/view/godana/cooperative/add-line.phtml:95
-#: module/Godana/view/godana/cooperative/create-cooperative.phtml:99
+#: ../view/godana/bid/add.phtml:117
+#: ../view/godana/bid/translate.phtml:14
 msgid "Contact type"
 msgstr "Type de contact"
 
-#: module/Godana/view/godana/bid/add.phtml:117
-#: module/Godana/view/godana/bid/translate.phtml:29
-#: module/Godana/view/godana/cooperative/add-car-driver.phtml:85
-#: module/Godana/view/godana/cooperative/add-line.phtml:96
-#: module/Godana/view/godana/cooperative/create-cooperative.phtml:100
+#: ../view/godana/bid/add.phtml:118
+#: ../view/godana/bid/translate.phtml:29
 #, fuzzy
 msgid "Mobile"
 msgstr "mobile"
 
-#: module/Godana/view/godana/bid/add.phtml:118
-#: module/Godana/view/godana/bid/translate.phtml:31
-#: module/Godana/view/godana/cooperative/add-car-driver.phtml:86
-#: module/Godana/view/godana/cooperative/add-line.phtml:97
-#: module/Godana/view/godana/cooperative/create-cooperative.phtml:101
+#: ../view/godana/bid/add.phtml:118
+#: ../view/godana/bid/translate.phtml:30
+msgid "Email"
+msgstr "Email"
+
+#: ../view/godana/bid/add.phtml:119
+#: ../view/godana/bid/translate.phtml:31
 #, fuzzy
 msgid "Address"
 msgstr "adresse"
 
-#: module/Godana/view/godana/bid/add.phtml:119
-#: module/Godana/view/godana/bid/translate.phtml:15
-#: module/Godana/view/godana/cooperative/add-car-driver.phtml:87
-#: module/Godana/view/godana/cooperative/add-line.phtml:98
-#: module/Godana/view/godana/cooperative/create-cooperative.phtml:102
+#: ../view/godana/bid/add.phtml:120
+#: ../view/godana/bid/translate.phtml:15
 msgid "Contact value"
 msgstr "Valeur de contact"
 
-#: module/Godana/view/godana/bid/add.phtml:166
-#: module/Godana/view/godana/bid/translate.phtml:19
+#: ../view/godana/bid/add.phtml:167
+#: ../view/godana/bid/translate.phtml:19
 msgid "Add image"
 msgstr "Ajouter image"
 
-#: module/Godana/view/godana/bid/add.phtml:205
-#: module/Godana/view/godana/bid/translate.phtml:20
-msgid "Add files..."
-msgstr "Ajouter fichier..."
+#: ../view/godana/bid/add.phtml:189
+msgid "Upload image"
+msgstr "Ajouter image"
 
-#: module/Godana/view/godana/bid/add.phtml:210
-#: module/Godana/view/godana/bid/translate.phtml:21
-msgid "Start upload"
-msgstr "Commencer le transfert"
+#: ../view/godana/bid/add.phtml:217
+#: ../view/godana/bid/add.phtml:231
+#, fuzzy
+msgid "Add images"
+msgstr "Ajouter image"
 
-#: module/Godana/view/godana/bid/add.phtml:214
-#: module/Godana/view/godana/bid/translate.phtml:22
-msgid "Cancel upload"
-msgstr "Annuler le transfert"
+#: ../view/godana/bid/add.phtml:221
+msgid "or"
+msgstr "ou"
 
-#: module/Godana/view/godana/bid/add.phtml:218
-#: module/Godana/view/godana/bid/translate.phtml:23
-msgid "Delete"
-msgstr "Supprimer"
+#: ../view/godana/bid/add.phtml:222
+msgid "Choose images"
+msgstr ""
 
-#: module/Godana/view/godana/bid/add.phtml:261
-#: module/Godana/view/godana/bid/translate.phtml:24
+#: ../view/godana/bid/add.phtml:232
+#: ../view/godana/bid/translate.phtml:24
 msgid "Close"
 msgstr "Fermer"
 
-#: module/Godana/view/godana/bid/add.phtml:262
+#: ../view/godana/bid/add.phtml:233
 msgid "Insert into post"
 msgstr "Insérer dans le poste"
 
-#: module/Godana/view/godana/bid/add.phtml:394
-#: module/Godana/view/godana/bid/add.phtml:409
-#: module/Godana/view/godana/cooperative/add-car-driver.phtml:127
-#: module/Godana/view/godana/cooperative/add-car-driver.phtml:145
-#: module/Godana/view/godana/cooperative/add-line.phtml:224
-#: module/Godana/view/godana/cooperative/add-line.phtml:242
-#: module/Godana/view/godana/cooperative/create-cooperative.phtml:146
-#: module/Godana/view/godana/cooperative/create-cooperative.phtml:164
+#: ../view/godana/bid/add.phtml:365
+#: ../view/godana/bid/add.phtml:380
 #, fuzzy
 msgid "Contact"
 msgstr "Type de contact"
 
-#: module/Godana/view/godana/bid/detail.phtml:17
+#: ../view/godana/bid/detail.phtml:17
 msgid "Back"
 msgstr "Retour"
 
-#: module/Godana/view/godana/bid/index.phtml:8
+#: ../view/godana/bid/index.phtml:8
 msgid "Create bid"
 msgstr "Nouvelle offre ou demande"
 
-#: module/Godana/view/godana/bid/index.phtml:30
+#: ../view/godana/bid/index.phtml:30
 msgid "More"
 msgstr "Detail"
 
-#: module/Godana/view/godana/bid/translate.phtml:1
+#: ../view/godana/bid/translate.phtml:1
 msgid "Demand"
 msgstr "Demande"
 
-#: module/Godana/view/godana/bid/translate.phtml:2
+#: ../view/godana/bid/translate.phtml:2
 msgid "Offer"
 msgstr "Offre"
 
-#: module/Godana/view/godana/bid/translate.phtml:3
+#: ../view/godana/bid/translate.phtml:3
 msgid "appliance"
 msgstr "appareil"
 
-#: module/Godana/view/godana/bid/translate.phtml:4
+#: ../view/godana/bid/translate.phtml:4
 msgid "agriculture"
 msgstr "agriculture"
 
-#: module/Godana/view/godana/bid/translate.phtml:5
+#: ../view/godana/bid/translate.phtml:5
 msgid "housing"
 msgstr "logement"
 
-#: module/Godana/view/godana/bid/translate.phtml:6
+#: ../view/godana/bid/translate.phtml:6
 msgid "technology"
 msgstr "technologie"
 
-#: module/Godana/view/godana/bid/translate.phtml:7
+#: ../view/godana/bid/translate.phtml:7
 msgid "transportation"
 msgstr "transport"
 
-#: module/Godana/view/godana/bid/translate.phtml:8
+#: ../view/godana/bid/translate.phtml:8
 msgid "mining"
 msgstr "mine"
 
-#: module/Godana/view/godana/bid/translate.phtml:9
+#: ../view/godana/bid/translate.phtml:9
 msgid "Type"
 msgstr "Type"
 
-#: module/Godana/view/godana/bid/translate.phtml:10
+#: ../view/godana/bid/translate.phtml:10
 msgid "Categories"
 msgstr "Catégories"
 
-#: module/Godana/view/godana/bid/translate.phtml:11
+#: ../view/godana/bid/translate.phtml:11
 msgid "Title"
 msgstr "Titre"
 
-#: module/Godana/view/godana/bid/translate.phtml:12
+#: ../view/godana/bid/translate.phtml:12
 msgid "Content"
 msgstr "Contenu"
 
-#: module/Godana/view/godana/bid/translate.phtml:13
+#: ../view/godana/bid/translate.phtml:13
 msgid "Choose a category..."
 msgstr "Choisir une catégorie..."
 
-#: module/Godana/view/godana/bid/translate.phtml:16
+#: ../view/godana/bid/translate.phtml:16
 msgid "Add contact"
 msgstr "Ajouter contact"
 
-#: module/Godana/view/godana/bid/translate.phtml:17
+#: ../view/godana/bid/translate.phtml:17
 msgid "City"
 msgstr "Ville"
 
-#: module/Godana/view/godana/bid/translate.phtml:18
+#: ../view/godana/bid/translate.phtml:18
 msgid "Price"
 msgstr "Prix"
 
-#: module/Godana/view/godana/bid/translate.phtml:25
+#: ../view/godana/bid/translate.phtml:20
+msgid "Add files..."
+msgstr "Ajouter fichier..."
+
+#: ../view/godana/bid/translate.phtml:21
+msgid "Start upload"
+msgstr "Commencer le transfert"
+
+#: ../view/godana/bid/translate.phtml:22
+msgid "Cancel upload"
+msgstr "Annuler le transfert"
+
+#: ../view/godana/bid/translate.phtml:23
+msgid "Delete"
+msgstr "Supprimer"
+
+#: ../view/godana/bid/translate.phtml:25
 msgid "Save changes"
 msgstr "Enregistrer"
 
-#: module/Godana/view/godana/bid/translate.phtml:26
+#: ../view/godana/bid/translate.phtml:26
 msgid "mobile"
 msgstr "mobile"
 
-#: module/Godana/view/godana/bid/translate.phtml:27
+#: ../view/godana/bid/translate.phtml:27
 #, fuzzy
 msgid "email"
 msgstr "Email"
 
-#: module/Godana/view/godana/bid/translate.phtml:28
+#: ../view/godana/bid/translate.phtml:28
 msgid "address"
 msgstr "adresse"
 
-#: module/Godana/view/godana/cooperative/add-car-driver.phtml:8
+#: ../view/godana/bid/translate.phtml:32
+msgid "Feed"
+msgstr ""
+
+#: ../view/godana/bid/translate.phtml:33
+msgid "Shop"
+msgstr "Boutique"
+
+#: ../view/godana/bid/translate.phtml:34
+msgid "Email or Username"
+msgstr "Email ou Utilisateur"
+
+#: ../view/godana/cooperative/add-car-driver.phtml:8
 msgid "Car driver"
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/add-car-driver.phtml:14
-#: module/Godana/view/godana/cooperative/add-car-line.phtml:14
-#: module/Godana/view/godana/cooperative/add-car-make.phtml:11
-#: module/Godana/view/godana/cooperative/add-car-model.phtml:14
-#: module/Godana/view/godana/cooperative/add-car.phtml:14
-#: module/Godana/view/godana/cooperative/add-line.phtml:15
-#: module/Godana/view/godana/cooperative/create-cooperative.phtml:15
+#: ../view/godana/cooperative/add-car-driver.phtml:14
+#: ../view/godana/cooperative/add-car-line.phtml:14
+#: ../view/godana/cooperative/add-car-make.phtml:11
+#: ../view/godana/cooperative/add-car-model.phtml:14
+#: ../view/godana/cooperative/add-car.phtml:14
+#: ../view/godana/cooperative/add-line.phtml:15
+#: ../view/godana/cooperative/create-cooperative.phtml:15
+#: ../view/godana/cooperative/create-line.phtml:15
+#: ../view/godana/cooperative/create-reservation-board.phtml:17
+#: ../view/godana/cooperative/create-reservation.phtml:15
+#: ../view/godana/cooperative/create-zone.phtml:11
+#: ../view/godana/cooperative/edit-cooperative.phtml:15
 msgid "Success!"
 msgstr "Succ&egrave;s!"
 
-#: module/Godana/view/godana/cooperative/add-car-driver.phtml:14
+#: ../view/godana/cooperative/add-car-driver.phtml:14
 msgid "Driver added successfully."
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/add-car-line.phtml:8
+#: ../view/godana/cooperative/add-car-line.phtml:8
 msgid "Car line"
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/add-car-line.phtml:14
+#: ../view/godana/cooperative/add-car-line.phtml:14
 msgid "Car line added successfully."
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/add-car-make.phtml:5
+#: ../view/godana/cooperative/add-car-make.phtml:5
 msgid "Car make"
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/add-car-make.phtml:11
+#: ../view/godana/cooperative/add-car-make.phtml:11
 msgid "Make added successfully."
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/add-car-model.phtml:8
+#: ../view/godana/cooperative/add-car-model.phtml:8
 msgid "Car model"
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/add-car-model.phtml:14
+#: ../view/godana/cooperative/add-car-model.phtml:14
 msgid "Model added successfully."
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/add-car.phtml:8
+#: ../view/godana/cooperative/add-car.phtml:8
 msgid "Car"
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/add-car.phtml:14
+#: ../view/godana/cooperative/add-car.phtml:14
+#: ../view/godana/cooperative/create-reservation-board.phtml:17
 msgid "Car added successfully."
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/add-line.phtml:15
+#: ../view/godana/cooperative/add-line.phtml:9
+#: ../view/godana/cooperative/create-cooperative.phtml:9
+#: ../view/godana/cooperative/edit-cooperative.phtml:9
+msgid "Cooperative"
+msgstr ""
+
+#: ../view/godana/cooperative/add-line.phtml:15
 msgid "Line added successfully."
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/create-cooperative.phtml:15
+#: ../view/godana/cooperative/create-cooperative.phtml:15
+#: ../view/godana/cooperative/edit-cooperative.phtml:15
 msgid "Cooperative created successfully."
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/create-line.phtml:9
-#: module/Godana/view/godana/cooperative/list-reservation-board.phtml:20
+#: ../view/godana/cooperative/create-line.phtml:9
 msgid "Line"
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/create-line.phtml:15
+#: ../view/godana/cooperative/create-line.phtml:15
 msgid "Line created successfully."
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/create-reservation-board.phtml:11
-#: module/Godana/view/godana/cooperative/list-reservation-board.phtml:7
+#: ../view/godana/cooperative/create-reservation-board.phtml:11
 msgid "Reservation board"
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/create-reservation.phtml:9
+#: ../view/godana/cooperative/create-reservation.phtml:9
 msgid "Reservation"
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/create-reservation.phtml:15
+#: ../view/godana/cooperative/create-reservation.phtml:15
 msgid "Reservation created successfully."
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/create-zone.phtml:5
+#: ../view/godana/cooperative/create-zone.phtml:5
 msgid "Zone"
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/create-zone.phtml:11
+#: ../view/godana/cooperative/create-zone.phtml:11
 msgid "Zone created successfully."
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/index.phtml:7
-#: module/Godana/view/godana/my-user/list.phtml:7
-#, fuzzy
+#: ../view/godana/cooperative/index.phtml:7
 msgid "User"
 msgstr "Utilisateur"
 
-#: module/Godana/view/godana/cooperative/index.phtml:13
-#: module/Godana/view/godana/my-user/change-role.phtml:29
+#: ../view/godana/cooperative/index.phtml:13
 msgid "Name"
 msgstr "Nom"
 
-#: module/Godana/view/godana/cooperative/index.phtml:13
+#: ../view/godana/cooperative/index.phtml:13
 #, fuzzy
 msgid "Admins"
 msgstr "Admin"
 
-#: module/Godana/view/godana/cooperative/index.phtml:13
+#: ../view/godana/cooperative/index.phtml:13
 msgid "Tellers"
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/index.phtml:13
-#: module/Godana/view/godana/cooperative/list-reservation-board.phtml:21
-#: module/Godana/view/godana/my-user/list.phtml:14
+#: ../view/godana/cooperative/index.phtml:13
 #, fuzzy
 msgid "Action"
 msgstr "Exception"
 
-#: module/Godana/view/godana/cooperative/index.phtml:31
+#: ../view/godana/cooperative/index.phtml:31
 msgid "Edit"
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/list-reservation-board.phtml:21
+#: ../view/godana/cooperative/list-reservation-board.phtml:21
+#: ../view/godana/cooperative/user-reservation.phtml:49
 msgid "Departure time"
 msgstr ""
 
-#: module/Godana/view/godana/cooperative/list-reservation-board.phtml:21
+#: ../view/godana/cooperative/list-reservation-board.phtml:21
+#: ../view/godana/cooperative/user-reservation.phtml:49
 #, fuzzy
 msgid "Seat available"
 msgstr "Aucune exception disponible"
 
-#: module/Godana/view/godana/cooperative/list-reservation-board.phtml:38
+#: ../view/godana/cooperative/list-reservation-board.phtml:38
+#: ../view/godana/cooperative/user-reservation.phtml:66
 msgid "Detail"
 msgstr ""
 
-#: module/Godana/view/godana/index/index.phtml:2
+#: ../view/godana/cooperative/user-reservation.phtml:9
+msgid "Line selection"
+msgstr ""
+
+#: ../view/godana/cooperative/user-reservation.phtml:23
+msgid "Submit"
+msgstr "Envoyer"
+
+#: ../view/godana/feed/add.phtml:19
+msgid "Feed created successfully."
+msgstr ""
+
+#: ../view/godana/feed/index.phtml:125
+msgid "What's new?"
+msgstr "Quoi de neuf?"
+
+#: ../view/godana/feed/index.phtml:445
+msgid "Read more"
+msgstr ""
+
+#: ../view/godana/feed/index.phtml:547
+msgid "Do you want to delete this comment?"
+msgstr "Voulez-vous supprimer ce commentaire?"
+
+#: ../view/godana/index/index.phtml:2
 #, php-format
 msgid "Welcome to %sgodana%s"
 msgstr "Bienvenue chez %sgodana%s"
 
-#: module/Godana/view/godana/my-user/add-user.phtml:9
+#: ../view/godana/index/index.phtml:3
+#, php-format
+msgid "Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2."
+msgstr "Félicitations ! Vous avez installé avec succès le %sZF2 Skeleton Application%s. Vous utilisez actuellement Zend Framework version %s. Cette structure peut vous servir comme un point de départ simple pour démarrer la construction de votre application avec ZF2."
+
+#: ../view/godana/index/index.phtml:4
+msgid "Fork Zend Framework 2 on GitHub"
+msgstr "Faites un Fork de Zend Framework 2 sur GitHub"
+
+#: ../view/godana/my-user/add-user.phtml:9
 #, fuzzy
 msgid "Add user"
 msgstr "Ajouter type"
 
-#: module/Godana/view/godana/my-user/change-role.phtml:8
-#: module/Godana/view/godana/my-user/list.phtml:25
+#: ../view/godana/my-user/change-role.phtml:8
+#: ../view/godana/my-user/list.phtml:25
 msgid "Change role"
 msgstr ""
 
-#: module/Godana/view/godana/my-user/change-role.phtml:14
+#: ../view/godana/my-user/change-role.phtml:14
 msgid "Role changed successfully."
 msgstr ""
 
-#: module/Godana/view/godana/my-user/change-role.phtml:98
-#: module/Godana/view/godana/my-user/change-role.phtml:116
-#: module/Godana/view/godana/my-user/edit-user.phtml:158
-#: module/Godana/view/godana/my-user/edit-user.phtml:176
-#: module/Godana/view/godana/my-user/list.phtml:14
+#: ../view/godana/my-user/change-role.phtml:98
+#: ../view/godana/my-user/change-role.phtml:116
+#: ../view/godana/my-user/edit-user.phtml:158
+#: ../view/godana/my-user/edit-user.phtml:176
+#: ../view/godana/my-user/list.phtml:14
 msgid "Role"
 msgstr "Role"
 
-#: module/Godana/view/godana/my-user/edit-user.phtml:9
-#: module/Godana/view/godana/my-user/list.phtml:25
+#: ../view/godana/my-user/edit-user.phtml:9
+#: ../view/godana/my-user/list.phtml:25
 msgid "Edit user"
 msgstr ""
 
-#: module/Godana/view/godana/my-user/edit-user.phtml:15
+#: ../view/godana/my-user/edit-user.phtml:15
 msgid "User changed successfully."
 msgstr ""
 
-#: module/Godana/view/godana/my-user/list.phtml:13
+#: ../view/godana/my-user/list.phtml:13
 msgid "First name"
 msgstr "Nom"
 
-#: module/Godana/view/godana/my-user/list.phtml:13
+#: ../view/godana/my-user/list.phtml:13
 msgid "Last name"
-msgstr "Pr&eacute;nom"
+msgstr "Prénom"
 
-#: module/Godana/view/godana/product/add.phtml:13
+#: ../view/godana/product/add.phtml:13
 msgid "Product"
 msgstr "Produit"
 
-#: module/Godana/view/godana/product/add.phtml:147
+#: ../view/godana/product/add.phtml:147
 msgid "Attribute type"
 msgstr "Type d'attribut"
 
-#: module/Godana/view/godana/product/add.phtml:148
+#: ../view/godana/product/add.phtml:148
+#: ../view/godana/shop/add.phtml:160
 #, fuzzy
 msgid "mail"
 msgstr "Email"
 
-#: module/Godana/view/godana/product/add.phtml:150
+#: ../view/godana/product/add.phtml:150
 msgid "Attribute value"
 msgstr "Valeur d'attribut"
 
-#: module/Godana/view/godana/product/add.phtml:362
+#: ../view/godana/product/add.phtml:362
+#: ../view/godana/product/type.phtml:118
 msgid "Add attribute"
 msgstr "Ajouter attribut"
 
-#: module/Godana/view/godana/product/type.phtml:10
-#: module/Godana/view/godana/shop/producttype.phtml:10
+#: ../view/godana/product/detail.phtml:1
+msgid "Shops"
+msgstr "Boutique"
+
+#: ../view/godana/product/type.phtml:10
 #, fuzzy
 msgid "Product type"
 msgstr "Type de contact"
 
-#: module/Godana/view/godana/product/type.phtml:75
-#: module/Godana/view/godana/shop/producttype.phtml:75
+#: ../view/godana/product/type.phtml:75
 msgid "Attribute name"
 msgstr "Nom d'attribut"
 
-#: module/Godana/view/godana/search/index.phtml:4
+#: ../view/godana/search/index.phtml:4
 #, php-format
 msgid "Search for '%s' returned %d hits"
 msgstr ""
 
-#: module/Godana/view/godana/search/index.phtml:30
+#: ../view/godana/search/index.phtml:30
 msgid "Published on "
 msgstr ""
 
-#: module/Godana/view/godana/shop/add.phtml:12
-#: module/Godana/view/godana/shop/edit.phtml:10
-#: module/Godana/view/godana/shop/index.phtml:7
-#, fuzzy
-msgid "Shop"
-msgstr "Boutique"
-
-#: module/Godana/view/godana/shop/add.phtml:69
-#: module/Godana/view/godana/shop/edit.phtml:47
+#: ../view/godana/shop/add.phtml:69
 #, fuzzy
 msgid "Category name"
 msgstr "Catégories"
 
-#: module/Godana/view/godana/shop/add.phtml:231
-#: module/Godana/view/godana/shop/edit.phtml:207
+#: ../view/godana/shop/add.phtml:231
 #, fuzzy
 msgid "Add category"
 msgstr "Ajouter contact"
 
-#: module/Godana/view/godana/shop/index.phtml:13
+#: ../view/godana/shop/index.phtml:13
 msgid "Owner"
 msgstr "Propriétaire"
 
-#: module/Godana/view/godana/shop/index.phtml:14
+#: ../view/godana/shop/index.phtml:14
 #, fuzzy
 msgid "Category"
 msgstr "Catégories"
 
-#: module/Godana/view/layout/admin-layout.phtml:54
+#: ../view/godana/tools/index.phtml:1
+#: ../view/layout/tools-layout.phtml:57
+msgid "Tools"
+msgstr "Outils"
+
+#: ../view/layout/admin-layout.phtml:54
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: module/Godana/view/layout/admin-layout.phtml:56
+#: ../view/layout/admin-layout.phtml:56
 msgid "Reinitialize search"
 msgstr ""
 
-#: module/Godana/view/layout/admin-layout.phtml:60
-#, fuzzy
+#: ../view/layout/admin-layout.phtml:60
 msgid "Users"
-msgstr "Utilisateur"
+msgstr "Utilisateurs"
 
-#: module/Godana/view/layout/admin-layout.phtml:62
-#: module/Godana/view/layout/admin-layout.phtml:69
+#: ../view/layout/admin-layout.phtml:62
+#: ../view/layout/admin-layout.phtml:69
+#: ../view/layout/tools-layout.phtml:89
 msgid "Add"
 msgstr "Ajouter"
 
-#: module/Godana/view/layout/admin-layout.phtml:63
-#: module/Godana/view/layout/admin-layout.phtml:70
+#: ../view/layout/admin-layout.phtml:63
+#: ../view/layout/admin-layout.phtml:70
+#: ../view/layout/tools-layout.phtml:88
 msgid "List"
 msgstr "Lister"
 
-#: module/Godana/view/layout/admin-layout.phtml:75
+#: ../view/layout/admin-layout.phtml:75
 msgid "Products"
 msgstr "Produits"
 
-#: module/Godana/view/layout/admin-layout.phtml:77
+#: ../view/layout/admin-layout.phtml:77
 msgid "Add type"
 msgstr "Ajouter type"
 
-#: module/Godana/view/layout/admin-layout.phtml:78
-#, fuzzy
+#: ../view/layout/admin-layout.phtml:78
 msgid "Add product"
-msgstr "Ajouter contact"
+msgstr "Ajouter produit"
 
-#: module/Godana/view/layout/admin-layout.phtml:79
+#: ../view/layout/admin-layout.phtml:79
 msgid "List product"
 msgstr "Lister produit"
 
-#: module/Godana/view/layout/cooperative-layout.phtml:57
+#: ../view/layout/admin-layout.phtml:88
+#: ../view/layout/cooperative-layout.phtml:89
+#: ../view/layout/layout.phtml:76
+#: ../view/layout/tools-layout.phtml:100
+#: ../view/zfc-user/user/profile.phtml:8
+#: ../view/zfc-user/user/profile.phtml:13
+msgid "Profile"
+msgstr "Profil"
+
+#: ../view/layout/admin-layout.phtml:96
+#: ../view/layout/cooperative-layout.phtml:97
+#: ../view/layout/layout.phtml:114
+#: ../view/layout/tools-layout.phtml:108
+msgid "Sign Out"
+msgstr "Se d&eacute;connecter"
+
+#: ../view/layout/admin-layout.phtml:136
+#: ../view/layout/cooperative-layout.phtml:139
+#: ../view/layout/layout.phtml:177
+#: ../view/layout/tools-layout.phtml:160
+msgid "Language"
+msgstr "Langue"
+
+#: ../view/layout/cooperative-layout.phtml:57
 msgid "Create cooperative"
 msgstr ""
 
-#: module/Godana/view/layout/cooperative-layout.phtml:58
+#: ../view/layout/cooperative-layout.phtml:58
 msgid "List cooperative"
 msgstr ""
 
-#: module/Godana/view/layout/cooperative-layout.phtml:59
+#: ../view/layout/cooperative-layout.phtml:59
 #, fuzzy
 msgid "Create zone"
 msgstr "Nouvelle offre ou demande"
 
-#: module/Godana/view/layout/cooperative-layout.phtml:60
+#: ../view/layout/cooperative-layout.phtml:60
 #, fuzzy
 msgid "Create line"
 msgstr "Nouvelle offre ou demande"
 
-#: module/Godana/view/layout/cooperative-layout.phtml:61
-#, fuzzy
+#: ../view/layout/cooperative-layout.phtml:61
 msgid "Add line"
-msgstr "Ajouter image"
+msgstr "Ajouter ligne"
 
-#: module/Godana/view/layout/cooperative-layout.phtml:68
-#, fuzzy
+#: ../view/layout/cooperative-layout.phtml:68
 msgid "Add car make"
-msgstr "Ajouter image"
+msgstr "Ajouter marque de voiture"
 
-#: module/Godana/view/layout/cooperative-layout.phtml:69
+#: ../view/layout/cooperative-layout.phtml:69
 msgid "Add car model"
 msgstr ""
 
-#: module/Godana/view/layout/cooperative-layout.phtml:70
-#, fuzzy
+#: ../view/layout/cooperative-layout.phtml:70
 msgid "Add car driver"
-msgstr "Ajouter contact"
+msgstr "Ajouter chauffeur"
 
-#: module/Godana/view/layout/cooperative-layout.phtml:71
-#, fuzzy
+#: ../view/layout/cooperative-layout.phtml:71
 msgid "Add car"
-msgstr "Ajouter contact"
+msgstr "Ajouter voiture"
 
-#: module/Godana/view/layout/cooperative-layout.phtml:72
-#, fuzzy
+#: ../view/layout/cooperative-layout.phtml:72
 msgid "Add car line"
-msgstr "Ajouter attribut"
+msgstr "Ajouter ligne de voiture"
 
-#: module/Godana/view/layout/cooperative-layout.phtml:78
+#: ../view/layout/cooperative-layout.phtml:78
 msgid "Reserve a car"
 msgstr ""
 
-#: module/Godana/view/layout/cooperative-layout.phtml:79
+#: ../view/layout/cooperative-layout.phtml:79
 msgid "Make a reservation"
 msgstr ""
 
-#: module/Godana/view/layout/cooperative-layout.phtml:80
+#: ../view/layout/cooperative-layout.phtml:80
 msgid "List reservation car"
 msgstr ""
 
-#: module/Godana/view/partial/paginator.phtml:6
-#: module/Godana/view/partial/paginator.phtml:9
+#: ../view/layout/layout.phtml:46
+#: ../view/layout/tools-layout.phtml:48
+msgid "Home"
+msgstr "Accueil"
+
+#: ../view/layout/layout.phtml:60
+#: ../view/layout/tools-layout.phtml:117
+msgid "Search"
+msgstr "Recherche"
+
+#: ../view/layout/layout.phtml:97
+#: ../view/layout/layout.phtml:103
+msgid "Admin"
+msgstr "Admin"
+
+#: ../view/layout/layout.phtml:120
+#: ../view/layout/tools-layout.phtml:112
+msgid "Login"
+msgstr "Se connecter"
+
+#: ../view/layout/tools-layout.phtml:60
+msgid "About"
+msgstr "A propos"
+
+#: ../view/layout/tools-layout.phtml:79
+msgid "Transportation"
+msgstr "Transport"
+
+#: ../view/partial/paginator.phtml:6
+#: ../view/partial/paginator.phtml:9
 msgid "Previous"
 msgstr "Précédent"
 
-#: module/Godana/view/partial/paginator.phtml:26
-#: module/Godana/view/partial/paginator.phtml:29
+#: ../view/partial/paginator.phtml:26
+#: ../view/partial/paginator.phtml:29
 msgid "Next"
 msgstr "Suivant"
 
-#: module/Godana/view/zfc-user/user/changepassword.phtml:5
+#: ../view/zfc-user/user/changepassword.phtml:5
 #, php-format
 msgid "Change Password for %s"
-msgstr ""
+msgstr "Changement de mot de passe pour %s"
 
-#: module/Godana/view/zfc-user/user/changepassword.phtml:11
+#: ../view/zfc-user/user/changepassword.phtml:11
 msgid "Password changed successfully."
 msgstr ""
 
-#: module/Godana/view/zfc-user/user/changepassword.phtml:16
+#: ../view/zfc-user/user/changepassword.phtml:16
 msgid "Unable to update your password. Please try again."
 msgstr ""
 
-#: module/Godana/view/zfc-user/user/login.phtml:61
+#: ../view/zfc-user/user/login.phtml:13
+msgid "Sign In"
+msgstr "Se connecter"
+
+#: ../view/zfc-user/user/login.phtml:61
 msgid "Not registered?"
 msgstr "Pas encore membre?"
 
-#: module/Godana/view/zfc-user/user/login.phtml:61
+#: ../view/zfc-user/user/login.phtml:61
 msgid "Sign up!"
 msgstr "S'abonner!"
 
-#: module/Godana/view/zfc-user/user/profile.phtml:15
+#: ../view/zfc-user/user/profile.phtml:19
 msgid "Your profile is updated."
 msgstr "Votre profil a &eacute;t&eacute; mis &agrave; jour."
 
-#: module/Godana/view/zfc-user/user/profile.phtml:39
-#, fuzzy
+#: ../view/zfc-user/user/profile.phtml:36
+msgid "Profile picture"
+msgstr "Photo de profil"
+
+#: ../view/zfc-user/user/profile.phtml:41
+msgid "Change image"
+msgstr ""
+
+#: ../view/zfc-user/user/profile.phtml:54
 msgid "Change password"
-msgstr "Nouveau mot de passe"
+msgstr "Modifier mot de passe"
 
-#: vendor/zf-commons/zfc-user/view/zfc-user/user/changeemail.phtml:1
-#, php-format
-msgid "Change Email for %s"
-msgstr ""
+#: ../view/zfc-user/user/register.phtml:9
+msgid "Register"
+msgstr "S'inscrire"
 
-#: vendor/zf-commons/zfc-user/view/zfc-user/user/changeemail.phtml:3
-msgid "Email address changed successfully."
-msgstr ""
-
-#: vendor/zf-commons/zfc-user/view/zfc-user/user/changeemail.phtml:5
-msgid "Unable to update your email address. Please try again."
-msgstr ""
-
-#: vendor/zf-commons/zfc-user/view/zfc-user/user/index.phtml:2
-msgid "Hello"
-msgstr "Salut"
-
+#~ msgid "Save"
+#~ msgstr "Enregistrer"
+#~ msgid "New Email"
+#~ msgstr "Nouvel email"
+#~ msgid "Verify New Email"
+#~ msgstr "V&eacute;rifier nouvel email"
+#~ msgid "Display Name"
+#~ msgstr "Nom"
+#~ msgid "Password"
+#~ msgstr "Mot de passe"
+#~ msgid "Password Verify"
+#~ msgstr "V&eacute;rification de mot de passe"
+#~ msgid "Current Password"
+#~ msgstr "Mot de passe actuel"
+#~ msgid "Verify New Password"
+#~ msgstr "V&eacute;rifier mot de passe"
+#~ msgid "New Password"
+#~ msgstr "Nouveau mot de passe"
+#~ msgid "No record matching the input was found"
+#~ msgstr "Cet email n'existe pas"
+#~ msgid "A record matching the input was found"
+#~ msgstr "Cet email est d&eacute;j&agrave; pris"
+#~ msgid "Authentication failed. Please try again."
+#~ msgstr "Erreur de connexion. Essayer à nouveau."
+#~ msgid "Hello"
+#~ msgstr "Salut"
+#~ msgid "Welcome to %sZend Framework 2%s"
+#~ msgstr "Bienvenue dans le %sZend Framework 2%s"
+#~ msgid "Follow Development"
+#~ msgstr "Suivre le développement"
+#~ msgid ""
+#~ "Zend Framework 2 is under active development. If you are interested in "
+#~ "following the development of ZF2, there is a special ZF2 portal on the "
+#~ "official Zend Framework website which provides links to the ZF2 %swiki%s, "
+#~ "%sdev blog%s, %sissue tracker%s, and much more. This is a great resource "
+#~ "for staying up to date with the latest developments!"
+#~ msgstr ""
+#~ "Zend Framework 2 est en cours de développement. Si vous êtes intéressé "
+#~ "pour suivre l'évolution de ZF2, il existe un portail dédié à ZF2 sur le "
+#~ "site officiel Zend Framework qui propose des liens vers le %swiki%s ZF2, "
+#~ "%sdev blog%s, %ssuivi des problèmes%s, et bien plus encore. Il s'agit "
+#~ "d'une excellente ressource pour rester à jour sur les dernières "
+#~ "évolutions !"
+#~ msgid "ZF2 Development Portal"
+#~ msgstr "Portail sur le développement de ZF2"
+#~ msgid "Discover Modules"
+#~ msgstr "Découvrez les modules"
+#~ msgid ""
+#~ "The community is working on developing a community site to serve as a "
+#~ "repository and gallery for ZF2 modules. The project is available %son "
+#~ "GitHub%s. The site is currently live and currently contains a list of "
+#~ "some of the modules already available for ZF2."
+#~ msgstr ""
+#~ "La communauté travaille sur le développement d'un site communautaire avec "
+#~ "l'objectif de servir de dépôt et de galerie  pour les modules ZF2. Le "
+#~ "projet est disponible %ssur GitHub%s. Le site est déjà en ligne, et "
+#~ "contient une liste non exhaustive des modules déjà disponibles pour ZF2."
+#~ msgid "Explore ZF2 Modules"
+#~ msgstr "Explorer les modules ZF2"
+#~ msgid "Help &amp; Support"
+#~ msgstr "Aide &amp; support"
+#~ msgid ""
+#~ "If you need any help or support while developing with ZF2, you may reach "
+#~ "us via IRC: %s#zftalk on Freenode%s. We'd love to hear any questions or "
+#~ "feedback you may have regarding the beta releases. Alternatively, you may "
+#~ "subscribe and post questions to the %smailing lists%s."
+#~ msgstr ""
+#~ "Si vous avez besoin d'aide ou de support en développant avec ZF2, vous "
+#~ "pouvez nous joindre sur IRC : %s#zftalk sur Freenode%s. Nous aimerions "
+#~ "avoir vos questions ou vos commentaires que vous pourriez avoir au sujet "
+#~ "des versions bêta. Sinon, vous pouvez vous abonner, et poser des "
+#~ "questions sur la %sliste de diffusion%s."
+#~ msgid "Ping us on IRC"
+#~ msgstr "Rejoignez-nous sur IRC"
+#~ msgid "Groups"
+#~ msgstr "Groupe"
+#~ msgid "Skeleton Application"
+#~ msgstr "Skeleton Application"
+#~ msgid "All rights reserved."
+#~ msgstr "Tous droits réservés."
 #~ msgid "FieldEmpty"
 #~ msgstr "Ce champ doit être rempli"
 #~ msgid "Date of birth"
@@ -900,8 +916,6 @@ msgstr "Salut"
 #~ msgstr "Sexe"
 #~ msgid "Start"
 #~ msgstr "Commencer"
-#~ msgid "Cancel"
-#~ msgstr "Annuler"
 #~ msgid "Error!"
 #~ msgstr "Erreur!"
 

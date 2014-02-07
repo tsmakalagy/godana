@@ -173,6 +173,13 @@ class File
     	$imgUrl = substr($url, 0, strrpos($url, '/'));
     	return $imgUrl . '/thumbnail/' . $this->name;
     } 
+    
+    public function getMediumUrl()
+    {
+    	$url = $this->url;
+    	$imgUrl = substr($url, 0, strrpos($url, '/'));
+    	return $imgUrl . '/medium/' . $this->name;
+    } 
 
 	public function getImageUrlByDimension($dimension)
     {    	

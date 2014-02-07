@@ -2,10 +2,11 @@
 namespace Godana\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Godana\Entity\Post;
 
 /** 
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Godana\Entity\CommentRepository")
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="gdn_comment")
  * 
@@ -47,11 +48,11 @@ class Comment
     protected $deleted;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Feed", inversedBy="comments")
-     * @ORM\JoinColumn(name="feed_id", referencedColumnName="id")
-     * @var Feed
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="post")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id_post")
+     * @var Post
      */
-    protected $feed;
+    protected $post;
     
 	/**
      * @ORM\PrePersist
@@ -123,14 +124,15 @@ class Comment
     	$this->deleted = $deleted;
     }
     
-	public function getFeed()
+	public function getPost()
     {
-    	return $this->feed;
+    	return $this->post;
     }
     
-    public function setFeed($feed)
+    public function setPost(Post $post)
     {
-    	$this->feed = $feed;
+    	$post->addComment($this);
+    	$this->post = $post;
     }
     
 }

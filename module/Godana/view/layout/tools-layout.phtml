@@ -65,11 +65,15 @@
 		        <? 
                     	$roles = $this->currentUserRole();
                     	$isAdmin = false;
-                    	foreach ($roles as $role) {
-                    		if ($role->getRoleId() == 'admin') {
-                    			$isAdmin = true;
-                    		}
-                    }?>
+                    	if ($roles) {
+	                    	foreach ($roles as $role) {
+	                    		if ($role->getRoleId() == 'admin') {
+	                    			$isAdmin = true;
+	                    		}                    
+	                    	}	
+                    	}
+                    	
+                    	?>
 		          <ul class="nav navbar-nav side-nav">		            
 		            <li class="dropdown">
 		              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$this->translate('Transportation'); ?><b class="caret"></b></a>
@@ -89,6 +93,7 @@
 		          </ul>
 		          
 		          <ul class="nav navbar-nav navbar-right navbar-user">
+		          <? if ($this->zfcUserIdentity()):?>
 		          	<li class="dropdown user-dropdown">
 		              <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><img src="<?=$this->userPicture('xs'); ?>" class="img-rounded"> <?php echo $this->zfcUserDisplayName() ?> <i class="caret"></i>
 		              <ul class="dropdown-menu">
@@ -103,6 +108,9 @@
 		                <li><a href="<?php echo $this->url('zfcuser/logout', array(), array(), true) ?>"><i class="fa fa-power-off"></i> <?php echo $this->translate('Sign Out'); ?></a></li>
 		              </ul>
 		            </li>
+		            <? else: ?>
+                    <li><a href="<?php echo $this->url('zfcuser/login', array(), array(), true); ?>"><? echo $this->translate('Login');?></a></li>
+                    <? endif;?>
 		          </ul>
 		          <form class="navbar-form navbar-left" role="search" action="<?php echo $this->url('search', array(), array(), true) ?>" method="get">
     				    <span class="input-group">

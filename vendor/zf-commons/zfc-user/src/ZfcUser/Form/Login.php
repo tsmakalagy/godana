@@ -25,12 +25,12 @@ class Login extends ProvidesEventsForm
             'options' => array(
                 'label' => '',
         		'label_attributes' => array(
-		            'class' => 'col-sm-4 control-label',
+					'class' => 'sr-only',
 		        ),
             ),
             'attributes' => array(
                 'type' => 'text',
-                'class' => 'form-control',
+				'class' => 'gdn_text',
             ),
         ));
 
@@ -41,18 +41,20 @@ class Login extends ProvidesEventsForm
             $label = (!empty($label) ? $label . ' or ' : '') . ucfirst($mode);
         }
         $emailElement->setLabel($label);
+        $emailElement->setAttributes(array('placeholder' => $label));
         //
         $this->add(array(
             'name' => 'credential',
             'options' => array(
                 'label' => 'Password',
         		'label_attributes' => array(
-		            'class' => 'col-sm-4 control-label',
+					'class' => 'sr-only',
 		        ),
             ),
             'attributes' => array(
                 'type' => 'password',
-            	'class' => 'form-control',
+				'class' => 'gdn_text',
+            	'placeholder' => 'Password'
             ),
         ));
 
@@ -70,7 +72,7 @@ class Login extends ProvidesEventsForm
             ->setLabel('Sign In')
             ->setAttributes(array(
                 'type'  => 'submit',
-            	'class' => 'btn btn-primary',
+            	'class' => 'btn btn-default',
             ));
 
         $this->add($submitElement, array(

@@ -35,7 +35,8 @@ class PostFieldset extends Fieldset implements InputFilterProviderInterface, Ser
                 'name' => 'categories',
                 'attributes' => array(
                     'multiple' => 'multiple',
-            		'class' => 'chosen-select form-control'
+            		'class' => 'category-select gdn_select',
+            		'placeholder' => 'Categories'
                 ),                
                 'options' => array(
                     'object_manager' => $this->objectManager,
@@ -43,8 +44,9 @@ class PostFieldset extends Fieldset implements InputFilterProviderInterface, Ser
                     'property'       => 'name',
                     'label'          => 'Categories',
                 	'label_attributes' => array(
-			            'class' => 'col-sm-3 control-label',
+			            'class' => 'sr-only',
 			        ),
+			        'empty_option' => 'Categories',
                     'disable_inarray_validator' => true,
 			        'find_method' => array(
 			        	'name' => 'findBy',
@@ -61,12 +63,13 @@ class PostFieldset extends Fieldset implements InputFilterProviderInterface, Ser
             'options' => array(
                 'label' => 'Title',
         		'label_attributes' => array(
-		            'class' => 'col-sm-3 control-label',
+		            'class' => 'sr-only',
 		        ),
             ),
             'attributes' => array(
                 'type' => 'text',
-            	'class' => 'form-control',
+            	'class' => 'gdn_text',
+            	'placeholder' => 'Title'
             ),
         ));
         
@@ -75,12 +78,13 @@ class PostFieldset extends Fieldset implements InputFilterProviderInterface, Ser
             'options' => array(
                 'label' => 'Content',
         		'label_attributes' => array(
-		            'class' => 'col-sm-3 control-label',
+		            'class' => 'sr-only',
 		        ),
             ),
             'attributes' => array(
                 'type' => 'textarea',
-            	'class' => 'form-control',
+            	'class' => 'gdn_text',
+            	'placeholder' => 'Content'
             ),
         ));
         
@@ -105,12 +109,12 @@ class PostFieldset extends Fieldset implements InputFilterProviderInterface, Ser
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'tag',
         	'attributes' => array(
-        		'class' => 'tag-select form-control'
+        		'class' => 'tag-select gdn_text'
         	),
         	'options' => array(
                 'label' => 'Tags',
         		'label_attributes' => array(
-		            'class' => 'col-sm-3 control-label',
+		            'class' => 'sr-only',
 		        ),
             ),
         ));

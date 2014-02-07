@@ -47,7 +47,6 @@ class UsernameValidatorCallback
             $valid = true;            
         } else {
             $result = $this->getMapper()->findByUsername($value);	
-            //var_dump($result);
             if ($result) $valid = false; else $valid = true;
         } 		
 		return $valid;		

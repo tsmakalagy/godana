@@ -35,12 +35,13 @@ class ChangePassword extends ProvidesEventsForm
             'options' => array(
                 'label' => 'Current Password',
         		'label_attributes' => array(
-		            'class' => 'col-sm-4 control-label',
+		            'class' => 'sr-only',
 		        ),
             ),
             'attributes' => array(
                 'type' => 'password',
-            	'class' => 'form-control',
+            	'class' => 'gdn_text',
+            	'placeholder' => 'Current Password'
             ),
         ));
 
@@ -49,12 +50,13 @@ class ChangePassword extends ProvidesEventsForm
             'options' => array(
                 'label' => 'New Password',
         		'label_attributes' => array(
-		            'class' => 'col-sm-4 control-label',
+		            'class' => 'sr-only',
 		        ),
             ),
             'attributes' => array(
                 'type' => 'password',
-            	'class' => 'form-control',
+            	'class' => 'gdn_text',
+            	'placeholder' => 'New Password'
             ),
         ));
 
@@ -63,12 +65,13 @@ class ChangePassword extends ProvidesEventsForm
             'options' => array(
                 'label' => 'Verify New Password',
         		'label_attributes' => array(
-		            'class' => 'col-sm-4 control-label',
+		            'class' => 'sr-only',
 		        ),
             ),
             'attributes' => array(
                 'type' => 'password',
-            	'class' => 'form-control',
+            	'class' => 'gdn_text',
+            	'placeholder' => 'Verify New Password'
             ),
         ));
 
@@ -77,7 +80,7 @@ class ChangePassword extends ProvidesEventsForm
             'attributes' => array(
                 'value' => 'Submit',
                 'type'  => 'submit',
-        		'class' => 'btn btn-primary',
+        		'class' => 'btn btn-default',
             ),
         ));
 

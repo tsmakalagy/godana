@@ -14,7 +14,6 @@ use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
 use BjyAuthorize\Guard\Route;
 use BjyAuthorize\Guard\Controller;
-
 /**
  * Dispatch error handler, catches exceptions related with authorization and
  * redirects the user agent to a configured location
@@ -38,6 +37,8 @@ class RedirectionStrategy implements ListenerAggregateInterface
      * @var \Zend\Stdlib\CallbackHandler[]
      */
     protected $listeners = array();
+    
+    protected $serviceLocator;
 
     /**
      * {@inheritDoc}
@@ -73,15 +74,17 @@ class RedirectionStrategy implements ListenerAggregateInterface
         $router     = $event->getRouter();
         $error      = $event->getError();
         $url        = $this->redirectUri;
+        $redirectAfterLogin = "";
         if (isset($routeMatch)) {
+        	
         	$routeName = $routeMatch->getMatchedRouteName();
 			$routeParams = $routeMatch->getParams();
 			if (array_key_exists('lang', $routeParams)) {
 				$lang = $routeParams['lang'];	
 			} else {
 				$lang = 'mg';
-			}
-				
+			}			
+			$redirectAfterLogin = urlencode($router->assemble($routeParams, array('name' => $routeName)));
         }
         
 
@@ -102,6 +105,9 @@ class RedirectionStrategy implements ListenerAggregateInterface
 
         if (null === $url) {
             $url = $router->assemble(array('lang' => $lang), array('name' => $this->redirectRoute));
+            if (strlen($redirectAfterLogin) > 0) {
+            	$url .= '?redirect='.$redirectAfterLogin;
+            }
         }
 
         $response = $response ?: new Response();
@@ -127,4 +133,5 @@ class RedirectionStrategy implements ListenerAggregateInterface
     {
         $this->redirectUri = $redirectUri ? (string) $redirectUri : null;
     }
+    
 }

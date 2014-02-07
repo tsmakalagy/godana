@@ -25,19 +25,7 @@ class Feed
      * @ORM\OneToOne(targetEntity="Post")
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id_post")
      */
-    protected $post;
-    
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="feed")
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    protected $comments;
-    
-	public function __construct()
-    {
-    	$this->comments = new Collection();
-    }
+    protected $post;    
        
     public function getId()
     {
@@ -68,29 +56,5 @@ class Feed
     public function setPost(Post $post)
     {
     	$this->post = $post;
-    }
-    
-	public function getComments()
-    {
-    	return $this->comments;
-    }
-    
-    public function addComment($comment)
-    {
-    	$this->comments[] = $comment;
-    }
-    
-	public function addComments(Collection $comments)
-    {
-        foreach ($comments as $comment) {
-            $this->comments->add($comment);
-        }
-    }
-
-    public function removeComments(Collection $comments)
-    {
-        foreach ($comments as $comment) {
-            $this->comments->removeElement($comment);
-        }
     }
 }
