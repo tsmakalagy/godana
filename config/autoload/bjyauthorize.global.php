@@ -148,8 +148,11 @@ return array(
                 
                 array('route' => 'admin/product/type_add', 'roles' => array('admin', 'shop-owner')),
                 array('route' => 'admin/product/add', 'roles' => array('admin', 'shop-owner')),
+                array('route' => 'admin/product/list', 'roles' => array('admin', 'shop-owner')),
                 array('route' => 'admin/product/ajax', 'roles' => array('admin', 'shop-owner')),
                 array('route' => 'admin/product/list_attribute', 'roles' => array('admin', 'shop-owner')),
+                array('route' => 'admin/product/ajax_list_attribute', 'roles' => array('admin', 'shop-owner')),
+                array('route' => 'admin/product/type_list', 'roles' => array('admin', 'shop-owner')),
                 
                 array('route' => 'admin/user', 'roles' => array('admin')),
                 array('route' => 'admin/user/role_change', 'roles' => array('admin')),
@@ -189,6 +192,7 @@ return array(
                 array('route' => 'tools/feed/load_ajax', 'roles' => array('guest')),
                 
                 array('route' => 'crop', 'roles' => array('user')),
+                array('route' => 'upload', 'roles' => array('user')),
                 array('route' => 'user-upload', 'roles' => array('user')),
                 array('route' => 'feed-upload', 'roles' => array('user')),
                 array('route' => 'feed-comment', 'roles' => array('user')),

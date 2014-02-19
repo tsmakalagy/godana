@@ -1,10 +1,18 @@
 @CHARSET "UTF-8";
 body {
-    padding-top: 60px;
-    padding-bottom: 40px;
-    background-color: #C4C4C4;
+    /*padding-top: 60px;
+    padding-bottom: 40px;*/
+    background-color: #E2E2E2;
 }
-
+.row-footer {
+    padding: 15px 0;
+}
+.main-content {
+	padding-top: 60px;
+}
+#wrapper {		
+	border-bottom: 1px solid #E7E7E7;
+}
 .zf-green {
     color: #68b604;
 }
@@ -340,16 +348,16 @@ div.container a.brand {
 
 /* feed */
 
-.item {
+.item, .item-bid {
 	width: 42%;
 }
 @media (min-width: 320px) and (max-width: 580px) {
-	.item {width: 100%;}
+	.item, .item-bid {width: 100%;}
 	
 }
 
 @media (max-width: 767px) {
-	.item {width: 100%;}
+	.item, .item-bid {width: 100%;}
 }
 
 .tag {

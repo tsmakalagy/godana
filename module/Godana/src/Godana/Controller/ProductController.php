@@ -10,9 +10,13 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Http\PhpEnvironment\Response as Response;
 
 class ProductController extends AbstractActionController
 {
+	const ROUTE_ADD_TYPE = 'admin/product/type_add';
+	const ROUTE_ADD_PRODUCT = 'admin/product/add';
+	
 	/** 
      * @var Form
      */
@@ -36,8 +40,7 @@ class ProductController extends AbstractActionController
 	
 	public function typeAction()
  	{
- 		$this->layout('layout/admin-layout');
- 		$this->layout()->product_active = 'active';
+ 		$this->layout('layout/sb-admin-layout');
  		$om = $this->getObjectManager(); 		
 	    $lang = $this->params()->fromRoute('lang', 'mg');
 	    $form = $this->getProductTypeForm();
@@ -46,25 +49,38 @@ class ProductController extends AbstractActionController
 	    $productType = new ProductType();
 	    $form->bind($productType);
 	    
-	    if ($this->request->isPost()) {
-	        $form->setData($this->request->getPost());			
-	        if ($form->isValid()) {
-	        	$productTypeForm = $this->request->getPost()->get('product-type-form');
-	        	if (array_key_exists('new-attributes', $productTypeForm)) {
-		        	$newAttributes = $productTypeForm['new-attributes'];
-		        	if (isset($newAttributes) && count($newAttributes) > 0) {
-			        	foreach ($newAttributes as $attribute) {
-			        		$name = $attribute['name'];
-			        		$newAttribute = new Attribute();
-			        		$newAttribute->setName($name);
-			        		$productType->addAttribute($newAttribute);
-			        	}	
-		        	}	
-	        	}
-	        	$om->persist($productType);
-	            $om->flush();
-	        }
-		}
+	    $url = $this->url()->fromRoute(static::ROUTE_ADD_TYPE, array('lang' => $lang));
+	    $prg = $this->prg($url, true);
+
+        if ($prg instanceof Response) {        	
+            return $prg;
+        } elseif ($prg === false) {
+            return array(
+		    	'productTypeForm' => $form,
+	    	'lang' => $lang,
+		    );
+        }
+        $post = $prg;
+        $form->setData($post);
+	    
+ 		if ($form->isValid()) {
+        	$productTypeForm = $this->request->getPost()->get('product-type-form');
+        	$attributes = split(',', $post['product-type-form']['attribute']);
+        	foreach ($attributes as $attribute) {
+        		if (is_numeric($attribute)) {
+        			$a = $om->find('Godana\Entity\Attribute', (int)$attribute);
+        		} else if (strlen($attribute) > 0) {
+        			$a = new Attribute();
+        			$a->setName(strtolower($attribute));
+        			$om->persist($a);
+        		}
+        		if ($a) {
+        			$productType->addAttribute($a);
+        		}	        		
+        	}        	
+        	$om->persist($productType);
+            $om->flush();
+        }
 		
 		return array(
 	    	'productTypeForm' => $form,
@@ -72,9 +88,21 @@ class ProductController extends AbstractActionController
 	    );
  	}
  	
+ 	public function listTypeAction()
+ 	{
+ 		$this->layout('layout/sb-admin-layout');
+ 		$om = $this->getObjectManager(); 		
+	    $lang = $this->params()->fromRoute('lang', 'mg');
+	    $productTypes = $om->getRepository('Godana\Entity\ProductType')->findAll();
+	    return array(
+	    	'lang' => $lang, 
+	    	'productTypes' => $productTypes
+	    );
+ 	}
+ 	
  	public function addAction()
  	{
- 		$this->layout('layout/admin-layout');
+ 		$this->layout('layout/sb-admin-layout');
  		$this->layout()->product_active = 'active';
  		$om = $this->getObjectManager(); 		
 	    $lang = $this->params()->fromRoute('lang', 'mg');
@@ -94,41 +122,75 @@ class ProductController extends AbstractActionController
                 'params' => array('ownerId' => $ownerId),
            ));
 	    
-	    if ($this->request->isPost()) {
-	        $form->setData($this->request->getPost());	
-	        $listFileId = array();		
-	        if ($form->isValid()) {
-	       		$listFileId = $this->request->getPost()->get('file-id');
-	            if (count($listFileId) > 0) {
-	            	foreach ($listFileId as $fileId) {
-	            		$file = $om->find('Godana\Entity\File', (int)$fileId);
-	            		if ($file instanceof \Godana\Entity\File) {
-	            			$product->addFile($file);
-	            			$om->persist($product);
-	            		}	            		
-	            	}
-	            	$om->flush();
-	            } else {
-	            	$om->persist($product);
-	            	$om->flush();
-	            }
-	        	$attributesGroup = $this->request->getPost()->get('attributes');
-	        	foreach ($attributesGroup as $attributesElement) {
-	        		$id = $attributesElement['id'];
-	        		$value = $attributesElement['value'];
-	        		$attribute = $om->getRepository('Godana\Entity\Attribute')->find($id);
-	        		if (isset($value) && strlen($value) > 0) {
-	        			$productAttr = new ProductAttribute($product, $attribute, $value);
-	        			$om->persist($productAttr);
-	        		}
-	        	}
-	        	$om->flush();
-	        }
-	    }
+	    $url = $this->url()->fromRoute(static::ROUTE_ADD_PRODUCT, array('lang' => $lang));
+	    $prg = $this->prg($url, true);
+
+        if ($prg instanceof Response) {        	
+            return $prg;
+        } elseif ($prg === false) {
+            return array(
+		    	'productForm' => $form,
+		    	'fileForm' => $fileform,
+		    	'lang' => $lang,
+		    );
+        }
+        $post = $prg;
+        $form->setData($post);
+	    
+	    
+	    
+ 		$listFileId = array();		
+        if ($form->isValid()) {  
+       		$listFileId = $this->request->getPost()->get('file-id');
+            if (count($listFileId) > 0) {
+            	foreach ($listFileId as $fileId) {
+            		$file = $om->find('Godana\Entity\File', (int)$fileId);
+            		if ($file instanceof \Godana\Entity\File) {
+            			$product->addFile($file);
+            			$om->persist($product);
+            		}	            		
+            	}
+            	$om->flush();
+            } else {
+            	$om->persist($product);
+            	$om->flush();
+            }
+        	$attributesGroup = $post['attributes'];
+        	foreach ($attributesGroup as $attributesElement) {
+        		$id = $attributesElement['attribute'];
+        		$value = $attributesElement['value'];
+        		$attribute = $om->getRepository('Godana\Entity\Attribute')->find($id);
+        		if (isset($value) && strlen($value) > 0) {
+        			$productAttr = new ProductAttribute($product, $attribute, $value);
+        			$om->persist($productAttr);
+        		}
+        	}
+        	$om->flush();
+        }
 	    return array(
 	    	'productForm' => $form,
 	    	'fileForm' => $fileform,
 	    	'lang' => $lang,
+	    );
+ 	}
+ 	
+	public function listAction()
+ 	{
+ 		$this->layout('layout/sb-admin-layout');
+ 		$om = $this->getObjectManager(); 		
+	    $lang = $this->params()->fromRoute('lang', 'mg');
+	    $ownerId = $this->zfcUserAuthentication()->getIdentity()->getId();
+	    $shops = $om->getRepository('Godana\Entity\Shop')->findShopByOwnerId($ownerId);
+	    $products = array();
+	    foreach ($shops as $shop) {
+	    	$p = $shop->getProducts();
+	    	foreach ($p as $pp) {
+	    		array_push($products, $pp);	
+	    	}	    	
+	    }
+	    return array(
+	    	'lang' => $lang, 
+	    	'products' => $products
 	    );
  	}
  	
@@ -161,12 +223,12 @@ class ProductController extends AbstractActionController
 	public function ajaxAction()
  	{ 	
  		$om = $this->getObjectManager();	
-        //$uploadhandler = $this->getServiceLocator()->get('bid_upload_handler');
+        $shopId = $this->params()->fromQuery('shopId', 1);
         $options = array(
 			'delete_type' => 'POST',
-                'user_dirs' => true,
+            'user_dirs' => true,
 		);
-        $uploadhandler = new \JqueryFileUpload\Handler\ProductUploadHandler($om, 1, $options);        
+        $uploadhandler = new \JqueryFileUpload\Handler\ProductUploadHandler($om, $shopId, $options);        
         return $this->getResponse();
         
  	}
@@ -181,19 +243,50 @@ class ProductController extends AbstractActionController
  			if (isset($attributes) && count($attributes) > 0) {
  				$result = array();
  				$result['unit'] = ucfirst($productType->getUnit());
- 				$result['attribute'] = array();
+ 				$result['form_group'] = array();
+ 				$index = 0;
  				foreach ($attributes as $attribute) {
- 					$id = $attribute->getId();
- 					$name = ucfirst($attribute->getName());
- 					$res = array('id' => $id, 'name' => $name);
- 					array_push($result['attribute'], $res);
+ 					$element = $this->createAttributeElement($attribute, $index++);
+ 					array_push($result['form_group'], $element);
  				}	
  				return new \Zend\View\Model\JsonModel($result);
  			}
  			
  		}
- 		return null;
+ 		return new \Zend\View\Model\JsonModel();
  	}
+ 	
+	public function ajaxListAttributeAction()
+ 	{
+ 		$om = $this->getObjectManager();
+ 		$query = $this->params()->fromQuery('q', null);
+ 		if ($query != null) {
+ 			$attributes = $om->getRepository('Godana\Entity\Attribute')->getAttributeByName($query);
+ 		} else {
+ 			$attributes = $om->getRepository('Godana\Entity\Attribute')->findAll();	
+ 		}
+ 		
+ 		$result = array();
+ 		foreach ($attributes as $attribute) {
+ 			$res = array('id' => $attribute->getId(), 'text' => $attribute->getName());
+ 			array_push($result, $res);
+ 		}
+ 		return new \Zend\View\Model\JsonModel($result);
+ 	}	
+ 	
+ 	private function createAttributeElement($attribute, $index)
+    {
+    	$translator = $this->getServiceLocator()->get('translator');
+    	$attrId = $attribute->getId();
+    	$name = ucfirst($translator->translate($attribute->getName()));
+    	$element = "<div class='form-group'>";
+    	$element .= "<input type='hidden' name='attributes[".$index."][attribute]' value='".$attrId."'>";
+    	$element .= "<label class='sr-only' for='attributes[".$index."][value]'>".$name."</label>";
+    	$element .= "<div class='gdn_input_margin'>";
+    	$element .= "<input class='gdn_text' type='text' name='attributes[".$index."][value]' placeholder='".$name."'>";
+    	$element .= "</div></div>";
+    	return $element;
+    }
  	
 	public function getProductTypeForm()
     {

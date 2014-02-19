@@ -29,6 +29,7 @@ return array(
 			'tools' => __NAMESPACE__ . '\Controller\ToolsController',
 			'feed' => __NAMESPACE__ . '\Controller\FeedController',
 			'crop' => __NAMESPACE__ . '\Controller\CropController',
+    		'upload' => __NAMESPACE__ . '\Controller\UploadController',
 		),
 	),
 	
@@ -469,6 +470,16 @@ return array(
 		                            ),
 		                        ),
 		                    ),
+		                    'type_list' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/type/list',
+		                            'defaults' => array(
+		                                'controller' => 'product',
+		                                'action'     => 'listType',
+		                            ),
+		                        ),
+		                    ),
 		                    'add' => array(
 		                        'type' => 'literal',
 		                        'options' => array(
@@ -476,6 +487,16 @@ return array(
 		                            'defaults' => array(
 		                                'controller' => 'product',
 		                                'action'     => 'add',
+		                            ),
+		                        ),
+		                    ),
+		                    'list' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/list',
+		                            'defaults' => array(
+		                                'controller' => 'product',
+		                                'action'     => 'list',
 		                            ),
 		                        ),
 		                    ),
@@ -496,6 +517,16 @@ return array(
 		                            'defaults' => array(
 		                                'controller' => 'product',
 		                                'action'     => 'ajax',
+		                            ),
+		                        ),
+		                    ),
+		                    'ajax_list_attribute' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/ajax/list-attribute',
+		                            'defaults' => array(
+		                                'controller' => 'product',
+		                                'action'     => 'ajaxListAttribute',
 		                            ),
 		                        ),
 		                    ),
@@ -890,6 +921,16 @@ return array(
 		            	),
                 	),
             	),            	
+            ),
+            'upload' => array(
+            	'type' => 'Literal',
+            	'options' => array(
+                	'route' => '/upload',
+                    'defaults' => array(
+                    	'controller' => 'upload',
+                        'action'     => 'index',
+                  	),
+              	),
             ),
             'crop' => array(
             	'type' => 'Literal',

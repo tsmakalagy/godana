@@ -7,8 +7,28 @@
                 ->appendStylesheet($this->basePath() . '/css/jquery.Jcrop.min.css')        ;?>
 <?  $this->plugin("currencyformat")->setCurrencyCode("MGA")->setLocale("fr_FR");?>
 <? $this->headTitle($this->translate('Bid'));?>
-
-<div class="row col-md-offset-1 row-bid">
+<div class="row">
+	<div class="col-md-2 row-bid">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<ul class="nav nav-pills nav-stacked">
+                	<li class="<? echo $this->home_active; ?>">
+                    	<a href="<?php echo $this->url('home', array(), array(), true) ?>"><? echo $this->translate('Home');?></a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url('bid', array('type' => null, 'categoryIdent' => null), array(), true) ?>"><? echo $this->translate('Bid');?></a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url('shop', array('categoryIdent' => null), array(), true) ?>"><? echo $this->translate('Shops');?></a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url('tools', array(), true) ?>"><? echo $this->translate('Tools');?></a>
+                    </li>
+              	</ul> 
+            </div><!-- /.panel-body -->
+		</div><!-- /.panel -->     	
+	</div>
+	<div class="col-md-10 col-md-offset-1 row-bid">
 <div id="ctnr">
 <div class="row col-md-7 col-md-offset-2 col-sm-7 col-sm-offset-2 row-new-bid hide">
 <div class="panel panel-default">		
@@ -139,7 +159,7 @@ $reset = $form->get('reset');
 		<?=$this->formHidden($contactType); ?>
 		<div class="input-group">
 	  		<div class="input-group-btn">
-				<button type="button" class="btn btn-default btn_lg gdn_btn dropdown-toggle" data-toggle="dropdown"><span class="contact_selected"><i class='fa fa-mobile-phone fa-2x'></i></span> <span class="caret"></span></button>
+				<button type="button" class="btn btn-default btn_lg gdn_btn dropdown-toggle" data-toggle="dropdown"><span class="contact_selected" data-type="1"><i class='fa fa-mobile-phone fa-2x'></i></span> <span class="caret"></span></button>
 				<ul class="dropdown-menu contact_choice">
 		  			<li><a href="#" data-value="1" ><i class="fa fa-mobile-phone fa-2x"></i> <?=$this->translate('Mobile') ?></a></li>
 		  			<li><a href="#" data-value="2" ><strong>@</strong> <?=$this->translate('Email')?></a></li>
@@ -161,7 +181,7 @@ $reset = $form->get('reset');
 <span id="tplContact" data-template='
 <?=htmlspecialchars('<div class="gdn_input_margin contact_group"><div class="form-group"><input type="hidden" value="" name="bid-form[post][contacts][__placeholder__][id]">
 <input type="hidden" name="bid-form[post][contacts][__placeholder__][type]" class="contact_type"><div class="input-group">
-<div class="input-group-btn"><button data-toggle="dropdown" class="btn btn-default btn_lg gdn_btn dropdown-toggle" type="button"><span class="contact_selected"><i class="fa fa-mobile-phone fa-2x"></i></span> <span class="caret"></span></button>
+<div class="input-group-btn"><button data-toggle="dropdown" class="btn btn-default btn_lg gdn_btn dropdown-toggle" type="button"><span class="contact_selected" data-type="1"><i class="fa fa-mobile-phone fa-2x"></i></span> <span class="caret"></span></button>
 <ul class="dropdown-menu contact_choice">
 <li><a data-value="1" href="#"><i class="fa fa-mobile-phone fa-2x"></i> ')
  . $this->translate('Mobile') .
@@ -184,7 +204,7 @@ htmlspecialchars('" class="gdn_text" name="bid-form[post][contacts][__placeholde
 <div class="row">
 <div class="col-sm-12">
 <div class="fd_upload pull-left">
-	<button class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-camera"></i></button>
+	<button class="btn btn-info show-modal" ><i class="fa fa-camera"></i></button>
 </div>
 <div class="fd_action pull-right">
 	<?=$this->formElement($submit);?>&nbsp;
@@ -200,7 +220,7 @@ htmlspecialchars('" class="gdn_text" name="bid-form[post][contacts][__placeholde
 </div><!-- /.panel -->
 </div><!-- /.row-new-bid -->
 
-<div class="item bid-create">
+<div class="item-bid bid-create <? if (!$this->zfcUserIdentity()) echo "hide";?>">
 	<div class="panel panel-default">		
 		<div class="panel-body">
 			<div class="bid_area">
@@ -216,6 +236,7 @@ htmlspecialchars('" class="gdn_text" name="bid-form[post][contacts][__placeholde
 <?  $this->plugin("currencyformat")->setCurrencyCode("MGA")->setLocale("fr_FR");?>
 <? $count = 0;?>
 <? foreach ($bids as $bid):?>
+<? $bidId = $bid->getId();?>
 <? $postIdent = $bid->getPost()->getIdent();?>
 <? $type = $bid->getType();?>
 <? if ($type === 0) {
@@ -233,7 +254,7 @@ htmlspecialchars('" class="gdn_text" name="bid-form[post][contacts][__placeholde
 
 <? //$typeBid = $bid->getType() == 0 ? 'offer' : 'demand';?>
 <? $count++;?>
-<div class="item">
+<div class="item-bid">
 	<div class="panel panel-default">		
 		<div class="panel-body">
 			<div class="row post-header">
@@ -245,7 +266,7 @@ htmlspecialchars('" class="gdn_text" name="bid-form[post][contacts][__placeholde
 			<div class="post-body">
 				<h4 class="text-muted"><?=stripcslashes($post->getTitle()); ?></h4>
 				<p class="detail-feed"><?=stripcslashes($post->getDetail()); ?></p>
-				<? $conta?>
+				
 				<div class="form-horizontal">
 				<? if (isset($contacts) && count($contacts)):
 					foreach ($contacts as $contact):
@@ -273,7 +294,7 @@ htmlspecialchars('" class="gdn_text" name="bid-form[post][contacts][__placeholde
 						</div>
 					</div>
 				</div>
-			</div>
+			</div><!-- /.post-body -->
 			
 			<? $files = $post->getFiles();?>
 			<? $postId = $post->getId();?>
@@ -295,7 +316,7 @@ htmlspecialchars('" class="gdn_text" name="bid-form[post][contacts][__placeholde
 					  </div>  	
 					  								
 				<? endfor;?>
-				</div>
+				</div><!-- /.row -->
 			<? endif;?>
 			<h4>
 			<? $categories = $post->getCategories();?>
@@ -346,7 +367,7 @@ htmlspecialchars('" class="gdn_text" name="bid-form[post][contacts][__placeholde
 				<div class="cmt_container hide">
 					<form method="post" name="comment-form" action="#" class="comment-form">
 						<textarea class="cmt_textarea" name="detail"></textarea>
-						<input type="hidden" name="feed" value="<?=$feedId ?>"/>
+						<input type="hidden" name="bid" value="<?=$bidId ?>"/>
 						<div class="cmt_action pull-right">
 							<button class="btn btn-primary btn-xs" id="save_cmt" name="submit" type="submit" data-loading-text="<?=$this->translate('Loading...'); ?>"><?=$this->translate('Comment') ?></button>&nbsp;
 							<button class="btn btn-danger btn-xs reset_cmt" type="reset"><?=$this->translate('Cancel') ?></button></div>
@@ -362,6 +383,8 @@ htmlspecialchars('" class="gdn_text" name="bid-form[post][contacts][__placeholde
 
 </div><!-- /.ctnr -->
 </div><!-- /.row-bid -->
+</div>
+
 <!--<div class="container">-->
 <!--<div class="row">-->
 <?/*=$this->paginationControl(
@@ -499,38 +522,42 @@ htmlspecialchars('" class="gdn_text" name="bid-form[post][contacts][__placeholde
 <script type="text/javascript">
 <!--
 var urlForm = "<?=$this->url('add-ajax-bid', array(), array(), true); ?>";
+var category_placeholder = "<?=$this->translate('Categories'); ?>";
 $(function() {
-	$(".type-select").select2({
+	var type_opts = {
+		minimumResultsForSearch: 10,
+//		placeholder: "Type"
+	};
+	$(".type-select").data("s1opts", type_opts).select2(type_opts);
+	var category_opts = {
+		placeholder: category_placeholder,
 		minimumResultsForSearch: 10
-	});
-	$(".category-select").select2({
-		placeholder: "Categories",
-		minimumResultsForSearch: 10
-	});
-	$("#id_city").select2({
+	};
+	$(".category-select").data("s2opts", category_opts).select2(category_opts);
+	var city_opts = {
 		placeholder: "Search for a city",
-	    minimumInputLength: 3,
-	    ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
-	        url: "/admin/shop/city",
-	        dataType: 'json',
-	        quietMillis: 100,
-	        data: function (term, page) {
-	            return {
-	                q: term, // search term
-	                page_limit: 10,
-	                page: page // page number
-	            };
-	        },
-	        results: function (data, page) { // parse the results into the format expected by Select2.
-	            // since we are using custom formatting functions we do not need to alter remote JSON data
-	            var more = (page * 10) < data.total; // whether or not there are more results available
-	            return {results: data.results, more: more};
-	        }
-//	        results: data
-	    },
-	    formatSelection: format,
-	    formatResult: format
-	});
+		minimumInputLength: 3,
+		ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+			url: "/admin/shop/city",
+		    dataType: 'json',
+		    quietMillis: 100,
+		    data: function (term, page) {
+		    	return {
+		        	q: term, // search term
+		            page_limit: 10,
+		            page: page // page number
+		       	};
+		   	},
+		    results: function (data, page) { // parse the results into the format expected by Select2.
+		    	// since we are using custom formatting functions we do not need to alter remote JSON data
+		        var more = (page * 10) < data.total; // whether or not there are more results available
+		        return {results: data.results, more: more};
+		    }
+		},
+		formatSelection: format,
+		formatResult: format
+	};
+	$("#id_city").data("s3opts", city_opts).select2(city_opts);
 	$('#id_city').change(function(e) {
 		$('#city').val($(this).val());
 	});
@@ -538,9 +565,9 @@ $(function() {
 	var msnry = new Masonry( container, {
 	  // options
 	  columnWidth: 68,
-	  itemSelector: '.item'
+	  itemSelector: '.item-bid'
 	});
-//	msnry.stamp( $('.row-new-bid') );
+	
 	msnry.layout();
 
 	$('textarea').autosize({
@@ -549,11 +576,14 @@ $(function() {
 		}
 	});
 
+	$('.show-modal').godana({
+		doCrop: false,
+		ajaxUrl: '/upload?type=bid'
+	});
+
 	$(document).on("click", ".add_bid", function(e) {
 		e.preventDefault();
-		//$(this).parents('.fd_area').find('.fd_container').removeClass('hide');
 		$(this).parents('.bid_area').find('.fd_text').focus();
-		//$(this).parent('.bj').addClass('hide');
 		$('.bid-create').addClass('hide');
 		$('.row-new-bid').removeClass('hide');
 		msnry.stamp( $('.row-new-bid') );
@@ -561,16 +591,26 @@ $(function() {
 	});
 
 	$(document).on("click", ".reset_bid", function(e) {
+		e.preventDefault();
 		var that = this;
 		msnry.unstamp( $('.row-new-bid') );
 		$('.row-new-bid').addClass('hide');
-		//$(that).parents('.fd_area').find('.fd_container').addClass("hide");
-		//$(that).parents('.fd_area').find('.bj').removeClass("hide");
 		$('#save_bid').button('reset');
 		$('.bid-create').removeClass('hide');
+		var contactsCount = $('.bid-form').find('.contact_group').length;
+		while (contactsCount > 1) {
+			$( '.contact_group:last' ).remove();
+			contactsCount--;
+		}
 		resetForm($("form[name=create-bid-form]"));
-//		$(".tag-select").select2("destroy").select2($(".tag-select").data("s2opts"));		
+		
+		$(".type-select").select2('val', '');
+		$(".category-select").select2('val', '');
+		$("#id_city").select2("val", "");		
 		$('.listFileId').html("");		
+		$('.form-group').removeClass('has-error');
+		$('.help-block').remove();
+		$('.contact_type').val(1);
 		msnry.layout();
 	});
 
@@ -589,18 +629,22 @@ $(function() {
 		var choice = $(this).data('value');
 		var contact_selected = $(this).parents('.input-group-btn').find('.contact_selected');  
 		var contact_type = $(this).parents('.contact_group').find('.contact_type');
+		//$(contact_selected).data("type", 45);
 		switch (choice) {
 			case 1: // Mobile 
-				$(contact_selected).html("<i class='fa fa-mobile-phone fa-2x'</i>");
+				$(contact_selected).html("<i class='fa fa-mobile-phone fa-2x'></i>");
 				break;
 			case 2: // Email
 				$(contact_selected).html("<strong>@</strong>");
 				break;
 			case 3: // Address
-				$(contact_selected).html("<i class='fa fa-home fa-lg'</i>");
+				$(contact_selected).html("<i class='fa fa-home fa-lg'></i>");
 				break;
 		}
-		$(contact_type).val(choice);
+		if (!$(this).hasClass('add_contact') && !$(this).hasClass('remove_contact')) {	
+			//console.log('add_contact');		
+			$(contact_type).val(choice);
+		}
 		$(this).parents('.input-group-btn').removeClass('open');
 		return false;
 	});
@@ -633,58 +677,70 @@ $(function() {
             	var errorCity = itemJson.city;
             	var errorPrice = itemJson.price;
             	var post = itemJson.post;
-            	var errorCategories = post.categories;
-            	var errorTitle = post.title;
-            	var contacts = post.contacts;
+            	if (post != undefined) {                	
+            		var errorCategories = post.categories;
+            		var errorTitle = post.title;
+            		var contacts = post.contacts;
+            	}
             	
-                if (errorType != undefined) {	                
+                if (errorType != undefined && errorType.length) {	                
 	            	var element = $('select[name="bid-form[type]"]');
 	            	addError(element, errorType);	                                
                     error = true;
                 }    
-                if (errorCity != undefined) {	                
+                if (errorCity != undefined && errorCity.length) {	                
 	            	var element = $('input[name="bid-form[idCity]"]');
 	            	addError(element, errorCity);	                                
                     error = true;
                 }
-                if (errorPrice != undefined) {	                
+                if (errorPrice != undefined && errorPrice.length) {	                
 	            	var element = $('input[name="bid-form[price]"]');
 	            	addError(element, errorPrice);	                                
                     error = true;
                 }
-                if (errorCategories != undefined) {	                
+                if (errorCategories != undefined && errorCategories.length) {	                
 	            	var element = $('select[name="bid-form[post][categories][]"]');
 	            	addError(element, errorCategories);	                                
                     error = true;
                 } 
-                if (errorTitle != undefined) {	                
-	            	var element = $('select[name="bid-form[post][title]"]');
+                if (errorTitle != undefined && errorTitle.length) {	                
+	            	var element = $('input[name="bid-form[post][title]"]');
 	            	addError(element, errorTitle);	                                
                     error = true;
-                } 
-                
-                for (var i = 0; i < contacts.length; i++) {
-                    errorContact = contacts[i].value;
-                    console.log(contacts);
-                    if (errorContact != undefined) {
-                    	var element = $('input[name="bid-form[post][contacts]['+i+'][value]"]');
-                    	addError(element, errorContact);	                                
-                        error = true;    
+                }  
+                if (contacts != undefined) {
+                	for (var i = 0; i < contacts.length; i++) {
+                        errorContact = contacts[i].value;
+                        if (errorContact != undefined && errorContact.length) {
+                        	var element = $('input[name="bid-form[post][contacts]['+i+'][value]"]');
+                        	addError(element, errorContact);	                                
+                            error = true;    
+                        }
                     }
-                }
+                }              
+                
                 if (error) {
                 	msnry.layout(); 
                 }
                 if (!error) {     
                 	if (itemJson.success) {
-						$('.fd_area').find('.fd_container').addClass("hide");
-						$('.fd_area').find('.bj').removeClass("hide");
-						$('#save_bid').button('reset'); 
+                		msnry.unstamp( $('.row-new-bid') );
+                		$('.row-new-bid').addClass('hide');
+                		$('#save_bid').button('reset');
+                		$('.bid-create').removeClass('hide');
+                		msnry.layout();
+                		var contactsCount = $('.bid-form').find('.contact_group').length;
+                		while (contactsCount > 1) {
+                			$( '.contact_group:last' ).remove();
+                			contactsCount--;
+                		}
 						var item_bid = itemJson.item_bid;
 						$(item_bid).insertAfter($('.bid-create'));						
 						resetForm($("form[name=create-bid-form]"));
 						$('.listFileId').html("");
-						$(".tag-select").select2("destroy").select2($(".tag-select").data("s2opts"));
+						$(".type-select").select2('val', '');
+						$(".category-select").select2('val', '');
+						$("#id_city").select2("val", "");
 						msnry.reloadItems();
 						msnry.layout();
 						$('textarea').autosize({
@@ -730,7 +786,8 @@ function addError(element, error) {
 	->appendFile($this->basePath() . '/js/bootbox.min.js')
 	->appendFile($this->basePath() . '/js/readmore.min.js')
 	->appendFile($this->basePath() . '/js/jquery.autosize.min.js')
-	->appendFile($this->basePath() . '/js/bid-upload.js')
+//	->appendFile($this->basePath() . '/js/bid-upload.js')
+	->appendFile($this->basePath() . '/js/jquery.godana.js')
 	->appendFile($this->basePath() . '/js/vendor/jquery.ui.widget.js')
     ->appendFile($this->basePath() . '/js/tmpl.min.js')
     ->appendFile($this->basePath() . '/js/load-image.min.js')

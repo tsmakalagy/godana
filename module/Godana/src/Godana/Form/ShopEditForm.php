@@ -23,7 +23,6 @@ class ShopEditForm extends Form implements ServiceLocatorAwareInterface, ObjectM
 	public function init()
     {
         $this->setAttribute('method','post')
-             ->setAttribute('class','form-horizontal')
              ->setHydrator(new DoctrineHydrator($this->objectManager, '\Godana\Entity\Shop'))
              ->setInputFilter(new InputFilter());
              
@@ -46,7 +45,7 @@ class ShopEditForm extends Form implements ServiceLocatorAwareInterface, ObjectM
             ->setLabel('Save')
             ->setAttributes(array(
                 'type'  => 'submit',
-            	'class' => 'btn btn-primary',
+            	'class' => 'btn btn-default',
             ));
         $this->add($submitElement);
     }

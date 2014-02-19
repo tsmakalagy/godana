@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Godana 0.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-31 08:53+0300\n"
+"POT-Creation-Date: 2014-02-19 08:41+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Fano <rhfano@gmail.com>\n"
 "Language-Team: Translator <translator@godana.com>\n"
@@ -17,16 +17,98 @@ msgstr ""
 "X-Poedit-Basepath: /media/DATA/PROJECT/FFK/godana/module/\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: vendor/zf-commons/zfc-user/Module.php:169
-msgid "Save"
-msgstr "Tahirizo"
+#: module/Godana/src/Godana/Controller/BidController.php:505
+msgid "Price"
+msgstr "Vidiny"
 
-#: vendor/zf-commons/zfc-user/src/ZfcUser/Form/Base.php:169
-#: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:17
+#: module/Godana/src/Godana/Controller/BidController.php:511
+msgid "City"
+msgstr "Tanàna"
+
+#: module/Godana/src/Godana/Controller/BidController.php:583
+#: module/Godana/src/Godana/Controller/FeedController.php:445
+#: module/Godana/src/Godana/Controller/FeedController.php:552
+#, fuzzy
+msgid "Remove"
+msgstr "Hanala fifandraisana"
+
+#: module/Godana/src/Godana/Controller/BidController.php:595
+#: module/Godana/src/Godana/Controller/FeedController.php:564
+msgid "Add a comment..."
+msgstr ""
+
+#: module/Godana/src/Godana/Controller/BidController.php:599
+#: module/Godana/src/Godana/Controller/FeedController.php:568
+msgid "Loading..."
+msgstr ""
+
+#: module/Godana/src/Godana/Controller/BidController.php:600
+#: module/Godana/src/Godana/Controller/FeedController.php:569
+msgid "Comment"
+msgstr ""
+
+#: module/Godana/src/Godana/Controller/BidController.php:601
+#: module/Godana/src/Godana/Controller/FeedController.php:570
+msgid "Cancel"
+msgstr "Lavina"
+
+#: module/Godana/src/Godana/Controller/BidController.php:632
+#: module/Godana/src/Godana/Controller/FeedController.php:362
+#, php-format
+msgid "%s months ago"
+msgstr ""
+
+#: module/Godana/src/Godana/Controller/BidController.php:635
+#: module/Godana/src/Godana/Controller/FeedController.php:365
+#, php-format
+msgid "%s days ago"
+msgstr ""
+
+#: module/Godana/src/Godana/Controller/BidController.php:638
+#: module/Godana/src/Godana/Controller/FeedController.php:368
+#, php-format
+msgid "%s hours ago"
+msgstr ""
+
+#: module/Godana/src/Godana/Controller/BidController.php:641
+#: module/Godana/src/Godana/Controller/FeedController.php:371
+#, php-format
+msgid "%s minutes ago"
+msgstr ""
+
+#: module/Godana/src/Godana/Controller/BidController.php:644
+#: module/Godana/src/Godana/Controller/FeedController.php:374
+#, php-format
+msgid "%s seconds ago"
+msgstr ""
+
+#: module/Godana/src/Godana/Controller/BidController.php:646
+#: module/Godana/src/Godana/Controller/FeedController.php:376
+msgid "Just now."
+msgstr ""
+
+#: module/Godana/src/Godana/Form/Base.php:107
 msgid "Submit"
 msgstr "Ampirimo"
 
-#: vendor/zf-commons/zfc-user/src/ZfcUser/Form/Login.php:70
+#: module/Godana/src/Godana/Form/BidForm.php:45
+#: module/Godana/src/Godana/Form/CarDriverForm.php:37
+#: module/Godana/src/Godana/Form/CarForm.php:37
+#: module/Godana/src/Godana/Form/CarMakeForm.php:37
+#: module/Godana/src/Godana/Form/CarModelForm.php:37
+msgid "Save"
+msgstr "Tahirizo"
+
+#: module/Godana/src/Godana/Form/PostFeedFieldset.php:43
+#, fuzzy
+msgid "About what?"
+msgstr "Momba anay"
+
+#: module/Godana/src/Godana/Form/PostFeedFieldset.php:59
+msgid "Tell us..."
+msgstr ""
+
+#: vendor/zf-commons/zfc-user/src/ZfcUser/Form/Login.php:72
 #: vendor/zf-commons/zfc-user/src/ZfcUser/language/msgIds.php:18
 msgid "Sign In"
 msgstr "Hiditra"
@@ -93,150 +175,240 @@ msgstr "Misy tahiry mifandraika amin'ny teny nampidirina"
 msgid "Authentication failed. Please try again."
 msgstr "Misy olana ny fidirana. Avereno indray."
 
-#: vendor/zf-commons/zfc-user/view/zfc-user/user/changeemail.phtml:1
+#: module/Application/view/application/index/index.phtml:2
 #, php-format
-msgid "Change Email for %s"
-msgstr ""
+msgid "Welcome to %sZend Framework 2%s"
+msgstr "Welcome to %sZend Framework 2%s"
 
-#: vendor/zf-commons/zfc-user/view/zfc-user/user/changeemail.phtml:3
-msgid "Email address changed successfully."
-msgstr ""
-
-#: vendor/zf-commons/zfc-user/view/zfc-user/user/changeemail.phtml:5
-msgid "Unable to update your email address. Please try again."
-msgstr ""
-
-#: vendor/zf-commons/zfc-user/view/zfc-user/user/changepassword.phtml:1
+#: module/Application/view/application/index/index.phtml:3
 #, php-format
-msgid "Change Password for %s"
+msgid "Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2."
+msgstr "Arahabaina! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2."
+
+#: module/Application/view/application/index/index.phtml:4
+msgid "Fork Zend Framework 2 on GitHub"
 msgstr ""
 
-#: vendor/zf-commons/zfc-user/view/zfc-user/user/changepassword.phtml:3
-msgid "Password changed successfully."
+#: module/Application/view/application/index/index.phtml:12
+msgid "Follow Development"
 msgstr ""
 
-#: vendor/zf-commons/zfc-user/view/zfc-user/user/changepassword.phtml:5
-msgid "Unable to update your password. Please try again."
+#: module/Application/view/application/index/index.phtml:15
+#, php-format
+msgid "Zend Framework 2 is under active development. If you are interested in following the development of ZF2, there is a special ZF2 portal on the official Zend Framework website which provides links to the ZF2 %swiki%s, %sdev blog%s, %sissue tracker%s, and much more. This is a great resource for staying up to date with the latest developments!"
 msgstr ""
 
-#: vendor/zf-commons/zfc-user/view/zfc-user/user/index.phtml:2
-msgid "Hello"
-msgstr "Manao ahoana"
+#: module/Application/view/application/index/index.phtml:16
+msgid "ZF2 Development Portal"
+msgstr ""
 
-#: vendor/zf-commons/zfc-user/view/zfc-user/user/index.phtml:3
-msgid "Sign Out"
-msgstr "Hiala"
+#: module/Application/view/application/index/index.phtml:24
+msgid "Discover Modules"
+msgstr ""
 
-#: vendor/zf-commons/zfc-user/view/zfc-user/user/login.phtml:31
-msgid "Not registered?"
-msgstr "Tsy mbola mpikambana?"
+#: module/Application/view/application/index/index.phtml:27
+#, php-format
+msgid "The community is working on developing a community site to serve as a repository and gallery for ZF2 modules. The project is available %son GitHub%s. The site is currently live and currently contains a list of some of the modules already available for ZF2."
+msgstr ""
 
-#: vendor/zf-commons/zfc-user/view/zfc-user/user/login.phtml:31
-msgid "Sign up!"
-msgstr "Hikambana"
+#: module/Application/view/application/index/index.phtml:28
+msgid "Explore ZF2 Modules"
+msgstr ""
 
-#: module/Godana/view/error/404.phtml:1
+#: module/Application/view/application/index/index.phtml:36
+msgid "Help &amp; Support"
+msgstr ""
+
+#: module/Application/view/application/index/index.phtml:39
+#, php-format
+msgid "If you need any help or support while developing with ZF2, you may reach us via IRC: %s#zftalk on Freenode%s. We'd love to hear any questions or feedback you may have regarding the beta releases. Alternatively, you may subscribe and post questions to the %smailing lists%s."
+msgstr ""
+
+#: module/Application/view/application/index/index.phtml:40
+msgid "Ping us on IRC"
+msgstr ""
+
+#: module/Application/view/error/404.phtml:1
 msgid "A 404 error occurred"
 msgstr ""
 
-#: module/Godana/view/error/404.phtml:10
+#: module/Application/view/error/404.phtml:10
 msgid "The requested controller was unable to dispatch the request."
 msgstr ""
 
-#: module/Godana/view/error/404.phtml:13
+#: module/Application/view/error/404.phtml:13
 msgid "The requested controller could not be mapped to an existing controller class."
 msgstr ""
 
-#: module/Godana/view/error/404.phtml:16
+#: module/Application/view/error/404.phtml:16
 msgid "The requested controller was not dispatchable."
 msgstr ""
 
-#: module/Godana/view/error/404.phtml:19
+#: module/Application/view/error/404.phtml:19
 msgid "The requested URL could not be matched by routing."
 msgstr ""
 
-#: module/Godana/view/error/404.phtml:22
+#: module/Application/view/error/404.phtml:22
 msgid "We cannot determine at this time why a 404 was generated."
 msgstr ""
 
-#: module/Godana/view/error/404.phtml:34
+#: module/Application/view/error/404.phtml:34
 msgid "Controller"
 msgstr ""
 
-#: module/Godana/view/error/404.phtml:41
+#: module/Application/view/error/404.phtml:41
 #, php-format
 msgid "resolves to %s"
 msgstr ""
 
-#: module/Godana/view/error/404.phtml:53
-#: module/Godana/view/error/index.phtml:8
+#: module/Application/view/error/404.phtml:53
+#: module/Application/view/error/index.phtml:8
 msgid "Additional information"
 msgstr ""
 
-#: module/Godana/view/error/404.phtml:56
-#: module/Godana/view/error/404.phtml:80
-#: module/Godana/view/error/index.phtml:11
-#: module/Godana/view/error/index.phtml:35
+#: module/Application/view/error/404.phtml:56
+#: module/Application/view/error/404.phtml:80
+#: module/Application/view/error/index.phtml:11
+#: module/Application/view/error/index.phtml:35
 msgid "File"
 msgstr ""
 
-#: module/Godana/view/error/404.phtml:60
-#: module/Godana/view/error/404.phtml:84
-#: module/Godana/view/error/index.phtml:15
-#: module/Godana/view/error/index.phtml:39
+#: module/Application/view/error/404.phtml:60
+#: module/Application/view/error/404.phtml:84
+#: module/Application/view/error/index.phtml:15
+#: module/Application/view/error/index.phtml:39
 msgid "Message"
 msgstr ""
 
-#: module/Godana/view/error/404.phtml:64
-#: module/Godana/view/error/404.phtml:88
-#: module/Godana/view/error/index.phtml:19
-#: module/Godana/view/error/index.phtml:43
+#: module/Application/view/error/404.phtml:64
+#: module/Application/view/error/404.phtml:88
+#: module/Application/view/error/index.phtml:19
+#: module/Application/view/error/index.phtml:43
 msgid "Stack trace"
 msgstr ""
 
-#: module/Godana/view/error/404.phtml:74
-#: module/Godana/view/error/index.phtml:29
+#: module/Application/view/error/404.phtml:74
+#: module/Application/view/error/index.phtml:29
 msgid "Previous exceptions"
 msgstr ""
 
-#: module/Godana/view/error/404.phtml:103
-#: module/Godana/view/error/index.phtml:58
+#: module/Application/view/error/404.phtml:103
+#: module/Application/view/error/index.phtml:58
 msgid "No Exception available"
 msgstr ""
 
-#: module/Godana/view/error/index.phtml:1
+#: module/Application/view/error/index.phtml:1
 msgid "An error occurred"
 msgstr ""
 
-#: module/Godana/view/godana/bid/add.phtml:9
-#: module/Godana/view/godana/bid/add.phtml:14
-#: module/Godana/view/godana/bid/detail.phtml:3
-#: module/Godana/view/godana/bid/edit.phtml:31
-#: module/Godana/view/godana/bid/index.phtml:4
+#: module/Application/view/layout/gdn-layout.phtml:73
+#: module/Application/view/layout/layout.phtml:55
+#: module/Application/view/layout/my-layout.phtml:78
+msgid "Profile"
+msgstr "Mombamomba"
+
+#: module/Application/view/layout/gdn-layout.phtml:80
+#: module/Application/view/layout/layout.phtml:62
+#: module/Application/view/layout/my-layout.phtml:99
+#: module/Application/view/layout/my-layout.phtml:105
+msgid "Admin"
+msgstr ""
+
+#: module/Application/view/layout/gdn-layout.phtml:85
+#: module/Application/view/layout/layout.phtml:67
+#: module/Application/view/layout/my-layout.phtml:116
+msgid "Sign Out"
+msgstr "Hiala"
+
+#: module/Application/view/layout/gdn-layout.phtml:90
+#: module/Application/view/layout/layout.phtml:72
+#: module/Application/view/layout/my-layout.phtml:122
+msgid "Login"
+msgstr "Hiditra"
+
+#: module/Application/view/layout/gdn-layout.phtml:96
+#: module/Application/view/layout/layout.phtml:77
+#: module/Application/view/layout/my-layout.phtml:46
+msgid "Home"
+msgstr "Fandraisana"
+
+#: module/Application/view/layout/gdn-layout.phtml:99
+#: module/Application/view/layout/layout.phtml:80
+#: module/Application/view/layout/my-layout.phtml:49
 msgid "Bid"
 msgstr "Tolotra & Tinady"
+
+#: module/Application/view/layout/gdn-layout.phtml:102
+#: module/Application/view/layout/layout.phtml:83
+#: module/Application/view/layout/my-layout.phtml:52
+msgid "Shops"
+msgstr "Botika"
+
+#: module/Application/view/layout/gdn-layout.phtml:105
+#: module/Application/view/layout/layout.phtml:86
+#: module/Application/view/layout/my-layout.phtml:55
+msgid "Groups"
+msgstr "Vondrona"
+
+#: module/Application/view/layout/gdn-layout.phtml:108
+#: module/Application/view/layout/layout.phtml:89
+#: module/Application/view/layout/my-layout.phtml:58
+msgid "Tools"
+msgstr "Mahasoa"
+
+#: module/Application/view/layout/gdn-layout.phtml:111
+#: module/Application/view/layout/layout.phtml:92
+#: module/Application/view/layout/my-layout.phtml:61
+msgid "About"
+msgstr "Momba anay"
+
+#: module/Application/view/layout/layout.phtml:6
+msgid "Skeleton Application"
+msgstr ""
+
+#: module/Application/view/layout/layout.phtml:102
+msgid "All rights reserved."
+msgstr ""
+
+#: module/Application/view/layout/my-layout.phtml:111
+msgid "Cooperative"
+msgstr ""
+
+#: module/Application/view/layout/my-layout.phtml:127
+msgid "Search"
+msgstr "Hitady"
+
+#: module/Application/view/layout/my-layout.phtml:185
+msgid "Language"
+msgstr "Fiteny"
 
 #: module/Godana/view/godana/bid/add.phtml:117
 #: module/Godana/view/godana/bid/translate.phtml:14
 #: module/Godana/view/godana/cooperative/add-car-driver.phtml:84
+#: module/Godana/view/godana/cooperative/add-line.phtml:95
 msgid "Contact type"
 msgstr "Karazam-pifandraisana"
 
 #: module/Godana/view/godana/bid/add.phtml:118
+#: module/Godana/view/godana/bid/index.phtml:164
+#: module/Godana/view/godana/bid/index.phtml:187
 #: module/Godana/view/godana/bid/translate.phtml:29
 #: module/Godana/view/godana/cooperative/add-car-driver.phtml:85
+#: module/Godana/view/godana/cooperative/add-line.phtml:96
 msgid "Mobile"
 msgstr "Finday"
 
 #: module/Godana/view/godana/bid/add.phtml:119
 #: module/Godana/view/godana/bid/translate.phtml:31
 #: module/Godana/view/godana/cooperative/add-car-driver.phtml:86
+#: module/Godana/view/godana/cooperative/add-line.phtml:97
 msgid "Address"
 msgstr "Adiresy"
 
 #: module/Godana/view/godana/bid/add.phtml:120
 #: module/Godana/view/godana/bid/translate.phtml:15
 #: module/Godana/view/godana/cooperative/add-car-driver.phtml:87
+#: module/Godana/view/godana/cooperative/add-line.phtml:98
 msgid "Contact value"
 msgstr "Fifandraisana"
 
@@ -246,36 +418,48 @@ msgid "Add image"
 msgstr ""
 
 #: module/Godana/view/godana/bid/add.phtml:189
+#: module/Godana/view/godana/bid/index.phtml:420
 msgid "Upload image"
 msgstr ""
 
 #: module/Godana/view/godana/bid/add.phtml:217
 #: module/Godana/view/godana/bid/add.phtml:231
+#: module/Godana/view/godana/bid/index.phtml:448
+#: module/Godana/view/godana/bid/index.phtml:462
 msgid "Add images"
 msgstr ""
 
 #: module/Godana/view/godana/bid/add.phtml:221
+#: module/Godana/view/godana/bid/index.phtml:452
 #, fuzzy
 msgid "or"
 msgstr "Tohiny"
 
 #: module/Godana/view/godana/bid/add.phtml:222
+#: module/Godana/view/godana/bid/index.phtml:453
 msgid "Choose images"
 msgstr ""
 
 #: module/Godana/view/godana/bid/add.phtml:232
+#: module/Godana/view/godana/bid/index.phtml:463
 #: module/Godana/view/godana/bid/translate.phtml:24
 msgid "Close"
 msgstr "Hidio"
 
 #: module/Godana/view/godana/bid/add.phtml:233
+#: module/Godana/view/godana/bid/index.phtml:464
 msgid "Insert into post"
 msgstr ""
 
 #: module/Godana/view/godana/bid/add.phtml:365
 #: module/Godana/view/godana/bid/add.phtml:380
+#: module/Godana/view/godana/bid/index.phtml:168
+#: module/Godana/view/godana/bid/index.phtml:193
+#: module/Godana/view/godana/bid/index.phtml:195
 #: module/Godana/view/godana/cooperative/add-car-driver.phtml:127
 #: module/Godana/view/godana/cooperative/add-car-driver.phtml:145
+#: module/Godana/view/godana/cooperative/add-line.phtml:224
+#: module/Godana/view/godana/cooperative/add-line.phtml:242
 msgid "Contact"
 msgstr "Fifandraisana"
 
@@ -283,13 +467,16 @@ msgstr "Fifandraisana"
 msgid "Back"
 msgstr "Hiverina"
 
-#: module/Godana/view/godana/bid/index.phtml:8
-msgid "Create bid"
-msgstr "Hitolotra sa hitady"
+#: module/Godana/view/godana/bid/index.phtml:166
+#: module/Godana/view/godana/bid/index.phtml:191
+#, fuzzy
+msgid "Adress"
+msgstr "Adiresy"
 
-#: module/Godana/view/godana/bid/index.phtml:30
-msgid "More"
-msgstr "Tohiny"
+#: module/Godana/view/godana/bid/index.phtml:525
+#: module/Godana/view/godana/bid/translate.phtml:10
+msgid "Categories"
+msgstr "Sokajy"
 
 #: module/Godana/view/godana/bid/translate.phtml:1
 msgid "Demand"
@@ -327,10 +514,6 @@ msgstr "harena an-kibon'ny tany"
 msgid "Type"
 msgstr "Karazany"
 
-#: module/Godana/view/godana/bid/translate.phtml:10
-msgid "Categories"
-msgstr "Sokajy"
-
 #: module/Godana/view/godana/bid/translate.phtml:11
 msgid "Title"
 msgstr "Lohateny"
@@ -346,14 +529,6 @@ msgstr "Safidio ny sokajy..."
 #: module/Godana/view/godana/bid/translate.phtml:16
 msgid "Add contact"
 msgstr "Hanampy fifandraisana"
-
-#: module/Godana/view/godana/bid/translate.phtml:17
-msgid "City"
-msgstr "Tanàna"
-
-#: module/Godana/view/godana/bid/translate.phtml:18
-msgid "Price"
-msgstr "Vidiny"
 
 #: module/Godana/view/godana/bid/translate.phtml:20
 msgid "Add files..."
@@ -397,33 +572,17 @@ msgid "Shop"
 msgstr "Botika"
 
 #: module/Godana/view/godana/bid/translate.phtml:34
-msgid "Email or Username"
-msgstr "Mailaka na Solon'anarana"
+msgid "Select shop"
+msgstr "Safidio ny botika"
 
 #: module/Godana/view/godana/bid/translate.phtml:35
-#, php-format
-msgid "%s months ago"
-msgstr ""
+#, fuzzy
+msgid "Type of product"
+msgstr "Hampiditra entana"
 
 #: module/Godana/view/godana/bid/translate.phtml:36
-#, php-format
-msgid "%s days ago"
-msgstr ""
-
-#: module/Godana/view/godana/bid/translate.phtml:37
-#, php-format
-msgid "%s hours ago"
-msgstr ""
-
-#: module/Godana/view/godana/bid/translate.phtml:38
-#, php-format
-msgid "%s minutes ago"
-msgstr ""
-
-#: module/Godana/view/godana/bid/translate.phtml:39
-#, php-format
-msgid "%s seconds ago"
-msgstr ""
+msgid "Email or Username"
+msgstr "Mailaka na Solon'anarana"
 
 #: module/Godana/view/godana/cooperative/add-car-driver.phtml:8
 msgid "Car driver"
@@ -433,6 +592,8 @@ msgstr ""
 #: module/Godana/view/godana/cooperative/add-car-line.phtml:14
 #: module/Godana/view/godana/cooperative/add-car-make.phtml:11
 #: module/Godana/view/godana/cooperative/add-car-model.phtml:14
+#: module/Godana/view/godana/cooperative/add-car.phtml:14
+#: module/Godana/view/godana/cooperative/add-line.phtml:15
 msgid "Success!"
 msgstr ""
 
@@ -465,22 +626,11 @@ msgid "Model added successfully."
 msgstr ""
 
 #: module/Godana/view/godana/cooperative/add-car.phtml:8
-#: module/Godana/view/godana/cooperative/list-reservation-board.phtml:20
-#: module/Godana/view/godana/cooperative/user-reservation.phtml:48
 msgid "Car"
 msgstr ""
 
 #: module/Godana/view/godana/cooperative/add-car.phtml:14
-#: module/Godana/view/godana/cooperative/create-reservation-board.phtml:17
 msgid "Car added successfully."
-msgstr ""
-
-#: module/Godana/view/godana/cooperative/add-line.phtml:9
-#: module/Godana/view/godana/cooperative/create-cooperative.phtml:9
-#: module/Godana/view/godana/cooperative/edit-cooperative.phtml:9
-#: module/Godana/view/godana/cooperative/list-reservation-board.phtml:20
-#: module/Godana/view/godana/cooperative/user-reservation.phtml:48
-msgid "Cooperative"
 msgstr ""
 
 #: module/Godana/view/godana/cooperative/add-line.phtml:15
@@ -579,28 +729,7 @@ msgstr ""
 msgid "What's new?"
 msgstr ""
 
-#: module/Godana/view/godana/feed/index.phtml:243
-#, fuzzy
-msgid "Remove"
-msgstr "Hanala fifandraisana"
-
-#: module/Godana/view/godana/feed/index.phtml:255
-msgid "Add a comment..."
-msgstr ""
-
-#: module/Godana/view/godana/feed/index.phtml:262
-msgid "Loading..."
-msgstr ""
-
-#: module/Godana/view/godana/feed/index.phtml:262
-msgid "Comment"
-msgstr ""
-
-#: module/Godana/view/godana/feed/index.phtml:263
-msgid "Cancel"
-msgstr "Lavina"
-
-#: module/Godana/view/godana/feed/index.phtml:445
+#: module/Godana/view/godana/feed/index.phtml:446
 msgid "Read more"
 msgstr ""
 
@@ -613,22 +742,13 @@ msgstr ""
 msgid "Welcome to %sgodana%s"
 msgstr "Tonga soa eto amin'ny %sgodana%s"
 
-#: module/Godana/view/godana/index/index.phtml:3
-#, php-format
-msgid "Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2."
-msgstr "Arahabaina! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2."
-
-#: module/Godana/view/godana/index/index.phtml:4
-msgid "Fork Zend Framework 2 on GitHub"
-msgstr ""
-
 #: module/Godana/view/godana/my-user/add-user.phtml:9
 #, fuzzy
 msgid "Add user"
 msgstr "Hanampy fiara"
 
 #: module/Godana/view/godana/my-user/change-role.phtml:8
-#: module/Godana/view/godana/my-user/list.phtml:25
+#: module/Godana/view/godana/my-user/list.phtml:26
 #, fuzzy
 msgid "Change role"
 msgstr "Hanolo teny miafina"
@@ -641,12 +761,12 @@ msgstr ""
 #: module/Godana/view/godana/my-user/change-role.phtml:116
 #: module/Godana/view/godana/my-user/edit-user.phtml:158
 #: module/Godana/view/godana/my-user/edit-user.phtml:176
-#: module/Godana/view/godana/my-user/list.phtml:14
+#: module/Godana/view/godana/my-user/list.phtml:15
 msgid "Role"
 msgstr ""
 
 #: module/Godana/view/godana/my-user/edit-user.phtml:9
-#: module/Godana/view/godana/my-user/list.phtml:25
+#: module/Godana/view/godana/my-user/list.phtml:26
 msgid "Edit user"
 msgstr ""
 
@@ -654,52 +774,53 @@ msgstr ""
 msgid "User changed successfully."
 msgstr ""
 
-#: module/Godana/view/godana/my-user/list.phtml:13
+#: module/Godana/view/godana/my-user/list.phtml:14
 msgid "First name"
 msgstr "Anarana"
 
-#: module/Godana/view/godana/my-user/list.phtml:13
+#: module/Godana/view/godana/my-user/list.phtml:14
 msgid "Last name"
 msgstr "Fanampiny"
 
-#: module/Godana/view/godana/product/add.phtml:13
+#: module/Godana/view/godana/product/add.phtml:12
 msgid "Product"
 msgstr "Entana"
 
-#: module/Godana/view/godana/product/add.phtml:147
+#: module/Godana/view/godana/product/add.phtml:144
 msgid "Attribute type"
 msgstr ""
 
-#: module/Godana/view/godana/product/add.phtml:148
-#: module/Godana/view/godana/shop/add.phtml:160
-#: module/Godana/view/godana/shop/edit.phtml:124
+#: module/Godana/view/godana/product/add.phtml:145
 msgid "mail"
 msgstr "mailaka"
 
-#: module/Godana/view/godana/product/add.phtml:150
+#: module/Godana/view/godana/product/add.phtml:147
 msgid "Attribute value"
 msgstr ""
 
-#: module/Godana/view/godana/product/add.phtml:362
-#: module/Godana/view/godana/product/type.phtml:118
-#: module/Godana/view/godana/shop/producttype.phtml:118
-msgid "Add attribute"
-msgstr ""
+#: module/Godana/view/godana/product/add.phtml:299
+#, fuzzy
+msgid "Select type"
+msgstr "Karazam-pifandraisana"
 
-#: module/Godana/view/godana/product/detail.phtml:1
-#: module/Godana/view/godana/shop/detail.phtml:1
-#: module/Godana/view/godana/shop/list.phtml:1
-msgid "Shops"
-msgstr "Botika"
+#: module/Godana/view/godana/product/list-type.phtml:3
+#: module/Godana/view/godana/product/type.phtml:6
+#, fuzzy
+msgid "Admin Product"
+msgstr "Hampiditra entana"
 
-#: module/Godana/view/godana/product/type.phtml:10
-#: module/Godana/view/godana/shop/producttype.phtml:10
-msgid "Product type"
+#: module/Godana/view/godana/product/list-type.phtml:8
+#, fuzzy
+msgid "List product type"
 msgstr "Karazan'entana"
 
-#: module/Godana/view/godana/product/type.phtml:75
-#: module/Godana/view/godana/shop/producttype.phtml:75
-msgid "Attribute name"
+#: module/Godana/view/godana/product/list-type.phtml:14
+msgid "Unit"
+msgstr ""
+
+#: module/Godana/view/godana/product/list-type.phtml:15
+#: module/Godana/view/godana/product/type.phtml:88
+msgid "Attributes"
 msgstr ""
 
 #: module/Godana/view/godana/search/index.phtml:4
@@ -711,56 +832,89 @@ msgstr ""
 msgid "Published on "
 msgstr ""
 
-#: module/Godana/view/godana/shop/add.phtml:69
-#: module/Godana/view/godana/shop/edit.phtml:47
+#: module/Godana/view/godana/shop/add.phtml:65
+#: module/Godana/view/godana/shop/edit.phtml:43
 msgid "Category name"
 msgstr "Anaran'ny sokajy"
 
-#: module/Godana/view/godana/shop/add.phtml:231
-#: module/Godana/view/godana/shop/edit.phtml:207
-msgid "Add category"
-msgstr "Hanampy sokajy"
-
-#: module/Godana/view/godana/shop/index.phtml:13
+#: module/Godana/view/godana/shop/add.phtml:201
+#: module/Godana/view/godana/shop/edit.phtml:187
+#: module/Godana/view/godana/shop/index.phtml:14
 msgid "Owner"
 msgstr ""
 
-#: module/Godana/view/godana/shop/index.phtml:14
+#: module/Godana/view/godana/shop/add.phtml:301
+msgid "Add category"
+msgstr "Hanampy sokajy"
+
+#: module/Godana/view/godana/shop/detail.phtml:27
+#: module/Godana/view/godana/shop/list.phtml:23
+msgid "More"
+msgstr "Tohiny"
+
+#: module/Godana/view/godana/shop/edit.phtml:169
+#, fuzzy
+msgid "Change cover"
+msgstr "Hanolo teny miafina"
+
+#: module/Godana/view/godana/shop/index.phtml:3
+#, fuzzy
+msgid "Admin Shops"
+msgstr "Botika"
+
+#: module/Godana/view/godana/shop/index.phtml:15
 #, fuzzy
 msgid "Category"
 msgstr "Sokajy"
 
-#: module/Godana/view/godana/tools/index.phtml:1
-#: module/Godana/view/layout/tools-layout.phtml:57
-msgid "Tools"
-msgstr "Mahasoa"
+#: module/Godana/view/godana/shop/producttype.phtml:10
+msgid "Product type"
+msgstr "Karazan'entana"
+
+#: module/Godana/view/godana/shop/producttype.phtml:75
+msgid "Attribute name"
+msgstr ""
+
+#: module/Godana/view/godana/shop/producttype.phtml:118
+msgid "Add attribute"
+msgstr ""
 
 #: module/Godana/view/layout/admin-layout.phtml:54
+#: module/Godana/view/layout/sb-admin-layout.phtml:116
 msgid "Dashboard"
 msgstr ""
 
 #: module/Godana/view/layout/admin-layout.phtml:56
+#: module/Godana/view/layout/sb-admin-layout.phtml:118
 msgid "Reinitialize search"
 msgstr ""
 
 #: module/Godana/view/layout/admin-layout.phtml:60
+#: module/Godana/view/layout/sb-admin-layout.phtml:120
 #, fuzzy
 msgid "Users"
 msgstr "Solon'anarana"
 
 #: module/Godana/view/layout/admin-layout.phtml:62
 #: module/Godana/view/layout/admin-layout.phtml:69
+#: module/Godana/view/layout/sb-admin-layout.phtml:123
+#: module/Godana/view/layout/sb-admin-layout.phtml:135
+#: module/Godana/view/layout/sb-admin-layout.phtml:157
 #: module/Godana/view/layout/tools-layout.phtml:89
 msgid "Add"
 msgstr ""
 
 #: module/Godana/view/layout/admin-layout.phtml:63
 #: module/Godana/view/layout/admin-layout.phtml:70
+#: module/Godana/view/layout/sb-admin-layout.phtml:126
+#: module/Godana/view/layout/sb-admin-layout.phtml:138
+#: module/Godana/view/layout/sb-admin-layout.phtml:160
 #: module/Godana/view/layout/tools-layout.phtml:88
 msgid "List"
 msgstr ""
 
 #: module/Godana/view/layout/admin-layout.phtml:75
+#: module/Godana/view/layout/sb-admin-layout.phtml:145
 msgid "Products"
 msgstr ""
 
@@ -769,28 +923,14 @@ msgid "Add type"
 msgstr ""
 
 #: module/Godana/view/layout/admin-layout.phtml:78
+#: module/Godana/view/layout/sb-admin-layout.phtml:148
 msgid "Add product"
 msgstr "Hampiditra entana"
 
 #: module/Godana/view/layout/admin-layout.phtml:79
+#: module/Godana/view/layout/sb-admin-layout.phtml:151
 msgid "List product"
 msgstr ""
-
-#: module/Godana/view/layout/admin-layout.phtml:88
-#: module/Godana/view/layout/cooperative-layout.phtml:89
-#: module/Godana/view/layout/layout.phtml:76
-#: module/Godana/view/layout/tools-layout.phtml:100
-#: module/Godana/view/zfc-user/user/profile.phtml:8
-#: module/Godana/view/zfc-user/user/profile.phtml:13
-msgid "Profile"
-msgstr "Mombamomba"
-
-#: module/Godana/view/layout/admin-layout.phtml:136
-#: module/Godana/view/layout/cooperative-layout.phtml:139
-#: module/Godana/view/layout/layout.phtml:177
-#: module/Godana/view/layout/tools-layout.phtml:160
-msgid "Language"
-msgstr "Fiteny"
 
 #: module/Godana/view/layout/cooperative-layout.phtml:57
 msgid "Create cooperative"
@@ -845,30 +985,6 @@ msgstr ""
 msgid "List reservation car"
 msgstr ""
 
-#: module/Godana/view/layout/layout.phtml:46
-#: module/Godana/view/layout/tools-layout.phtml:48
-msgid "Home"
-msgstr "Fandraisana"
-
-#: module/Godana/view/layout/layout.phtml:60
-#: module/Godana/view/layout/tools-layout.phtml:117
-msgid "Search"
-msgstr "Hitady"
-
-#: module/Godana/view/layout/layout.phtml:97
-#: module/Godana/view/layout/layout.phtml:103
-msgid "Admin"
-msgstr ""
-
-#: module/Godana/view/layout/layout.phtml:120
-#: module/Godana/view/layout/tools-layout.phtml:112
-msgid "Login"
-msgstr "Hiditra"
-
-#: module/Godana/view/layout/tools-layout.phtml:60
-msgid "About"
-msgstr "Momba anay"
-
 #: module/Godana/view/layout/tools-layout.phtml:79
 #, fuzzy
 msgid "Transportation"
@@ -884,36 +1000,80 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: module/Godana/view/zfc-user/user/profile.phtml:19
+#: module/Godana/view/zfc-user/user/changepassword.phtml:1
+#: module/Godana/view/zfc-user/user/profile.phtml:51
+msgid "Change password"
+msgstr "Hanolo teny miafina"
+
+#: module/Godana/view/zfc-user/user/changepassword.phtml:9
+#: vendor/zf-commons/zfc-user/view/zfc-user/user/changepassword.phtml:3
+msgid "Password changed successfully."
+msgstr ""
+
+#: module/Godana/view/zfc-user/user/changepassword.phtml:14
+#: vendor/zf-commons/zfc-user/view/zfc-user/user/changepassword.phtml:5
+msgid "Unable to update your password. Please try again."
+msgstr ""
+
+#: module/Godana/view/zfc-user/user/login.phtml:53
+#: vendor/zf-commons/zfc-user/view/zfc-user/user/login.phtml:31
+msgid "Not registered?"
+msgstr "Tsy mbola mpikambana?"
+
+#: module/Godana/view/zfc-user/user/login.phtml:53
+#: vendor/zf-commons/zfc-user/view/zfc-user/user/login.phtml:31
+msgid "Sign up!"
+msgstr "Hikambana"
+
+#: module/Godana/view/zfc-user/user/profile.phtml:16
 msgid "Your profile is updated."
 msgstr ""
 
-#: module/Godana/view/zfc-user/user/profile.phtml:36
+#: module/Godana/view/zfc-user/user/profile.phtml:33
 #, fuzzy
 msgid "Profile picture"
 msgstr "Mombamomba"
 
-#: module/Godana/view/zfc-user/user/profile.phtml:41
+#: module/Godana/view/zfc-user/user/profile.phtml:38
 #, fuzzy
 msgid "Change image"
 msgstr "Hanolo teny miafina"
 
-#: module/Godana/view/zfc-user/user/profile.phtml:54
-msgid "Change password"
-msgstr "Hanolo teny miafina"
+#: module/Godana/view/zfc-user/user/profile.phtml:225
+#: module/Godana/view/zfc-user/user/register.phtml:76
+msgid "Sex"
+msgstr "Fananahana"
 
-#~ msgid "Welcome to %sZend Framework 2%s"
-#~ msgstr "Welcome to %sZend Framework 2%s"
-#~ msgid "Groups"
-#~ msgstr "Vondrona"
+#: vendor/zf-commons/zfc-user/view/zfc-user/user/changeemail.phtml:1
+#, php-format
+msgid "Change Email for %s"
+msgstr ""
+
+#: vendor/zf-commons/zfc-user/view/zfc-user/user/changeemail.phtml:3
+msgid "Email address changed successfully."
+msgstr ""
+
+#: vendor/zf-commons/zfc-user/view/zfc-user/user/changeemail.phtml:5
+msgid "Unable to update your email address. Please try again."
+msgstr ""
+
+#: vendor/zf-commons/zfc-user/view/zfc-user/user/changepassword.phtml:1
+#, php-format
+msgid "Change Password for %s"
+msgstr ""
+
+#: vendor/zf-commons/zfc-user/view/zfc-user/user/index.phtml:2
+msgid "Hello"
+msgstr "Manao ahoana"
+
 #~ msgid "FieldEmpty"
 #~ msgstr "Value is required and can't be empty"
+#~ msgid "Create bid"
+#~ msgstr "Hitolotra sa hitady"
 #~ msgid "Mail"
 #~ msgstr "Mailaka"
 #~ msgid "Date of birth"
 #~ msgstr "Daty nahaterahana"
-#~ msgid "Sex"
-#~ msgstr "Fananahana"
 #~ msgid "Start"
 #~ msgstr "Atomboka"
 

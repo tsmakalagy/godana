@@ -18,6 +18,7 @@ class BidUploadHandler extends CustomUploadHandler
 	{
 		$this->objectManager = $om;
 		$this->authService = $as;
+		$options['script_url'] = $this->get_full_url() . '/upload?type=bid';
 		parent::__construct($om, $options);
 	}
 	

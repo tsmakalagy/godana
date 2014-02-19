@@ -36,7 +36,7 @@ class PostFieldset extends Fieldset implements InputFilterProviderInterface, Ser
                 'attributes' => array(
                     'multiple' => 'multiple',
             		'class' => 'category-select gdn_select',
-            		'placeholder' => 'Categories'
+//            		'placeholder' => 'Categories'
                 ),                
                 'options' => array(
                     'object_manager' => $this->objectManager,
@@ -46,7 +46,7 @@ class PostFieldset extends Fieldset implements InputFilterProviderInterface, Ser
                 	'label_attributes' => array(
 			            'class' => 'sr-only',
 			        ),
-			        'empty_option' => 'Categories',
+//			        'empty_option' => 'Categories',
                     'disable_inarray_validator' => true,
 			        'find_method' => array(
 			        	'name' => 'findBy',

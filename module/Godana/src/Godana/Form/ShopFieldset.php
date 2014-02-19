@@ -36,7 +36,7 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
                 'name' => 'categories',
                 'attributes' => array(
                     'multiple' => 'multiple',
-            		'class' => 'chosen-select form-control'
+            		'class' => 'category-select gdn_select'
                 ),                
                 'options' => array(
                     'object_manager' => $this->objectManager,
@@ -44,7 +44,7 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
                     'property'       => 'name',
                     'label'          => 'Categories',
                 	'label_attributes' => array(
-			            'class' => 'col-sm-3 control-label',
+			            'class' => 'sr-only',
 			        ),
                     'disable_inarray_validator' => true,
 			        'find_method' => array(
@@ -79,12 +79,13 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
             'options' => array(
                 'label' => 'Name',
         		'label_attributes' => array(
-		            'class' => 'col-sm-3 control-label',
+		            'class' => 'sr-only',
 		        ),
             ),
             'attributes' => array(
+            	'placeholder' => 'Name',
                 'type' => 'text',
-            	'class' => 'form-control',
+            	'class' => 'gdn_text',
             ),
         ));
         
@@ -93,12 +94,13 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
             'options' => array(
                 'label' => 'Description',
         		'label_attributes' => array(
-		            'class' => 'col-sm-3 control-label',
+		            'class' => 'sr-only',
 		        ),
             ),
             'attributes' => array(
+            	'placeholder' => 'Description',
                 'type' => 'textarea',
-            	'class' => 'form-control',
+            	'class' => 'gdn_text',
             ),
         ));
         
@@ -107,7 +109,7 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
                 'type' => 'DoctrineModule\Form\Element\ObjectSelect',
                 'name' => 'owner',
                 'attributes' => array(
-            		'class' => 'chosen-select form-control'
+            		'class' => 'owner-select gdn_select'
                 ),                
                 'options' => array(
                     'object_manager' => $this->objectManager,
@@ -115,7 +117,7 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
                     'property'       => 'firstname',
                     'label'          => 'Owner',
                 	'label_attributes' => array(
-			            'class' => 'col-sm-3 control-label',
+			            'class' => 'sr-only',
 			        ),               
                 ),
             )
@@ -132,7 +134,7 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
 //                'options' => array(
 //                    'label'          => 'City',
 //                	'label_attributes' => array(
-//			            'class' => 'col-sm-3 control-label',
+//			            'class' => 'sr-only',
 //			        ),    
 //                ),
 //            )

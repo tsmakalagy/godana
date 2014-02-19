@@ -33,7 +33,7 @@ $form->setAttribute('method', 'post');
 	    <label class="sr-only"><?=$this->translate('Profile picture') ?></label>
 	    <div class="gdn_input_margin">
 	      	<img src="<?=$this->userPicture('sm'); ?>" class="img-thumbnail"/>
-	      	<button class="btn btn-default" data-toggle="modal" data-target="#myModal">
+	      	<button class="btn btn-default show-modal">
 				<i class="fa fa-picture-o"></i>
 				<span><?=$this->translate('Change image'); ?></span>
 			</button>
@@ -197,7 +197,8 @@ $form->setAttribute('method', 'post');
 	->appendFile($this->basePath() . '/js/locales/bootstrap-datepicker.fr.js')
 	->appendFile($this->basePath() . '/js/locales/bootstrap-datepicker.mg.js')
 	->appendFile($this->basePath() . '/js/select2.min.js')
-	->appendFile($this->basePath() . '/js/user-upload.js')
+	//->appendFile($this->basePath() . '/js/user-upload.js')
+	->appendFile($this->basePath() . '/js/jquery.godana.js')
 	->appendFile($this->basePath() . '/js/vendor/jquery.ui.widget.js')
     ->appendFile($this->basePath() . '/js/tmpl.min.js')
     ->appendFile($this->basePath() . '/js/load-image.min.js')
@@ -223,6 +224,9 @@ $(function() {
 	$(".sex-select").select2({
 		placeholder: "<?=$this->translate('Sex') ?>",
 		minimumResultsForSearch: 10
+	});
+	$('.show-modal').godana({
+		ajaxUrl: '/upload?type=user'
 	});
 	$('#save-images').click(function(e) {
 		$('.fileId').each(function() {

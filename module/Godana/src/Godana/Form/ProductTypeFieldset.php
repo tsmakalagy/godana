@@ -35,12 +35,13 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
             'options' => array(
                 'label' => 'Name',
         		'label_attributes' => array(
-		            'class' => 'col-sm-3 control-label',
+		            'class' => 'sr-only',
 		        ),
             ),
             'attributes' => array(
                 'type' => 'text',
-            	'class' => 'form-control',
+            	'class' => 'gdn_text',
+            	'placeholder' => 'Name (e.g: shoes, pants ...)'
             ),
         ));
         
@@ -49,52 +50,67 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
             'options' => array(
                 'label' => 'Unit',
         		'label_attributes' => array(
-		            'class' => 'col-sm-3 control-label',
+		            'class' => 'sr-only',
 		        ),
             ),
             'attributes' => array(
                 'type' => 'text',
-            	'class' => 'form-control',
+            	'class' => 'gdn_text',
+            	'placeholder' => 'Unit (e.g: piece, liter ...)'
             ),
         ));
         
-        $this->add(
-            array(
-                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-                'name' => 'attributes',
-                'attributes' => array(
-                    'multiple' => 'multiple',
-            		'class' => 'chosen-select form-control'
-                ),                
-                'options' => array(
-                    'object_manager' => $this->objectManager,
-                    'target_class'   => 'Godana\Entity\Attribute',
-                    'property'       => 'name',
-                    'label'          => 'Attributes',
-                	'label_attributes' => array(
-			            'class' => 'col-sm-3 control-label',
-			        ),
-                    'disable_inarray_validator' => true,
-                ),
-            )
-        ); 
-        
         $this->add(array(
-	    	'type'    => 'Zend\Form\Element\Collection',
-	        'name'    => 'new-attributes',
-            'options' => array(
-        		'template_placeholder' => '__placeholder__',
-        		'should_create_template' => true,
-				'allow_add' => true,        
-            	'count' => 1,
-                'target_element' => array(
-        			'type' => 'Godana\Form\AttributeFieldset', 
-        		),
-			),
-			'attributes' => array(
-				'class' => 'my-fieldset',
-			)			            
-	    ));
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'attribute',
+        	'options' => array(
+                'label' => 'Attribute',
+        		'label_attributes' => array(
+		            'class' => 'sr-only',
+		        ),
+            ),
+        	'attributes' => array(
+        		'class' => 'attribute-select gdn_select',
+        	),
+        ));
+        
+//        $this->add(
+//            array(
+//                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+//                'name' => 'attributes',
+//                'attributes' => array(
+//                    'multiple' => 'multiple',
+//            		'class' => 'attribute-select gdn_select'
+//                ),                
+//                'options' => array(
+//                    'object_manager' => $this->objectManager,
+//                    'target_class'   => 'Godana\Entity\Attribute',
+//                    'property'       => 'name',
+//                    'label'          => 'Attributes',
+//                	'label_attributes' => array(
+//			            'class' => 'sr-only',
+//			        ),
+//                    'disable_inarray_validator' => true,
+//                ),
+//            )
+//        ); 
+//        
+//        $this->add(array(
+//	    	'type'    => 'Zend\Form\Element\Collection',
+//	        'name'    => 'new-attributes',
+//            'options' => array(
+//        		'template_placeholder' => '__placeholder__',
+//        		'should_create_template' => true,
+//				'allow_add' => true,        
+//            	'count' => 1,
+//                'target_element' => array(
+//        			'type' => 'Godana\Form\AttributeFieldset', 
+//        		),
+//			),
+//			'attributes' => array(
+//				'class' => 'my-fieldset',
+//			)			            
+//	    ));
 		
 	}
 	

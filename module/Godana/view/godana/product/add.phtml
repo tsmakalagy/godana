@@ -1,13 +1,13 @@
 <?php echo $this->headLink()
-                ->appendStylesheet($this->basePath() . '/css/chosen.min.css')
-                ->appendStylesheet($this->basePath() . '/css/chosen-bootstrap.css')
+                ->appendStylesheet($this->basePath() . '/css/select2.css')
+                ->appendStylesheet($this->basePath() . '/css/select2-bootstrap.css')
                 ->appendStylesheet($this->basePath() . '/css/blueimp-gallery.min.css')
                 ->appendStylesheet($this->basePath() . '/css/jquery.fileupload.css')
                 ->appendStylesheet($this->basePath() . '/css/jquery.fileupload-ui.css')
-                ->appendStylesheet($this->basePath() . '/css/typeahead.js-bootstrap.css')
                 ?>
+<? $this->headTitle($this->translate('Admin Product'));?>
 <div class="row">
-<div class="col-md-10 col-md-offset-1">
+<div class="col-md-9 col-md-offset-2">
 <div class="panel panel-primary">
 <div class="panel-heading">
 	<h3 class="panel-title"><?php echo $this->translate('Product'); ?></h3>
@@ -18,7 +18,6 @@ $form = $this->productForm;
 $form->prepare();
 $form->setAttribute('action', $this->url('admin/product/add', array('lang' => $this->lang)));
 $form->setAttribute('method', 'post');
-$form->setAttribute('class', 'form-horizontal');
 ?>
 <?=$this->form()->openTag($form) ?>
 <? $product = $form->get('product-form');?>
@@ -28,7 +27,7 @@ $form->setAttribute('class', 'form-horizontal');
 <div class="form-group <?php if($this->formElementErrors($shop)) 
 echo "has-error" ?>">
 <?php echo $this->formLabel($shop); ?>
-<div class="col-sm-7">
+<div class="gdn_input_margin">
 <?php echo $this->formElement($shop) ?>
 <?php  echo $this->formElementErrors()
 	->setMessageOpenFormat('<div class="help-block">')
@@ -42,7 +41,7 @@ echo "has-error" ?>">
 <div class="form-group <?php if($this->formElementErrors($type)) 
 echo "has-error" ?>">
 <?php echo $this->formLabel($type); ?>
-<div class="col-sm-7">
+<div class="gdn_input_margin">
 <?php echo $this->formElement($type) ?>
 <?php  echo $this->formElementErrors()
 	->setMessageOpenFormat('<div class="help-block">')
@@ -56,7 +55,7 @@ echo "has-error" ?>">
 <div class="form-group <?php if($this->formElementErrors($name)) 
 echo "has-error" ?>">
 <?php echo $this->formLabel($name); ?>
-<div class="col-sm-7">
+<div class="gdn_input_margin">
 <?php echo $this->formElement($name) ?>
 <?php  echo $this->formElementErrors()
 	->setMessageOpenFormat('<div class="help-block">')
@@ -70,7 +69,7 @@ echo "has-error" ?>">
 <div class="form-group <?php if($this->formElementErrors($description)) 
 echo "has-error" ?>">
 <?php echo $this->formLabel($description); ?>
-<div class="col-sm-7">
+<div class="gdn_input_margin">
 <?php echo $this->formElement($description) ?>
 <?php  echo $this->formElementErrors()
 	->setMessageOpenFormat('<div class="help-block">')
@@ -84,17 +83,16 @@ echo "has-error" ?>">
 <div class="form-group <?php if($this->formElementErrors($price)) 
 echo "has-error" ?>">
 <?php echo $this->formLabel($price); ?>
-<div class="col-sm-7">
+<div class="gdn_input_margin">
 <div class="input-group">  
   <?php echo $this->formElement($price) ?>
+  <span class="input-group-addon">Ariary</span>
+</div>
 <?php  echo $this->formElementErrors()
 	->setMessageOpenFormat('<div class="help-block">')
     ->setMessageSeparatorString('</div><div class="help-block">')
     ->setMessageCloseString('</div>')
     ->render($price); ?>
-    <span class="input-group-addon">Ariary</span>
-</div>
-
 </div>
 </div>
 
@@ -102,18 +100,19 @@ echo "has-error" ?>">
 <div class="form-group <?php if($this->formElementErrors($measurement)) 
 echo "has-error" ?>">
 <?php echo $this->formLabel($measurement); ?>
-<div class="col-sm-7">
+<div class="gdn_input_margin">
 <div class="input-group"> 
 <?php echo $this->formElement($measurement) ?>
+<span class="input-group-addon input-grp-qty">Pi&egrave;ce</span>
+</div>
 <?php  echo $this->formElementErrors()
 	->setMessageOpenFormat('<div class="help-block">')
     ->setMessageSeparatorString('</div><div class="help-block">')
     ->setMessageCloseString('</div>')
-    ->render($measurement); ?>
-    <span class="input-group-addon input-grp-qty">Pi&egrave;ce</span>
+    ->render($measurement); ?>    
 </div>
 </div>
-</div>
+
 <!--
 <? //$attributesCollection = $product->get('attributes');?>
 <div id="attributes-group">
@@ -122,14 +121,14 @@ echo "has-error" ?>">
 		<? //echo $this->formHidden($c->get('product'));?>
 		<div class="form-group">
 			<?=$this->formLabel($c->get('attribute')); ?>
-			<div class="col-sm-7">
+			<div class="gdn_input_margin">
 			<?=$this->formElement($c->get('attribute')); ?>			
 			</div>
 		</div>
 		<div class="form-group <?php if($this->formElementErrors($c->get('value'))) 
 echo "has-error" ?>">
 			<?=$this->formLabel($c->get('value')); ?>
-			<div class="col-sm-7">
+			<div class="gdn_input_margin">
 			<?=$this->formElement($c->get('value')); ?>
 			<?=$this->formElementErrors()
 				->setMessageOpenFormat('<div class="help-block">')
@@ -144,10 +143,10 @@ echo "has-error" ?>">
 
 <div class="form-group">
 	<span id="tplAttribute" data-template="<?=htmlspecialchars('<div class="attributes-element"><input type="hidden" value="" name="product-form[attributes][__placeholder__][id]"><div class="form-group"><label for="product-form[attributes][__placeholder__][type]" class="col-sm-3 control-label">').
-	$this->translate('Attribute type').htmlspecialchars('</label><div class="col-sm-7"><select class="form-control" name="product-form[attributes][__placeholder__][type]"><option value="1">').
+	$this->translate('Attribute type').htmlspecialchars('</label><div class="gdn_input_margin"><select class="form-control" name="product-form[attributes][__placeholder__][type]"><option value="1">').
 	$this->translate('mobile').htmlspecialchars('</option><option value="2">').$this->translate('mail').htmlspecialchars('</option><option value="3">').
 	$this->translate('address').htmlspecialchars('</option></select></div></div><div class="form-group"><label for="product-form[attributes][__placeholder__][value]" class="col-sm-3 control-label">').
-	$this->translate('Attribute value').htmlspecialchars('</label><div class="col-sm-7"><input type="text" value="" class="form-control" name="product-form[attributes][__placeholder__][value]"></div></div></div>') ?>"></span>
+	$this->translate('Attribute value').htmlspecialchars('</label><div class="gdn_input_margin"><input type="text" value="" class="form-control" name="product-form[attributes][__placeholder__][value]"></div></div></div>') ?>"></span>
 	<div class="col-sm-4 col-sm-offset-3"></div>
 </div>
 
@@ -157,17 +156,14 @@ echo "has-error" ?>">
 
 <? echo $this->formHidden($form->get('csrf'));?>
 <div class="listFileId"></div>
-<div class="form-group">
-<div class="col-sm-4 col-sm-offset-3">
-<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-	<i class="glyphicon glyphicon-picture"></i>
-	<span><?=$this->translate('Add image'); ?></span>
-</button>
+<div class="row">
+<div class="col-sm-12">
+<div class="fd_upload pull-left">
+	<a href="#" class="btn btn-info show-modal" onclick="return false;"><i class="fa fa-camera"></i></a>
 </div>
+<div class="fd_action pull-right">
+	<?=$this->formElement($form->get('submit'));?>
 </div>
-<div class="form-group">
-<div class="col-sm-4 col-sm-offset-3">
-<? echo $this->formElement($form->get('submit'));?>
 </div>
 </div>
 <?php echo $this->form()->closeTag() ?>
@@ -182,10 +178,10 @@ echo "has-error" ?>">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Upload image</h4>
+        <h4 class="modal-title" id="myModalLabel"><?=$this->translate('Upload image'); ?></h4>
       </div>
-      <div class="modal-body">
-      <? 
+      <div class="modal-body modal-body-modified">
+		<? 
       	$form = $this->fileForm;
 		$form->prepare();
 		$form->setAttribute('class', 'form-inline');
@@ -193,90 +189,61 @@ echo "has-error" ?>">
 		$elem = $form->get('files');
 		?>
 		<div class="row fileupload-buttonbar">
-			<div class="container button-bar">
-				<div class="row">
-					<div class="col-md-10 col-md-offset-1">
-		                <!-- The fileinput-button span is used to style the file input field as button -->
-		                <span class="btn btn-success fileinput-button">
-		                    <i class="glyphicon glyphicon-plus"></i>
-		                    <span><?=$this->translate('Add files...'); ?></span>
-		                    <?php echo $this->formFile($elem); ?>
-		                </span>
-		                <button type="submit" class="btn btn-primary start">
-		                    <i class="glyphicon glyphicon-upload"></i>
-		                    <span><?=$this->translate('Start upload'); ?></span>
-		                </button>
-		                <button type="reset" class="btn btn-warning cancel">
-		                    <i class="glyphicon glyphicon-ban-circle"></i>
-		                    <span><?=$this->translate('Cancel upload'); ?></span>
-		                </button>
-		                <button type="button" class="btn btn-danger delete">
-		                    <i class="glyphicon glyphicon-trash"></i>
-		                    <span><?=$this->translate('Delete'); ?></span>
-		                </button>
-		                <input type="checkbox" class="toggle">
-		                
-		                <!-- The global file processing state -->
-		                <span class="fileupload-process"></span>
-		            </div>
-		            <!-- The global progress state -->
-		            <div class="col-md-9 col-md-offset-1 fileupload-progress fade">
-		                <!-- The global progress bar -->
-		                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-		                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-		                </div>
-		                <!-- The extended global progress state -->
-		<!--                <div class="progress-extended">&nbsp;</div>-->
-		            </div>
-				</div>
-			</div>
-            
-<!--            <div class="col-md-11">-->
-<!--            <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>-->
-<!--            </div>-->
-			<div class="clearfix visible-md"></div>
             <div class="container media-content">
-            	<div class="row">
-            	<div class="col-md-8 image-preview-container">
-            		<div class="container ">
-            			<div class="row files"></div>		
-            		</div>
+            	<div class="row row-media hide">
+	            	<div class="col-md-8 image-preview-container">
+	            		<div class="container ">
+	            			<div class="row files"></div>		
+	            		</div>
+	            	</div>
+					<div class="col-md-4 image-edit-container">
+	            		<div class="container ">
+	            			<div class="row"><div class="col-md-12"><div class="image-detail-container"></div></div></div>		
+	            		</div>
+	            	</div>
             	</div>
-				<div class="col-md-4 image-edit-container">
-            		<div class="container ">
-            			<div class="row"><div class="col-md-12"><div class="image-detail-container"></div></div></div>		
-            		</div>
-            	</div>
+            	<div class="row row-upload">
+					<div class="img-selection center-block center-vertical">
+						<div class="file-upload-btn ">
+							<span class="btn btn-default btn-lg  fileinput-button">
+			                    <span><?=$this->translate('Add images'); ?></span>
+			                    <?php echo $this->formFile($elem); ?>
+							</span>
+		                </div>		
+		                <?=$this->translate('or'); ?>               
+						<button class="btn btn-default btn-lg btn-choose"><?=$this->translate('Choose images'); ?></button>
+					</div>
             	</div>
 			</div>
-			<div class="shadow-modal-footer"></div>
         </div>
-        <?php echo $this->form()->closeTag($form); ?>
-        
-      </div>
-      <div class="modal-footer">
+         <?php echo $this->form()->closeTag($form); ?>
+      </div><!-- /.modal-body -->      
+      
+      <div class="modal-footer modal-footer-modified">
+		<button class="btn btn-default btn-preview-add-image pull-left hide"><?=$this->translate('Add images'); ?></button>
         <button type="button" class="btn btn-default" data-dismiss="modal"><?=$this->translate('Close'); ?></button>
         <button type="button" id="save-images" class="btn btn-primary" disabled="disabled"><?=$this->translate('Insert into post'); ?></button>
-      </div>
+      </div><!-- /.modal-footer -->
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">
-
 {% for (var i=0, file; file=o.files[i]; i++) { %}
-<div class="col-md-3 template-upload fade">
+<div class="col-md-4 template-upload fade">
 {% if (i) { %}
 	<span class="preview">
        	{% if (file.thumbnailUrl) { %}
            	<a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
     	{% } %}
-		<span class="my-progress">
-			<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
-		</span>
+		
 	</span>
 {% } else { %}
+	<div class="my-progress fileupload-progress fade">
+		<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+			<div class="progress-bar progress-bar-success" style="width:0%;"></div>
+		</div>
+	</div>
 	<strong class="error text-danger"></strong>
 	<button class="btn btn-warning cancel">
     	<i class="glyphicon glyphicon-ban-circle"></i>
@@ -286,36 +253,37 @@ echo "has-error" ?>">
 </div>
 {% } %}
 </script>
+
 <!-- The template to display files available for download -->
 <script id="template-download" type="text/x-tmpl">
 {% for (var i=0, file; file=o.files[i]; i++) { %}
-<div class="col-md-3 col-sm-3 col-xs-4 template-download fade">
-	<span class="preview">
-		{% if (file.thumbnailUrl) { %}
+{% if (file.thumbnailUrl) { %}
+	<div class="col-md-4 template-download fade">
+		<span class="preview">		
 			<img src="{%=file.thumbnailUrl%}" class="img-thumbnail img-thumbnail-preview">
 			<span class="my-zoom-icon">
 				<a href='#' data-toggle="tooltip" title="Deselect" class="deselect my-tooltip"><span class="glyphicon glyphicon-minus"></span></a> 
-				<a href="{%=file.url%}" download="{%=file.name%}" data-gallery  data-toggle="tooltip" title="Zoom" class="my-tooltip"><span class="glyphicon glyphicon-zoom-in"></span></a> 
+				<a href="#" data-toggle="tooltip" title="Crop" class="crop my-tooltip"><span class="glyphicon glyphicon-th"></span></a> 
 				<a href="#" class="delete my-tooltip"  data-toggle="tooltip" title="Delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}><span class="glyphicon glyphicon-remove"></span></a>
 			</span>
-			<input type="hidden" class="fileId" value="{%=file.id%}"/>
+			<input type="hidden" class="fileId" value="{%=file.id%}"/>		
+		
+			<input type="checkbox" name="delete" value="1" class="toggle hidden">
+		</span>	
+	</div>
+{% } %}
+{% if (file.error) { %}
+	<div class="col-md-4 template-download fade">
+    	<div class="error-file"><span class="label label-danger">Error</span> {%=file.error%}</div>
+	</div>
 		{% } %}
-		{% if (file.error) { %}
-			<span class="my-progress">			
-        		<div><span class="label label-danger">Error</span> {%=file.error%}</div>            
-			</span>
-		{% } %}
-		<input type="checkbox" name="delete" value="1" class="toggle hidden">
-	</span>	
-</div>
 {% } %}
 </script>
 
 <? $this->inlineScript()
-			->appendFile($this->basePath() . '/js/typeahead.min.js')
-			->appendFile($this->basePath() . '/js/chosen.jquery.min.js')
-			->appendFile($this->basePath() . '/js/main.js')
+			->appendFile($this->basePath() . '/js/select2.min.js')
 			->appendFile($this->basePath() . '/js/vendor/jquery.ui.widget.js')
+			->appendFile($this->basePath() . '/js/jquery.godana.js')
             ->appendFile($this->basePath() . '/js/tmpl.min.js')
             ->appendFile($this->basePath() . '/js/load-image.min.js')
             ->appendFile($this->basePath() . '/js/canvas-to-blob.min.js')
@@ -329,15 +297,44 @@ echo "has-error" ?>">
             ->appendFile($this->basePath() . '/js/jquery.fileupload-image.js')
             ->appendFile($this->basePath() . '/js/jquery.fileupload-audio.js');?>
 <script type="text/javascript">
+var shop_placeholder = "<?=$this->translate('Select shop'); ?>";
+var type_placeholder = "<?=$this->translate('Select type'); ?>";
 $(function() {
-	$(".chosen-select.shop-select").chosen({ 
-		width: '100%',
-		disable_search_threshold: 10,
-	}).change(function(event){
+	$(".shop-select").select2({ 
+		placeholder: shop_placeholder,
+		minimumResultsForSearch: 10
+	}).on('change', function(event){
 		if(event.target == this){
+			var shopId = event.val;
+			$("#myModal").find(".row.files").html("");
+			$('.show-modal').off("click");
+			if (shopId != "") {
+				$('.show-modal').godana({
+					off: false,
+					doCrop: false,
+					ajaxUrl: 'ajax?shopId='+shopId
+				});
+			} else {
+				$('.show-modal').click(function(e) {			
+					alert(shop_placeholder);
+					return false;
+				});		
+			}
 		}
 	});
-
+	var shopId = $(".shop-select").select2("val");
+	$('.show-modal').off("click");
+	if (shopId != "") {			
+		$('.show-modal').godana({
+			doCrop: false,
+			ajaxUrl: 'ajax?shopId='+shopId
+		});
+	} else {
+		$('.show-modal').click(function(e) {			
+			alert(shop_placeholder);
+			return false;
+		});		
+	}
 	$('#save-images').click(function(e) {
 		$('.fileId').each(function() {
 			if ($(this).hasClass('file-selected')) {				
@@ -348,86 +345,116 @@ $(function() {
 		return false;
 	});
 
-
-	/* ADDING MORE ATTRIBUTE */
-	var tplAttribute = $('#tplAttribute');
-	var tplAttributeManager = tplAttribute.parent();
-
-	var addAttribute = function () {
-	    var attributesGroup = $('#attributes-group');
-	    var attributesCount = attributesGroup.find('.attributes-element').length;
-	    attributesGroup.append(tplAttribute.data('template').replace(/__placeholder__/g, attributesCount));
-	}
-
-	var btnAttributes = $('<button class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i><?=$this->translate('Add attribute'); ?></button>')
-	    .button({
-	        icons: {
-	            primary: 'ui-icon-circle-plus'
-	        }
-	    }).on('click', function (e) {
-	        e.preventDefault();
-	        $('.removeElement').html('');
-	        addAttribute();
-	        //addRemoveButton('#attributes');
-	    });
-
-	tplAttributeManager.find('div').append(btnAttributes);	
-
-	$(".chosen-select.product-type-select").on('liszt:ready', function(e, chosen) {
-		var idType = e.currentTarget.value;
-		$.ajax({
-			url: "list-attribute?productType="+idType,
-    		type: "POST",
-    		cache: false,
-    		dataType: "json",
-    		beforeSend: function() {					
-    		},
-            success: function(data) {
-	            var unit = data.unit;
-	            $('.input-grp-qty').html(unit);
-	            var attributes = data.attribute;
-            	$('#attributes-group').html('');
-	            for (i = 0; i < attributes.length; i++) {				            
-		            var id = attributes[i].id;
-		            var name = attributes[i].name;
-		            addAttrElem(i, id, name);
-	            }
-	        }
-		});
-	}).chosen({ 
-		width: '100%',
-		disable_search_threshold: 10,
-	}).change(function(event, params){
+	$(".product-type-select").select2({
+		placeholder: type_placeholder,
+		minimumResultsForSearch: 10
+	}).on('change', function(event){
 		if(event.target == this){
-			var idType = params.selected;
+			var typeId = event.val;
 			$.ajax({
-				url: "list-attribute?productType="+idType,
-	    		type: "POST",
-	    		cache: false,
-	    		dataType: "json",
-	    		beforeSend: function() {					
-	    		},
-	    		success: function(data) {
-		            var unit = data.unit;
-		            $('.input-grp-qty').html(unit);
-		            var attributes = data.attribute;
-	            	$('#attributes-group').html('');
-		            for (i = 0; i < attributes.length; i++) {				            
-			            var id = attributes[i].id;
-			            var name = attributes[i].name;
-			            addAttrElem(i, id, name);
-		            }
-		        }
+				url: "list-attribute",
+				data: "productType="+typeId,
+				dataType: "json",
+				success: function(data) {
+					var unit = data.unit;
+					var form_groups = data.form_group;
+					if (unit != undefined) {
+						$('.input-grp-qty').html(unit);
+					}
+					$('#attributes-group').html("");
+					if (form_groups != undefined && form_groups.length > 0) {
+						for (var i = 0; i < form_groups.length; i++) {
+							var form_group = form_groups[i];
+							$('#attributes-group').append($(form_group));
+						}
+					} else {
+						$('#attributes-group').html("");
+					}
+				}
 			});
 		}
 	});
+
+	var typeId = $(".product-type-select").select2("val");
+	if (typeId != "") {
+		$.ajax({
+			url: "list-attribute",
+			data: "productType="+typeId,
+			dataType: "json",
+			success: function(data) {
+				var unit = data.unit;
+				var form_groups = data.form_group;
+				if (unit != undefined) {
+					$('.input-grp-qty').html(unit);
+				}
+				$('#attributes-group').html("");
+				if (form_groups != undefined && form_groups.length > 0) {
+					for (var i = 0; i < form_groups.length; i++) {
+						var form_group = form_groups[i];
+						$('#attributes-group').append($(form_group));
+					}
+				} else {
+					$('#attributes-group').html("");
+				}
+			}
+		});
+	}
+
+//	$(".chosen-select.product-type-select").on('liszt:ready', function(e, chosen) {
+//		var idType = e.currentTarget.value;
+//		$.ajax({
+//			url: "list-attribute?productType="+idType,
+//    		type: "POST",
+//    		cache: false,
+//    		dataType: "json",
+//    		beforeSend: function() {					
+//    		},
+//            success: function(data) {
+//	            var unit = data.unit;
+//	            $('.input-grp-qty').html(unit);
+//	            var attributes = data.attribute;
+//            	$('#attributes-group').html('');
+//	            for (i = 0; i < attributes.length; i++) {				            
+//		            var id = attributes[i].id;
+//		            var name = attributes[i].name;
+//		            addAttrElem(i, id, name);
+//	            }
+//	        }
+//		});
+//	}).chosen({ 
+//		width: '100%',
+//		disable_search_threshold: 10,
+//	}).change(function(event, params){
+//		if(event.target == this){
+//			var idType = params.selected;
+//			$.ajax({
+//				url: "list-attribute?productType="+idType,
+//	    		type: "POST",
+//	    		cache: false,
+//	    		dataType: "json",
+//	    		beforeSend: function() {					
+//	    		},
+//	    		success: function(data) {
+//		            var unit = data.unit;
+//		            $('.input-grp-qty').html(unit);
+//		            var attributes = data.attribute;
+//	            	$('#attributes-group').html('');
+//		            for (i = 0; i < attributes.length; i++) {				            
+//			            var id = attributes[i].id;
+//			            var name = attributes[i].name;
+//			            addAttrElem(i, id, name);
+//		            }
+//		        }
+//			});
+//		}
+//	});
 
 	var addAttrElem = function(index, id, label) {
 		var attributeElem = '<div class="attributes-element">';
 		attributeElem += '<input type="hidden" name="attributes['+index+'][id]" value="'+id+'">';
 		attributeElem += '<div class="form-group">';
 		attributeElem += '<label class="col-sm-3 control-label" for="attributes['+index+'][value]">'+label+'</label>';
-		attributeElem += '<div class="col-sm-7">';
+		attributeElem += '<div class="gdn_input_margin">';
 		attributeElem += '<input class="form-control" type="text" name="attributes['+index+'][value]">';
 		attributeElem += '</div></div></div>';
 		$('#attributes-group').append(attributeElem);

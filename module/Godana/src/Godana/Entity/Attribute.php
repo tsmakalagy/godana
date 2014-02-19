@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Godana\Entity\AttributeRepository")
  * @ORM\Table(name="gdn_attribute")
  * @author raiza
  *

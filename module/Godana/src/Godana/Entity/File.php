@@ -193,7 +193,7 @@ class File
 			}
 		}		
 		$imgUrl = substr($url, 0, strrpos($url, '/'));
-    	return $imgUrl . '/' . $imageName;
+    	return $imgUrl . '/cropped/' . $imageName;
     }
     
 }

@@ -13,6 +13,7 @@ class ProductUploadHandler extends CustomUploadHandler
 	{
 		$this->objectManager = $om;
 		$this->shopId = $shopId;
+		$options['script_url'] = $this->get_full_url() . '/admin/product/ajax?shopId=' . $shopId;
 		parent::__construct($om, $options);
 	}
 	

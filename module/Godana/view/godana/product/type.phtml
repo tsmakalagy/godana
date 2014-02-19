@@ -1,21 +1,19 @@
 <?php echo $this->headLink()
-                ->appendStylesheet($this->basePath() . '/css/chosen.min.css')
-                ->appendStylesheet($this->basePath() . '/css/chosen-bootstrap.css')
+                ->appendStylesheet($this->basePath() . '/css/select2.css')
+                ->appendStylesheet($this->basePath() . '/css/select2-bootstrap.css')
                 ->appendStylesheet($this->basePath() . '/css/typeahead.js-bootstrap.css')
                 ?>
+<? $this->headTitle($this->translate('Admin Product'));?>
 <div class="row">
-<div class="col-md-10 col-md-offset-1">
+<div class="col-md-8 col-md-offset-2">
 <div class="panel panel-primary">
-<div class="panel-heading">
-	<h3 class="panel-title"><?php echo $this->translate('Product type'); ?></h3>
-</div>
+<div class="panel-heading"><h3 class="panel-title"><?=$this->translate('Create product type'); ?></h3></div>
 <div class="panel-body">
 <?php
 $form = $this->productTypeForm;
 $form->prepare();
 $form->setAttribute('action', $this->url('admin/product/type_add', array('lang' => $this->lang)));
 $form->setAttribute('method', 'post');
-$form->setAttribute('class', 'form-horizontal');
 ?>
 <?=$this->form()->openTag($form) ?>
 <? $productType = $form->get('product-type-form'); ?>
@@ -25,7 +23,7 @@ $form->setAttribute('class', 'form-horizontal');
 <div class="form-group <?php if($this->formElementErrors($name)) 
 echo "has-error" ?>">
 <?php echo $this->formLabel($name); ?>
-<div class="col-sm-7">
+<div class="gdn_input_margin">
 <?php echo $this->formElement($name) ?>
 <?php  echo $this->formElementErrors()
 	->setMessageOpenFormat('<div class="help-block">')
@@ -39,7 +37,7 @@ echo "has-error" ?>">
 <div class="form-group <?php if($this->formElementErrors($unit)) 
 echo "has-error" ?>">
 <?php echo $this->formLabel($unit); ?>
-<div class="col-sm-7">
+<div class="gdn_input_margin">
 <?php echo $this->formElement($unit) ?>
 <?php  echo $this->formElementErrors()
 	->setMessageOpenFormat('<div class="help-block">')
@@ -49,38 +47,29 @@ echo "has-error" ?>">
 </div>
 </div>
 
-<? $attributes = $productType->get('attributes'); ?>
-<? $value_options = $attributes->getValueOptions();?>
-<? if (count($value_options) > 0):?>
-<div class="form-group <?php if($this->formElementErrors($attributes)) 
+<? $attribute = $productType->get('attribute'); ?>
+<div class="form-group <?php if($this->formElementErrors($attribute)) 
 echo "has-error" ?>">
-<?php echo $this->formLabel($attributes); ?>
-<div class="col-sm-7">
-<?php echo $this->formElement($attributes) ?>
+<?php echo $this->formLabel($attribute); ?>
+<div class="gdn_input_margin">
+<?php echo $this->formElement($attribute) ?>
 <?php  echo $this->formElementErrors()
 	->setMessageOpenFormat('<div class="help-block">')
     ->setMessageSeparatorString('</div><div class="help-block">')
     ->setMessageCloseString('</div>')
-    ->render($attributes); 
+    ->render($attribute); 
 	?>
 </div>
 </div>
-<? endif;?>
-<div id="attributes-group">
-<!--	 More attributes to add here -->
-</div>
 
-<div class="form-group">
-	<span id="tplAttribute" data-template="<?=htmlspecialchars('<div class="attributes-element"><input type="hidden" value="" name="product-type-form[new-attributes][__placeholder__][id]"><div class="form-group"><label for="product-type-form[new-attributes][__placeholder__][name]" class="col-sm-3 control-label">').
-	$this->translate('Attribute name').htmlspecialchars('</label><div class="col-sm-7"><input type="text" value="" class="form-control" name="product-type-form[new-attributes][__placeholder__][name]"></div></div></div>') ?>"></span>
-	<div class="col-sm-4 col-sm-offset-3"></div>
-</div>
 
 <? echo $this->formHidden($form->get('csrf'));?>
 
-<div class="form-group">
-<div class="col-sm-4 col-sm-offset-3">
-<? echo $this->formElement($form->get('submit'));?>
+<div class="row">
+<div class="col-sm-12">
+<div class="fd_action pull-right">
+	<?=$this->formElement($form->get('submit'));?>
+</div>
 </div>
 </div>
 <?php echo $this->form()->closeTag() ?>
@@ -92,43 +81,44 @@ echo "has-error" ?>">
 
 <? $this->inlineScript()
 			->appendFile($this->basePath() . '/js/typeahead.min.js')
-			->appendFile($this->basePath() . '/js/chosen.jquery.min.js')
+			->appendFile($this->basePath() . '/js/select2.min.js')
 			->appendFile($this->basePath() . '/js/vendor/jquery.ui.widget.js');?>
 
 <script type="text/javascript">
+var attribute_placeholder = "<?=$this->translate('Attributes'); ?>";
+var url_attribute = "<?=$this->url('admin/product/ajax_list_attribute', array(), array(), true); ?>";
 $(function() {
-	$(".chosen-select").chosen({ 
-		width: '100%',
-		placeholder_text_multiple: 'Choose an attribute...', 
-	}).change(function(event){
-		if(event.target == this){
-		}
-	});
-
-	/* ADDING MORE ATTRIBUTE */
-	var tplAttribute = $('#tplAttribute');
-	var tplAttributeManager = tplAttribute.parent();
-
-	var addAttribute = function () {
-	    var attributesGroup = $('#attributes-group');
-	    var attributesCount = attributesGroup.find('.attributes-element').length;
-	    attributesGroup.append(tplAttribute.data('template').replace(/__placeholder__/g, attributesCount));
-	}
-
-	var btnAttributes = $('<button class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i><?=$this->translate('Add attribute'); ?></button>')
-	    .button({
-	        icons: {
-	            primary: 'ui-icon-circle-plus'
-	        }
-	    }).on('click', function (e) {
-	        e.preventDefault();
-	        $('.removeElement').html('');
-	        addAttribute();
-	        //addRemoveButton('#attributes');
-	    });
-
-	tplAttributeManager.find('div').append(btnAttributes);
-	
-	
+	var opts = {
+		placeholder: attribute_placeholder,
+		tags: true,
+		minimumResultsForSearch: 4,
+		tokenSeparators: [",", " "],
+		createSearchChoice: function(term, data) {
+			if ($(data).filter(function() {
+		    	return this.text.localeCompare(term) === 0;
+		    }).length === 0) {
+		    	return {
+		        	id: term,
+		        	text: term
+		      	};
+		    }
+		},
+		multiple: true,
+		ajax: {
+			url: url_attribute,
+		    dataType: "json",
+		    data: function(term, page) {
+		    	return {
+		        	q: term
+		      	};
+		    },
+		    results: function(data, page) {
+		    	return {
+		        	results: data
+		      	};
+		    }
+		}	
+	};
+	$(".attribute-select").data("s2opts", opts).select2(opts);
 });
 </script>

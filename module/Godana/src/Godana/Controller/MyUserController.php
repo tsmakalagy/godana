@@ -47,7 +47,7 @@ class MyUserController extends AbstractActionController
     
 	public function listAction()
 	{
-		$this->layout('layout/admin-layout');
+		$this->layout('layout/sb-admin-layout');
  		$this->layout()->user_active = 'active';
  		$lang = $this->params()->fromRoute('lang', 'mg');
 		$om = $this->getObjectManager();
@@ -60,7 +60,7 @@ class MyUserController extends AbstractActionController
 	
 	public function editUserAction()
 	{
-		$this->layout('layout/admin-layout');
+		$this->layout('layout/sb-admin-layout');
  		$this->layout()->user_active = 'active';
 		$om = $this->getObjectManager();
 		$lang = $this->params()->fromRoute('lang', 'mg');
@@ -105,7 +105,7 @@ class MyUserController extends AbstractActionController
 	
 	public function addUserAction()
 	{
-		$this->layout('layout/admin-layout');
+		$this->layout('layout/sb-admin-layout');
  		$this->layout()->user_active = 'active';
 		$om = $this->getObjectManager();
 		$lang = $this->params()->fromRoute('lang', 'mg');
@@ -137,7 +137,7 @@ class MyUserController extends AbstractActionController
 	
 	public function changeRoleAction()
 	{
-		$this->layout('layout/admin-layout');
+		$this->layout('layout/sb-admin-layout');
  		$this->layout()->user_active = 'active';
 		$om = $this->getObjectManager();
 		$lang = $this->params()->fromRoute('lang', 'mg');

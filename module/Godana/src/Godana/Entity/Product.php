@@ -53,7 +53,7 @@ class Product
 	protected $measurement;
 	
 	/**
-	 * @ORM\OneToMany(targetEntity="ProductAttribute", mappedBy="product", cascade={"ALL"})	 
+	 * @ORM\OneToMany(targetEntity="ProductAttribute", mappedBy="product", cascade={"persist"})	 
 	 * @var array
 	 */
 	protected $attributes;

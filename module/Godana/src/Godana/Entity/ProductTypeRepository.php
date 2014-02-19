@@ -9,4 +9,5 @@ class ProductTypeRepository extends EntityRepository
 	{
 		return $this->findBy(array(), array('name' => 'ASC'));
 	}
+	
 }

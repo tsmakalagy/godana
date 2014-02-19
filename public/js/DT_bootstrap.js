@@ -191,7 +191,7 @@ $(document).ready(function() {
 			"sLengthMenu": "_MENU_ records per page"
 		},		
 	} );
-	$('#example_length select').addClass('form-control');
+	$('#example_length select').addClass('form-control record_select');
 	$('#example_filter input').addClass('form-control');
 	$('.dataTables_length').addClass('form-group');
 	$('.dataTables_filter').addClass('form-group');

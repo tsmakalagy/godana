@@ -36,12 +36,13 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
             'options' => array(
                 'label' => 'Name',
         		'label_attributes' => array(
-		            'class' => 'col-sm-3 control-label',
+		            'class' => 'sr-only',
 		        ),
             ),
             'attributes' => array(
                 'type' => 'text',
-            	'class' => 'form-control',
+            	'class' => 'gdn_text',
+        		'placeholder' => 'Name',
             ),
         ));
         
@@ -50,12 +51,13 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
             'options' => array(
                 'label' => 'Description',
         		'label_attributes' => array(
-		            'class' => 'col-sm-3 control-label',
+		            'class' => 'sr-only',
 		        ),
             ),
             'attributes' => array(
                 'type' => 'textarea',
-            	'class' => 'form-control',
+            	'class' => 'gdn_text',
+            	'placeholder' => 'Description'
             ),
         ));
         
@@ -64,7 +66,8 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
                 'type' => 'DoctrineModule\Form\Element\ObjectSelect',
                 'name' => 'type',
                 'attributes' => array(
-            		'class' => 'chosen-select form-control product-type-select'
+            		'class' => 'gdn_select product-type-select',
+            		'placeholder' => 'Select type'
                 ),                
                 'options' => array(
                     'object_manager' => $this->objectManager,
@@ -72,10 +75,9 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
                     'property'       => 'name',
                     'label'          => 'Type',
                 	'label_attributes' => array(
-			            'class' => 'col-sm-3 control-label',
-			        ),   
-//			        'include_empty_option' => true,
-//            		'empty_option'   => '---', 
+			            'class' => 'sr-only',
+			        ),  
+			        'empty_option' => 'Type of product',
 					'find_method' => array(
 			        	'name' => 'findAll',
 			        	'params' => array(		        		
@@ -91,12 +93,13 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
         		'type' => 'text',
         		'name' => 'price',
         		'attributes' => array(
-        			'class' => 'form-control',
+        			'class' => 'gdn_text',
+            		'placeholder' => 'Price'
         		),
         		'options' => array(
                     'label'          => 'Price',
                 	'label_attributes' => array(
-			            'class' => 'col-sm-3 control-label',
+			            'class' => 'sr-only',
 			        ),    
                 ),
         	)
@@ -107,42 +110,24 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
         		'type' => 'text',
         		'name' => 'measurement',
         		'attributes' => array(
-        			'class' => 'form-control',
+        			'class' => 'gdn_text',
+            		'placeholder' => 'Quantity'
         		),
         		'options' => array(
                     'label'          => 'Quantity',
                 	'label_attributes' => array(
-			            'class' => 'col-sm-3 control-label',
+			            'class' => 'sr-only',
 			        ),    
                 ),
         	)
         );
         
-//        $this->add(array(
-//	    	'type'    => 'Zend\Form\Element\Collection',
-//	        'name'    => 'attributes',
-//            'options' => array(
-//        		'template_placeholder' => '__placeholder__',
-//        		'should_create_template' => true,
-//				'allow_add' => true,        
-//            	'count' => 1,
-//                'target_element' => array(
-//        			'type' => 'Godana\Form\ProductAttributeFieldset', 
-//        		),
-//			),
-//			'attributes' => array(
-//				'class' => 'my-fieldset',
-//			)			            
-//	    ));
-
-        
-	    
 	    $this->add(
             array(
                 'type' => 'DoctrineModule\Form\Element\ObjectSelect',
                 'name' => 'shop',
                 'attributes' => array(
-            		'class' => 'chosen-select form-control shop-select'
+            		'class' => 'gdn_select shop-select'
                 ),                
                 'options' => array(
                     'object_manager' => $this->objectManager,
@@ -150,8 +135,9 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
                     'property'       => 'name',
                     'label'          => 'Shop',
                 	'label_attributes' => array(
-			            'class' => 'col-sm-3 control-label',
+			            'class' => 'sr-only',
 			        ),
+			        'empty_option' => 'Select shop',
 			        'find_method' => array(
 			        	'name' => 'findShopByOwnerId',
 			        	'params' => array(

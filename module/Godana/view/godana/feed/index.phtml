@@ -442,6 +442,7 @@ $(function() {
 	var container = document.querySelector('#ctnr');
 	$('.detail-feed').readmore({
 	  	maxHeight: 100,
+	  	speed: 0,
 	  	moreLink: '<a href="#"><?=$this->translate('Read more') ?></a>',
 	  	lessLink: '<a href="#"><?=$this->translate('Close') ?></a>',
 	  	afterToggle: function(trigger, element, more) {
@@ -457,7 +458,6 @@ $(function() {
 	});
 
 	msnry.on( 'layoutComplete', function() {
-	  	  console.log('layout done, just this one time');
 	  	  return true;
 	  	});
 

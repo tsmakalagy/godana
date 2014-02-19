@@ -27,37 +27,50 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
 		$this->setHydrator(new DoctrineHydrator($this->objectManager, '\Godana\Entity\ProductAttribute'))
 			->setObject(new ProductAttribute());			
 
-        $this->add(
-            array(
-                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-                'name' => 'attribute',
-                'attributes' => array(
-            		'class' => 'chosen-select form-control',
-                ),                
-                'options' => array(
-                    'object_manager' => $this->objectManager,
-                    'target_class'   => 'Godana\Entity\Attribute',
-                    'property'       => 'name',
-                    'label'          => 'Attribute',
-                	'label_attributes' => array(
-			            'class' => 'col-sm-3 control-label',
-			        ),
-                    'disable_inarray_validator' => true               
-                ),
-            )
-        );
+		$this->add(
+			array(
+				'type' => 'Zend\Form\Element\Hidden',
+            	'name' => 'product'
+			)
+		);
+		
+		$this->add(
+			array(
+				'type' => 'Zend\Form\Element\Hidden',
+            	'name' => 'attribute'
+			)
+		);
+//        $this->add(
+//            array(
+//                'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+//                'name' => 'attribute',
+//                'attributes' => array(
+//            		'class' => 'attribute-select gdn_select',
+//                ),                
+//                'options' => array(
+//                    'object_manager' => $this->objectManager,
+//                    'target_class'   => 'Godana\Entity\Attribute',
+//                    'property'       => 'name',
+//                    'label'          => 'Attribute',
+//                	'label_attributes' => array(
+//			            'class' => 'sr-only',
+//			        ),
+//                    'disable_inarray_validator' => true               
+//                ),
+//            )
+//        );
         
         $this->add(array(
             'name'    => 'value',
             'options' => array(
                 'label' => 'Attribute value',
         		'label_attributes' => array(
-			    	'class' => 'col-sm-3 control-label',
+			    	'class' => 'sr-only',
 			    ),			    
             ),
             'attributes' => array(
             	'type' => 'text',
-            	'class' => 'form-control',
+            	'class' => 'gdn_text',
             ),
         ));
 	}

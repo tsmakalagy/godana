@@ -18,7 +18,7 @@ class FileRepository extends EntityRepository
 		$image = $images[0];
 		$imageName = $image->getName();
 		$imgUrl = substr($url, 0, strrpos($url, '/'));
-    	return $imgUrl . '/' . $imageName;
+    	return $imgUrl . '/cropped/' . $imageName;
     }
     
 	public function getDefaultImageFile()

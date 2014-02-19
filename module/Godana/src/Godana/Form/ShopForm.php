@@ -23,7 +23,7 @@ class ShopForm extends Form implements ServiceLocatorAwareInterface, ObjectManag
 	public function init()
     {
         $this->setAttribute('method','post')
-             ->setAttribute('class','form-horizontal')
+//             ->setAttribute('class','form-inline')
              ->setHydrator(new DoctrineHydrator($this->objectManager, '\Godana\Entity\Shop'))
              ->setInputFilter(new InputFilter());
         
@@ -39,13 +39,22 @@ class ShopForm extends Form implements ServiceLocatorAwareInterface, ObjectManag
             'name' => 'csrf',
             'type' => 'Zend\Form\Element\Csrf'
         ));
+        
+        $resetElement = new \Zend\Form\Element\Button('reset');
+        $resetElement
+            ->setLabel('Cancel')
+            ->setAttributes(array(
+                'type'  => 'reset',
+				'class' => 'btn btn-danger reset_shop',
+            ));
+        $this->add($resetElement);
 
         $submitElement = new \Zend\Form\Element\Button('submit');
         $submitElement
             ->setLabel('Save')
             ->setAttributes(array(
                 'type'  => 'submit',
-            	'class' => 'btn btn-primary',
+            	'class' => 'btn btn-default',
             ));
         $this->add($submitElement);
     }

@@ -30,7 +30,7 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
             'options' => array(
                 'label' => 'City',
         		'label_attributes' => array(
-		            'class' => 'col-sm-3 control-label',        			
+		            'class' => 'sr-only',       			
 		        ),
             ),
             'attributes' => array(

@@ -18,6 +18,7 @@ class FeedUploadHandler extends CustomUploadHandler
 	{
 		$this->objectManager = $om;
 		$this->authService = $as;
+		$options['script_url'] = $this->get_full_url() . '/upload?type=feed';
 		parent::__construct($om, $options);
 	}
 	

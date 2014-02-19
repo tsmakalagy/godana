@@ -119,7 +119,7 @@ class Module
                 	$authService = $sm->get('zfcuser_auth_service');
                 	$options = array(
 						'delete_type' => 'POST',
-                		'user_dirs' => true,
+                		'user_dirs' => true
 					);
                 	$uploadHandler = new \JqueryFileUpload\Handler\BidUploadHandler($om, $authService, $options);
                 	return $uploadHandler;
@@ -136,13 +136,13 @@ class Module
 			                'type' => 'text',
 			                'name' => 'idCity',
 			                'attributes' => array(
-			            		'class' => 'form-control',
+			            		'class' => 'city-select',
 			            		'id' => 'id_city',
 			                ),                
 			                'options' => array(
 			                    'label'          => 'City',
 			                	'label_attributes' => array(
-						            'class' => 'col-sm-3 control-label',
+						            'class' => 'sr-only',
 						        ),    
 			                ),
 			            )
@@ -443,6 +443,16 @@ class Module
                 		'user_dirs' => true,
 					);
                 	$uploadHandler = new \JqueryFileUpload\Handler\FeedUploadHandler($om, $authService, $options);
+                	return $uploadHandler;
+                },
+                'product_upload_handler' => function($sm) {
+                	$om = $sm->get('Doctrine\ORM\EntityManager');
+                	$authService = $sm->get('zfcuser_auth_service');
+                	$options = array(
+						'delete_type' => 'POST',
+                		'user_dirs' => true,
+					);
+                	$uploadHandler = new \JqueryFileUpload\Handler\ProductUploadHandler($om, $authService, $options);
                 	return $uploadHandler;
                 },
     		),

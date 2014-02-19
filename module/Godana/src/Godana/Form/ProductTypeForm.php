@@ -23,7 +23,6 @@ class ProductTypeForm extends Form implements ServiceLocatorAwareInterface, Obje
 	public function init()
     {
         $this->setAttribute('method','post')
-             ->setAttribute('class','form-horizontal')
              ->setHydrator(new DoctrineHydrator($this->objectManager, '\Godana\Entity\ProductType'))
              ->setInputFilter(new InputFilter());
              

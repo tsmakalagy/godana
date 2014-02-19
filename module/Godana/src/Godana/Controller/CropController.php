@@ -29,13 +29,21 @@ class CropController extends AbstractActionController
 				$filename = urldecode(array_pop(array_splice(explode('/', $source['file']),-1)));
 				$thePicture = PUBLIC_PATH . $relativePath;
 				$uploadPath = substr($thePicture, 0, strrpos($thePicture, '/'));
-				$lii->setCacheFolder($uploadPath . '/');
+				$cacheFolder = $uploadPath . '/cropped/';
+				if (!is_dir($cacheFolder)) {
+	                mkdir($cacheFolder, '0775', true);
+	            }
+				$lii->setCacheFolder($cacheFolder);
 			} else {
 				$relativePath = urldecode(substr($source['file'], strpos($post->get('file'), '/files/')));
 				$filename = urldecode(array_pop(array_splice(explode('/', $post->get('file')),-1)));
 				$thePicture = PUBLIC_PATH . $relativePath;
 				$uploadPath = substr($thePicture, 0, strrpos($thePicture, '/'));
-				$lii->setCacheFolder($uploadPath . '/');
+				$cacheFolder = $uploadPath . '/cropped/';
+				if (!is_dir($cacheFolder)) {
+	                mkdir($cacheFolder, '0775', true);
+	            }
+				$lii->setCacheFolder($cacheFolder);
 				$post->setPost(array('url' => $thePicture));
 			}
 			

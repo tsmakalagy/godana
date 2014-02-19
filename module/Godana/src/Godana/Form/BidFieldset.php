@@ -47,6 +47,7 @@ InputFilterProviderInterface, ServiceLocatorAwareInterface, ObjectManagerAwareIn
             ),
             'attributes' => array(
             	'class' => 'type-select gdn_select',
+//            	'placeholder' => 'Type'
             ),           
               
         ));

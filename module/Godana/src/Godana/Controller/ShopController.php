@@ -14,9 +14,14 @@ use Zend\View\Model\ViewModel;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use Zend\Paginator\Paginator;
+use Zend\Http\PhpEnvironment\Response as Response;
 
 class ShopController extends AbstractActionController
 {
+	
+	const ROUTE_ADD_SHOP = 'admin/shop_admin/shop_add';
+	const ROUTE_EDIT_SHOP = 'admin/shop_admin/shop_edit';
+	
 	/**
      * @var Form
      */
@@ -41,7 +46,7 @@ class ShopController extends AbstractActionController
     
 	public function indexAction()
 	{
-		$this->layout('layout/admin-layout');
+		$this->layout('layout/sb-admin-layout');
  		$this->layout()->shop_active = 'active';
  		$om = $this->getObjectManager();
  		$shops = $om->getRepository('Godana\Entity\Shop')->findAll();
@@ -98,7 +103,7 @@ class ShopController extends AbstractActionController
  	
  	public function addAction()
  	{
- 		$this->layout('layout/admin-layout');
+ 		$this->layout('layout/sb-admin-layout');
  		$this->layout()->shop_active = 'active';
  		$om = $this->getObjectManager(); 		
 	    $lang = $this->params()->fromRoute('lang', 'mg');
@@ -106,37 +111,78 @@ class ShopController extends AbstractActionController
 	    // Create a new, empty entity and bind it to the form
 	    $shop = new Shop();
 	    $form->bind($shop);
-		
-	    if ($this->request->isPost()) {
-	        $form->setData($this->request->getPost());			
-	        if ($form->isValid()) {
-	        	$shop->setIdent($this->slug()->seoUrl($shop->getName()));
-	        	$shopForm = $this->request->getPost()->get('shop-form');
-	        	if (array_key_exists('new-categories', $shopForm)) {
-		        	$newCategories = $shopForm['new-categories'];
-		        	if (isset($newCategories) && count($newCategories) > 0) {		        		
-			        	foreach ($newCategories as $category) {
-			        		$name = $category['name'];
-			        		$ident = $this->slug()->seoUrl($name);
-			        		$type = 1;
-			        		$newCategory = new Category();
-			        		$newCategory->setName($name);
-			        		$newCategory->setIdent($ident);
-			        		$newCategory->setType($type);
-			        		$om->persist($newCategory);
-		        			$om->flush();
-			        		$shop->addCategory($newCategory);
-			        	}	
+	    
+	    $url = $this->url()->fromRoute(static::ROUTE_ADD_SHOP, array('lang' => $lang));
+	    $prg = $this->prg($url, true);
+
+        if ($prg instanceof Response) {        	
+            return $prg;
+        } elseif ($prg === false) {
+            return array(
+		    	'shopForm' => $form,
+	    		'lang' => $lang,
+		    );
+        }
+        $post = $prg;
+        $form->setData($post);
+        
+ 		if ($form->isValid()) {
+        	$shop->setIdent($this->slug()->seoUrl($shop->getName()));
+        	$shopForm = $this->request->getPost()->get('shop-form');
+        	if (array_key_exists('new-categories', $shopForm)) {
+	        	$newCategories = $shopForm['new-categories'];
+	        	if (isset($newCategories) && count($newCategories) > 0) {		        		
+		        	foreach ($newCategories as $category) {
+		        		$name = $category['name'];
+		        		$ident = $this->slug()->seoUrl($name);
+		        		$type = 1;
+		        		$newCategory = new Category();
+		        		$newCategory->setName($name);
+		        		$newCategory->setIdent($ident);
+		        		$newCategory->setType($type);
+		        		$om->persist($newCategory);
+	        			$om->flush();
+		        		$shop->addCategory($newCategory);
 		        	}	
-	        	}
-	        	
-	        	
-	        	$om->persist($shop);
-	            $om->flush();
-	            return $this->redirect()->toRoute('admin/shop_admin');
-	        }
-	        
-	    }
+	        	}	
+        	}
+        	
+        	
+        	$om->persist($shop);
+            $om->flush();
+            return $this->redirect()->toRoute('admin/shop_admin');
+        }
+		
+//	    if ($this->request->isPost()) {
+//	        $form->setData($this->request->getPost());			
+//	        if ($form->isValid()) {
+//	        	$shop->setIdent($this->slug()->seoUrl($shop->getName()));
+//	        	$shopForm = $this->request->getPost()->get('shop-form');
+//	        	if (array_key_exists('new-categories', $shopForm)) {
+//		        	$newCategories = $shopForm['new-categories'];
+//		        	if (isset($newCategories) && count($newCategories) > 0) {		        		
+//			        	foreach ($newCategories as $category) {
+//			        		$name = $category['name'];
+//			        		$ident = $this->slug()->seoUrl($name);
+//			        		$type = 1;
+//			        		$newCategory = new Category();
+//			        		$newCategory->setName($name);
+//			        		$newCategory->setIdent($ident);
+//			        		$newCategory->setType($type);
+//			        		$om->persist($newCategory);
+//		        			$om->flush();
+//			        		$shop->addCategory($newCategory);
+//			        	}	
+//		        	}	
+//	        	}
+//	        	
+//	        	
+//	        	$om->persist($shop);
+//	            $om->flush();
+//	            return $this->redirect()->toRoute('admin/shop_admin');
+//	        }
+//	        
+//	    }
 		
 	    return array(
 	    	'shopForm' => $form,
@@ -146,7 +192,7 @@ class ShopController extends AbstractActionController
  	
  	public function editAction()
  	{
- 		$this->layout('layout/admin-layout');
+ 		$this->layout('layout/sb-admin-layout');
  		$this->layout()->shop_active = 'active';
  		$om = $this->getObjectManager(); 		
 	    $lang = $this->params()->fromRoute('lang', 'mg');
@@ -155,38 +201,57 @@ class ShopController extends AbstractActionController
 	    	return;
 	    }
 	    $shop = $om->getRepository('Godana\Entity\Shop')->find($shopId);
-	    $form = $this->getShopEditForm();
-	    
-	    $form->bind($shop);
- 		if ($this->request->isPost()) {
-	        $form->setData($this->request->getPost());	
-	        if ($form->isValid()) {
-	        	
-	        	$shopForm = $this->request->getPost()->get('shop-form');
-	        	
-	        	if (array_key_exists('new-categories', $shopForm)) {
-		        	$newCategories = $shopForm['new-categories'];
-		        	if (isset($newCategories) && count($newCategories) > 0) {
-			        	foreach ($newCategories as $category) {
-			        		$name = $category['name'];
-			        		$ident = $this->slug()->seoUrl($name);
-			        		$type = 1;
-			        		$newCategory = new Category();
-			        		$newCategory->setName($name);
-			        		$newCategory->setIdent($ident);
-			        		$newCategory->setType($type);
-			        		$shop->addCategory($newCategory);
-			        	}	
-		        	}	
-	        	}
-	        	
-	        	$shop->setIdent($this->slug()->seoUrl($shop->getName()));	        	
-	        	$om->persist($shop);
-	            $om->flush();
-	            return $this->redirect()->toRoute('admin/shop_admin');
-	        }
-	        
+	    $contacts = $shop->getContacts();
+	    $contactsTypes = array();
+	    foreach ($contacts as $c) {
+	    	$contactsTypes[] = $c->getType()->getId();
 	    }
+	    $form = $this->getShopEditForm();
+	    $form->bind($shop);
+	    $contacts = $form->get('shop-form')->get('contacts');
+	    for ($i = 0; $i < count($contacts); $i++) {
+	    	$form->get('shop-form')->get('contacts')->get($i)->get('type')->setValue($contactsTypes[$i]);
+	    }
+	    
+	    $url = $this->url()->fromRoute(static::ROUTE_EDIT_SHOP, array('id' => $shopId, 'lang' => $lang));
+	    $prg = $this->prg($url, true);
+
+        if ($prg instanceof Response) {        	
+            return $prg;
+        } elseif ($prg === false) {
+            return array(
+		    	'shopForm' => $form,
+		    	'lang' => $lang,
+		    	'shopId' => $shopId
+		    );
+        }
+        $post = $prg;
+        $form->setData($post);
+	    
+ 		if ($form->isValid()) {	        	
+        	$shopForm = $post['shop-form'];
+        	if (array_key_exists('new-categories', $shopForm)) {
+	        	$newCategories = $shopForm['new-categories'];
+	        	if (isset($newCategories) && count($newCategories) > 0) {
+		        	foreach ($newCategories as $category) {
+		        		$name = $category['name'];
+		        		$ident = $this->slug()->seoUrl($name);
+		        		$type = 1;
+		        		$newCategory = new Category();
+		        		$newCategory->setName($name);
+		        		$newCategory->setIdent($ident);
+		        		$newCategory->setType($type);
+		        		$shop->addCategory($newCategory);
+		        	}	
+	        	}	
+        	}
+        	
+        	$shop->setIdent($this->slug()->seoUrl($shop->getName()));	        	
+        	$om->persist($shop);
+            $om->flush();
+            return $this->redirect()->toRoute('admin/shop_admin');
+        }
+        
 	    return array(
 	    	'shopForm' => $form,
 	    	'lang' => $lang,
@@ -196,7 +261,7 @@ class ShopController extends AbstractActionController
  	
  	public function deleteAction()
  	{
- 		$this->layout('layout/admin-layout');
+ 		$this->layout('layout/sb-admin-layout');
  		$this->layout()->shop_active = 'active';
  		$om = $this->getObjectManager(); 		
 	    $lang = $this->params()->fromRoute('lang', 'mg');
