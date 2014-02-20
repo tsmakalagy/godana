@@ -98,6 +98,13 @@ class Shop
      * @ORM\Column(type="integer", name="is_deleted")
      */
     protected $deleted;
+    
+    /**
+     * @var File
+     * @ORM\ManyToOne(targetEntity="Godana\Entity\File")
+     * @ORM\JoinColumn(name="cover_id", referencedColumnName="id_file")
+     */
+    protected $cover;
 	
 	public function __construct()
 	{
@@ -271,6 +278,16 @@ class Shop
     public function setDeleted($deleted)
     {
     	$this->deleted = $deleted;
+    }
+    
+	public function getCover()
+    {
+    	return $this->cover;
+    }
+    
+    public function setCover($cover)
+    {
+    	$this->cover = $cover;
     }
 	
 }

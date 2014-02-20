@@ -32,9 +32,7 @@ class ShopEditForm extends Form implements ServiceLocatorAwareInterface, ObjectM
 		        'use_as_base_fieldset' => true
 		    )
 		));
-             
-        $this->remove('shop-form[cities]');
-        $this->remove('shop-form[idCity]');     
+        
     	$this->add(array(
             'name' => 'csrf',
             'type' => 'Zend\Form\Element\Csrf'

@@ -3,7 +3,7 @@ namespace JqueryFileUpload\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager as ObjectManager;
 
-class ProductUploadHandler extends CustomUploadHandler
+class ShopUploadHandler extends CustomUploadHandler
 {   
 	protected $objectManager;
 	
@@ -13,7 +13,7 @@ class ProductUploadHandler extends CustomUploadHandler
 	{
 		$this->objectManager = $om;
 		$this->shopId = $shopId;
-		$options['script_url'] = $this->get_full_url() . '/admin/product/ajax?shopId=' . $shopId;
+		$options['script_url'] = $this->get_full_url() . '/admin/shop/upload';
 		parent::__construct($om, $options);
 	}
 	
@@ -22,7 +22,7 @@ class ProductUploadHandler extends CustomUploadHandler
 	 */
 	protected function get_user_id()
 	{
-		return 'shops/product/' . $this->shopId;
+		return 'shops/cover/' . $this->shopId;
 	}
 	
 	/**

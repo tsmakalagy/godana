@@ -123,38 +123,22 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
             )
         ); 
         
-//        $this->add(
-//            array(
-//                'type' => 'text',
-//                'name' => 'idCity',
-//                'attributes' => array(
-//            		'class' => 'form-control',
-//            		'id' => 'id_city',
-//                ),                
-//                'options' => array(
-//                    'label'          => 'City',
-//                	'label_attributes' => array(
-//			            'class' => 'sr-only',
-//			        ),    
-//                ),
-//            )
-//        );
-//        
-//        $this->add(array(
-//            'type' => 'Zend\Form\Element\Hidden',
-//            'name' => 'cities',
-//        	'attributes' => array(
-//        		'id' => 'city'
-//        	)
-//        ));
-
+        $this->add(array(
+            'type' => 'text',
+            'name' => 'idCity',
+        	'attributes' => array(
+            	'class' => 'city-select gdn_select',
+        		'id' => 'idCity'
+            ),
+        ));
+       
         $this->add(array(
 	    	'type'    => 'Zend\Form\Element\Collection',
 	        'name'    => 'cities',
             'options' => array(
         		'template_placeholder' => '__placeholder__',
         		'should_create_template' => false,
-				'allow_add' => false,        
+				'allow_add' => true,        
             	'count' => 1,
                 'target_element' => array(
         			'type' => 'Godana\Form\CityFieldset', 

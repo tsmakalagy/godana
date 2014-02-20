@@ -437,6 +437,16 @@ return array(
 		                            ),
 		                        ),
 		                    ),
+		                    'upload' => array(
+		                        'type' => 'literal',
+		                        'options' => array(
+		                            'route' => '/upload',
+		                            'defaults' => array(
+		                                'controller' => 'shop',
+		                                'action'     => 'upload',
+		                            ),
+		                        ),
+		                    ),
 		                    'product_type_add' => array(
 		                        'type' => 'literal',
 		                        'options' => array(

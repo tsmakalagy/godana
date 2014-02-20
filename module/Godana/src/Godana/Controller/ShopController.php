@@ -37,6 +37,11 @@ class ShopController extends AbstractActionController
      */
     protected $productTypeForm;
     
+    /** 
+     * @var Form
+     */
+    protected $fileForm;
+    
     
     /**
      * @var ObjectManager
@@ -153,37 +158,6 @@ class ShopController extends AbstractActionController
             return $this->redirect()->toRoute('admin/shop_admin');
         }
 		
-//	    if ($this->request->isPost()) {
-//	        $form->setData($this->request->getPost());			
-//	        if ($form->isValid()) {
-//	        	$shop->setIdent($this->slug()->seoUrl($shop->getName()));
-//	        	$shopForm = $this->request->getPost()->get('shop-form');
-//	        	if (array_key_exists('new-categories', $shopForm)) {
-//		        	$newCategories = $shopForm['new-categories'];
-//		        	if (isset($newCategories) && count($newCategories) > 0) {		        		
-//			        	foreach ($newCategories as $category) {
-//			        		$name = $category['name'];
-//			        		$ident = $this->slug()->seoUrl($name);
-//			        		$type = 1;
-//			        		$newCategory = new Category();
-//			        		$newCategory->setName($name);
-//			        		$newCategory->setIdent($ident);
-//			        		$newCategory->setType($type);
-//			        		$om->persist($newCategory);
-//		        			$om->flush();
-//			        		$shop->addCategory($newCategory);
-//			        	}	
-//		        	}	
-//	        	}
-//	        	
-//	        	
-//	        	$om->persist($shop);
-//	            $om->flush();
-//	            return $this->redirect()->toRoute('admin/shop_admin');
-//	        }
-//	        
-//	    }
-		
 	    return array(
 	    	'shopForm' => $form,
 	    	'lang' => $lang,
@@ -200,6 +174,9 @@ class ShopController extends AbstractActionController
 	    if ($shopId == null) {
 	    	return;
 	    }
+	    
+	    $fileform = $this->getFileForm();
+	    
 	    $shop = $om->getRepository('Godana\Entity\Shop')->find($shopId);
 	    $contacts = $shop->getContacts();
 	    $contactsTypes = array();
@@ -221,31 +198,24 @@ class ShopController extends AbstractActionController
         } elseif ($prg === false) {
             return array(
 		    	'shopForm' => $form,
+            	'fileForm' => $fileform,
 		    	'lang' => $lang,
 		    	'shopId' => $shopId
 		    );
         }
         $post = $prg;
         $form->setData($post);
-	    
- 		if ($form->isValid()) {	        	
-        	$shopForm = $post['shop-form'];
-        	if (array_key_exists('new-categories', $shopForm)) {
-	        	$newCategories = $shopForm['new-categories'];
-	        	if (isset($newCategories) && count($newCategories) > 0) {
-		        	foreach ($newCategories as $category) {
-		        		$name = $category['name'];
-		        		$ident = $this->slug()->seoUrl($name);
-		        		$type = 1;
-		        		$newCategory = new Category();
-		        		$newCategory->setName($name);
-		        		$newCategory->setIdent($ident);
-		        		$newCategory->setType($type);
-		        		$shop->addCategory($newCategory);
-		        	}	
-	        	}	
-        	}
-        	
+        $listFileId = array();
+ 		if ($form->isValid()) {
+ 			$listFileId = $post['file-id'];
+            if (count($listFileId) > 0) {
+            	foreach ($listFileId as $fileId) {
+            		$file = $om->find('Godana\Entity\File', (int)$fileId);
+            		if ($file instanceof \Godana\Entity\File) {
+            			$shop->setCover($file);
+            		}	            		
+            	}
+            }
         	$shop->setIdent($this->slug()->seoUrl($shop->getName()));	        	
         	$om->persist($shop);
             $om->flush();
@@ -254,6 +224,7 @@ class ShopController extends AbstractActionController
         
 	    return array(
 	    	'shopForm' => $form,
+	    	'fileForm' => $fileform,
 	    	'lang' => $lang,
 	    	'shopId' => $shopId
 	    ); 
@@ -302,6 +273,18 @@ class ShopController extends AbstractActionController
  		return new \Zend\View\Model\JsonModel($result);
  	}
  	
+	public function uploadAction()
+ 	{ 	
+ 		$om = $this->getObjectManager();	
+        $shopId = $this->params()->fromRoute('id', 1);
+        $options = array(
+			'delete_type' => 'POST',
+            'user_dirs' => true,
+		);
+        $uploadhandler = new \JqueryFileUpload\Handler\ShopUploadHandler($om, $shopId, $options);        
+        return $this->getResponse();        
+ 	}
+ 	
 	public function getShopForm()
     {
         if (!$this->shopForm) {
@@ -327,6 +310,19 @@ class ShopController extends AbstractActionController
     {
         $this->shopEditForm = $shopEditForm;
     }   
+    
+	public function getFileForm()
+    {
+        if (!$this->fileForm) {
+            $this->setFileForm($this->getServiceLocator()->get('file_form'));
+        }
+        return $this->fileForm;
+    }
+
+    public function setFileForm(Form $fileForm)
+    {
+        $this->fileForm = $fileForm;
+    }
 	
     
 	public function getObjectManager()

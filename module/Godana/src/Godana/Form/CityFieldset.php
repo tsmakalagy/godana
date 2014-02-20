@@ -24,7 +24,15 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
 	public function init()
 	{
 		$this->setHydrator(new DoctrineHydrator($this->objectManager, '\Godana\Entity\City'))->setObject(new City());
-    	    	
+
+		$this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'id',
+			'attributes' => array(
+            	'id' => 'cityId',
+            ),
+        ));
+        
         $this->add(array(
             'name' => 'cityAccented',
             'options' => array(
@@ -34,9 +42,9 @@ ServiceLocatorAwareInterface, ObjectManagerAwareInterface
 		        ),
             ),
             'attributes' => array(
-                'type' => 'text',
-            	'class' => 'form-control',
-            	'id' => 'id_city',
+                'type' => 'hidden',
+            	'class' => 'gdn_text',
+            	'id' => 'cityAccented',
             	'disabled' => 'disabled'
             ),
         ));  

@@ -145,6 +145,7 @@ return array(
                 array('route' => 'admin/shop_admin/shop_delete', 'roles' => array('admin')),
                 array('route' => 'admin/shop_admin', 'roles' => array('admin')),
                 array('route' => 'admin/shop_admin/city', 'roles' => array('user')),
+                array('route' => 'admin/shop_admin/upload', 'roles' => array('admin', 'shop-owner')),
                 
                 array('route' => 'admin/product/type_add', 'roles' => array('admin', 'shop-owner')),
                 array('route' => 'admin/product/add', 'roles' => array('admin', 'shop-owner')),

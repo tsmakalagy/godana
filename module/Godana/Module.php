@@ -163,11 +163,7 @@ class Module
                 	$om = $sm->get('Doctrine\ORM\EntityManager');
                 	$forms = $sm->get('FormElementManager');
                 	$form = $forms->get('Godana\Form\ShopEditForm');
-//                	$shopFieldset = $forms->get('ShopFieldset');
-//                	$shopFieldset->remove('idCity');
-//                	$shopFieldset->remove('cities');
-//			        $shopFieldset->setUseAsBaseFieldset(true);
-//                    $form->add($shopFieldset);
+					
                 	return $form;
                 },
                 'product_type_form' => function($sm) {
