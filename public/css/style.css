@@ -19,7 +19,12 @@ body {
 
 @font-face {
 	font-family: 'Russo One', sans-serif;
-	src: url("fonts/RussoOne-Regular.ttf");
+	src: url("../fonts/RussoOne-Regular.ttf") format('truetype');
+}
+
+@font-face {
+	font-family: 'Acme', sans-serif;
+	src: url("../fonts/Acme-Regular.ttf") format('truetype');
 }
 
 .btn-success {
@@ -551,4 +556,43 @@ div.container a.brand {
 	text-align: center;
 	font-family: 'Russo One', sans-serif;
 	font-weight: bold;
+}
+
+.coverPhoto {	
+	height: 250px;
+	margin-bottom: 15px;
+	border-radius: 5px;
+}
+
+.coverPhoto h3 {
+	margin: 0px !important;
+	color: #E8117F;
+	text-align: center;
+	font-family: 'Russo One', sans-serif;
+	font-weight: bold;
+	font-size: 2.5em;
+}
+
+.owner-photo {
+	display: inline-block;
+	margin-left: 5px;
+    margin-top: 175px;
+}
+
+.cover-title {
+    width: 50%;
+    padding-top: 10px;
+}
+
+.cover-title p {
+	font-family: 'Acme', sans-serif;
+}
+
+.shop-name {
+    display: inline-block;
+}
+
+@media (min-width: 320px) and (max-width: 580px) {
+	.coverPhoto h3 {font-size: 1.5em;}
+	.cover-title {width: 70%;}	
 }

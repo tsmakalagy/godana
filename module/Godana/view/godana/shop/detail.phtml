@@ -1,6 +1,16 @@
+<?php echo $this->headLink()
+                ->appendStylesheet($this->basePath() . '/fonts/SansationBold/font.css')
+                ->appendStylesheet($this->basePath() . '/fonts/SansationRegular/font.css')?>
 <? $this->headTitle($this->translate('Shops'));?>
 <? $shop = $this->shop;?>
 <? 
+	$user = $shop->getOwner();
+	$cover = $shop->getCover();
+	$coverExist = false;
+	if (isset($cover) && $cover instanceof \Godana\Entity\File) {
+		$coverExist = true;
+		$coverUrl = $shop->getCover()->getImageUrlByDimension('md');
+	}
 	$categories = $shop->getCategories();
 	$categoryToDisplay = '';
 	foreach ($categories as $category):
@@ -9,11 +19,28 @@
 	$categoryToDisplay = rtrim($categoryToDisplay, ' ');
 ?>
 <?  $this->plugin("currencyformat")->setCurrencyCode("MGA")->setLocale("fr_FR");?>
+<? if ($coverExist):?>
+<div class="coverPhoto" style="background-image: url(<?=$coverUrl ?>)">
+<!--  <div class="owner-photo"><img src="<?=$this->userPicture('md', $user); ?>" class="img-thumbnail"/></div>-->
+<div class="center-block cover-title">
+<div class="panel panel-default">
+	<div class="panel-body text-center">
+    	<h3 class="shop-name fontsforweb_fontid_425"><?=$shop->getName(); ?></h3>
+    	<hr/>
+    	<p class="fontsforweb_fontid_424"><?=$shop->getDescription(); ?></p>
+	</div>
+</div>
+</div>
+</div>
+
+
+<? else:?>
 <div class="jumbotron">
 <h1><?=$shop->getName(); ?></h1>
 <p><?=$shop->getDescription(); ?></p>
 <h5><?=$categoryToDisplay; ?></h5>
 </div>
+<? endif;?>
 <? $products = $shop->getProducts();?>
 <div class="row">
 <? $count = 0;?>
