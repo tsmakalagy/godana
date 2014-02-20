@@ -13,7 +13,7 @@ class ShopUploadHandler extends CustomUploadHandler
 	{
 		$this->objectManager = $om;
 		$this->shopId = $shopId;
-		$options['script_url'] = $this->get_full_url() . '/admin/shop/upload';
+		$options['script_url'] = $this->get_full_url() . '/admin/shop/upload?shopId=' . $shopId;
 		parent::__construct($om, $options);
 	}
 	

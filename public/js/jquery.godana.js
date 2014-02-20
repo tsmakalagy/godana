@@ -80,11 +80,13 @@
 							endHeight:cropHeight,
 							file:file.url
 						};
-						cropCoordinates.w = new Array();
+						cropCoordinates.id = file.id;
 						// width of cropped images
-						cropCoordinates.w[0] = options.xs;
-						cropCoordinates.w[1] = options.sm;
-						cropCoordinates.w[2] = options.md;
+						cropCoordinates.w = {
+							xs: options.xs,
+							sm: options.sm,
+							md: options.md
+						};
 						jcOptions.onSelect = function(c){
 							cropCoordinates.c=c;
 						};	

@@ -200,7 +200,7 @@ class ShopController extends AbstractActionController
 		    	'shopForm' => $form,
             	'fileForm' => $fileform,
 		    	'lang' => $lang,
-		    	'shopId' => $shopId
+		    	'shop' => $shop
 		    );
         }
         $post = $prg;
@@ -219,14 +219,21 @@ class ShopController extends AbstractActionController
         	$shop->setIdent($this->slug()->seoUrl($shop->getName()));	        	
         	$om->persist($shop);
             $om->flush();
-            return $this->redirect()->toRoute('admin/shop_admin');
+//            return $this->redirect()->toRoute('admin/shop_admin');
+			return array(
+				'status' => true,
+		    	'shopForm' => $form,
+		    	'fileForm' => $fileform,
+		    	'lang' => $lang,
+		    	'shop' => $shop
+		    ); 
         }
         
 	    return array(
 	    	'shopForm' => $form,
 	    	'fileForm' => $fileform,
 	    	'lang' => $lang,
-	    	'shopId' => $shopId
+	    	'shop' => $shop
 	    ); 
  	}
  	
@@ -276,7 +283,7 @@ class ShopController extends AbstractActionController
 	public function uploadAction()
  	{ 	
  		$om = $this->getObjectManager();	
-        $shopId = $this->params()->fromRoute('id', 1);
+        $shopId = $this->params()->fromQuery('shopId', 1);        
         $options = array(
 			'delete_type' => 'POST',
             'user_dirs' => true,

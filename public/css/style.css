@@ -17,6 +17,11 @@ body {
     color: #68b604;
 }
 
+@font-face {
+	font-family: 'Russo One', sans-serif;
+	src: url("fonts/RussoOne-Regular.ttf");
+}
+
 .btn-success {
   background-color: #57a900;
   background-image: -moz-linear-gradient(top, #70d900, #57a900);
@@ -521,3 +526,29 @@ div.container a.brand {
     height: 40px !important;
 }
 /* end feed */
+
+.img-cover:hover > .edit-cover {
+	display: block !important;
+} 
+
+.edit-cover {
+    left: 39px;
+    position: absolute !important;
+    top: 72px;
+    display:none !important;
+    cursor: pointer !important;
+}
+
+.default-cover {
+    background: none repeat scroll 0 0 #E8117F;
+    height: 114px;
+    padding-top: 45px;
+}
+
+.default-cover h3 {
+	margin: 0px !important;
+	color: #ffffff;
+	text-align: center;
+	font-family: 'Russo One', sans-serif;
+	font-weight: bold;
+}

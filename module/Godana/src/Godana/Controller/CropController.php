@@ -71,29 +71,33 @@ class CropController extends AbstractActionController
 			$file = $om->find('Godana\Entity\File', (int)$fileId);			
 			$success = true;
 			$c = $post->get('c');			
-			foreach ($listWidth as $dim => $w) {					
-				$return = $lii->genImage(array(
-					'url' => $thePicture,
-					'width' => (int)$w,
-					'oc' => '1',
-					'ft' => $ft,
-					'cx' => floor($c['x'] * $sizeRatio),
-					'cy' => floor($c['y'] * $sizeRatio),
-					'cw' => floor($c['w'] * $sizeRatio),
-					'ch' => floor($c['h'] * $sizeRatio)
-				));
-				if (!$return) {
-					$success = false;
-					break;
-				}				
-				if ($file instanceof File) {
-					$image = new Image();
-					$newName = urldecode(array_pop(array_splice(explode('/', $return),-1)));
-					$image->setName($newName);
-					$image->setDimension($dim);
-					$image->setFile($file);
-					$om->persist($image);	
-				}
+			foreach ($listWidth as $dim => $w) {		
+				$w = (int)$w;				
+				if ($w > 0) {
+					$return = $lii->genImage(array(
+						'url' => $thePicture,
+						'width' => $w,
+						'oc' => '1',
+						'ft' => $ft,
+						'cx' => floor($c['x'] * $sizeRatio),
+						'cy' => floor($c['y'] * $sizeRatio),
+						'cw' => floor($c['w'] * $sizeRatio),
+						'ch' => floor($c['h'] * $sizeRatio)
+					));
+					if (!$return) {
+						$success = false;
+						break;
+					}				
+					if ($file instanceof File && $success) {
+						$image = new Image();
+						$newName = urldecode(array_pop(array_splice(explode('/', $return),-1)));
+						$image->setName($newName);
+						$image->setDimension($dim);
+						$image->setFile($file);
+						$om->persist($image);	
+					}
+				}			
+				
 			}
 			if ($success) $om->flush();
 			return new \Zend\View\Model\JsonModel(array('success' => $success));

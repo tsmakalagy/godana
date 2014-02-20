@@ -4,6 +4,7 @@
                 ->appendStylesheet($this->basePath() . '/css/blueimp-gallery.min.css')
                 ->appendStylesheet($this->basePath() . '/css/jquery.fileupload.css')
                 ->appendStylesheet($this->basePath() . '/css/jquery.fileupload-ui.css')
+                ->appendStylesheet($this->basePath() . '/css/jquery.Jcrop.min.css');
                 ?>
 <? $this->headTitle($this->translate('Admin Shop'));?>
 <div class="row">
@@ -11,12 +12,39 @@
 <div class="panel panel-primary">
 <div class="panel-heading"><h3 class="panel-title"><?=$this->translate('Edit shop'); ?></h3></div>
 <div class="panel-body">
+<? if ($this->status):?>
+<div class="alert alert-dismissable alert-success">
+<button data-dismiss="alert" class="close">×</button>
+<strong><?= $this->translate('Success!'); ?></strong> <?= $this->translate('The modification is successfull!'); ?> 
+</div>
+<? endif;?>
 <?php
 $form = $this->shopForm;
+$shop = $this->shop;
+$shopId = $shop->getId();
+$cover = $shop->getCover();
+$coverExist = false;
+if (isset($cover) && $cover instanceof \Godana\Entity\File) {
+	$coverExist = true;
+	$coverUrl = $shop->getCover()->getImageUrlByDimension('md');
+}
 $form->prepare();
-$form->setAttribute('action', $this->url('admin/shop_admin/shop_edit', array('lang' => $this->lang, 'id' => $this->shopId)));
+$form->setAttribute('action', $this->url('admin/shop_admin/shop_edit', array('lang' => $this->lang, 'id' => $shopId)));
 $form->setAttribute('method', 'post');
 ?>
+
+<div class="gdn_input_margin img-cover">
+<? if ($coverExist):?>
+<img src="<?=$coverUrl ?>" class="img-thumbnail img-responsive">
+<? else:?>
+<div class="default-cover img-rounded"><h3><?=$this->translate('Set shop cover'); ?></h3></div>
+<? endif;?>
+<span class="fa-stack fa-lg edit-cover show-modal" title="<?=$this->translate('Change cover');?>">
+	<i class="fa fa-square fa-stack-2x fa-inverse"></i>
+	<i class="fa fa-edit fa-stack-1x"></i>
+</span>
+</div>
+
 <?php echo $this->form()->openTag($form) ?>
 <? $shop = $form->get('shop-form'); ?>
 <? echo $this->formHidden($shop->get('id'));?>
@@ -172,10 +200,10 @@ htmlspecialchars('" class="gdn_text" name="shop-form[contacts][__placeholder__][
 <? echo $this->formHidden($shop->get('deleted'));?>
 <? echo $this->formHidden($form->get('csrf'));?>
 <div class="listFileId"></div>
-<div class="fd_upload pull-left">
+<!--<div class="fd_upload pull-left">
 <a href="#" onclick="return false;" class="btn btn-info show-modal"><?=$this->translate('Change cover'); ?></a>
 </div>
-<div class="fd_action pull-right">
+--><div class="fd_action pull-right">
 <? echo $this->formElement($form->get('submit'));?>
 </div>
 
@@ -296,6 +324,7 @@ htmlspecialchars('" class="gdn_text" name="shop-form[contacts][__placeholder__][
 <? $this->inlineScript()
 			->appendFile($this->basePath() . '/js/select2.min.js')
 			->appendFile($this->basePath() . '/js/vendor/jquery.ui.widget.js')
+			->appendFile($this->basePath() . '/js/jquery.Jcrop.min.js')
 			->appendFile($this->basePath() . '/js/jquery.godana.js')
             ->appendFile($this->basePath() . '/js/tmpl.min.js')
             ->appendFile($this->basePath() . '/js/load-image.min.js')
@@ -325,6 +354,7 @@ $(function() {
 	$(".chosen-select").select2({
 		minimumResultsForSearch: 10,
 	});
+	$('.show-modal').tooltip();
 	$(".city-select").select2({
 		//placeholder: city_placeholder,
 	    minimumInputLength: 3,
@@ -358,10 +388,14 @@ $(function() {
 		$("#cityAccented").val(data.text);
 	});
 	function format(item) { return item.text; };
-
+	var shopId = $('input[name="shop-form[id]"]').val();
 	$('.show-modal').godana({
-		doCrop: false,
-		ajaxUrl: '/admin/shop/upload'
+		cropWidth: 900,
+		cropHeight: 400,
+		xs: 0,
+		sm: 400,
+		md: 900,
+		ajaxUrl: '/admin/shop/upload?shopId='+shopId
 	});
 
 	$('#save-images').click(function(e) {
